@@ -1,0 +1,11 @@
+src
+	app
+		
+
+	assets
+		css
+		js
+		assets
+
+	index.html
+
