@@ -28,16 +28,12 @@
               }
             ],
             "styles": [
-              "public/assets/css/styles.css",
-              "public/assets/css/style.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": [
-              "public/assets/js/scripts.js",
-              "public/assets/js/bootstrap.bundle.min.js",
-              "public/assets/assets/demo/chart-area-demo.js",
-              "public/assets/assets/demo/chart-bar-demo.js",
-              "public/assets/js/datatables-simple-demo.js",
-              "public/assets/js/simple-datatables.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {

@@ -1,0 +1,23 @@
+.hover-element{
+  transition: 700ms all ease-in-out;
+}
+.hover-element:hover{
+  transform: translateY(-5px);
+}
+
+.hover-scale{
+  transition: 500ms all ease-in-out;
+  cursor: pointer;
+  background-color: rgba(56, 12, 12, 0.9);
+}
+.hover-scale:hover{
+  transform: scale(1.02);
+  color: white;
+}
+.hover-scale:not(:hover) {
+  background-color: rgba(208, 208, 208, 0.8);
+}
+.text-print{
+  font-family: monospace;
+  font-weight: bold;
+}

@@ -1,33 +1,48 @@
-<header class="hero">
+<header class="hero position-relative">
     <h1>Bienvenue chez Garage Auto</h1>
     <p>Réparation et entretien de véhicules toutes marques</p>
-    <a routerLink="/login" class="btn btn-primary btn-lg">Se connecter</a>
+    <a routerLink="/inscription" class="btn btn-primary btn-lg hover-element mt-2">S'inscrire</a>
+    <a routerLink="/login" class="btn btn-lg hover-element text-warning p-2 rounded-0 border-0 border-warning border-bottom m-2 position-absolute top-0 end-0">Espace client</a>
+    <a routerLink="/login" class="btn btn-lg hover-element text-info p-2 rounded-0 border-0 border-info border-bottom m-2 position-absolute top-0 start-0">Espace Admin</a>
 </header>
 
 <section id="services" class="services text-center">
     <h2>Nos Services</h2>
-    <div class="row mt-4">
+    <div class="row mx-0 p-0 w-100 mt-4">
         <div class="col-md-4">
-            <h3>Réparations</h3>
-            <p>Diagnostic et réparation de votre véhicule par nos experts.</p>
+            <div class="card hover-scale shadow-lg">
+                <div class="card-body">
+                    <h3>Réparations</h3>
+                    <p>Diagnostic et réparation de votre véhicule par nos experts.</p>
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
-            <h3>Entretien</h3>
-            <p>Vidange, pneus, freins, et bien plus pour une voiture en parfait état.</p>
+            <div class="card hover-scale shadow-lg">
+                <div class="card-body">
+                    <h3>Entretien</h3>
+                    <p>Vidange, pneus, freins, et bien plus pour une voiture en parfait état.</p>
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
-            <h3>Véhicules d'occasion</h3>
-            <p>Achat et vente de voitures d'occasion révisées et garanties.</p>
+            <div class="card hover-scale shadow-lg">
+                <div class="card-body">
+                    <h3>Véhicules d'occasion</h3>
+                    <p>Achat et vente de voitures d'occasion révisées et garanties.</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
 <section class="contact text-center">
     <h2>Contactez-nous</h2>
-    <p>Besoin d'un devis ou d'un rendez-vous ? Appelez-nous au <strong>01 23 45 67 89</strong></p>
-    <a href="mailto:contact@garage-auto.com" class="btn btn-primary">Envoyer un e-mail</a>
+    <p>Besoin d'un devis ou d'un rendez-vous ? Appelez-nous au <strong>ETU001604 ~ ETU001633</strong></p>
+    <a class="btn btn-primary hover-element">Envoyer un e-mail</a>
 </section>
 
-<footer>
-    <p>&copy; 2025 Garage Auto. Tous droits réservés.</p>
+<footer class="w-100 d-flex justify-content-between align-items-end p-2">
+  <span class="text-print fs-5">RAKOTONDRASOA RAZANADAHY Andrianiavo</span>
+  <span class="text-print fs-5">RANDRIAMIANDRAVOLA Jean Carnot Raharimamy</span>
 </footer>
