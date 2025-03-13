@@ -1,0 +1,16 @@
+<div [class.expanded]="expanded" class="slidebar">
+  <div class="header">
+    <button (click)="toggle()">Toggle Slidebar</button>
+    <!-- Autres éléments du header -->
+  </div>
+  <div class="outer">
+    <ul>
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/service">Service</a></li>
+      <li><a routerLink="/autre">Autre</a></li>
+    </ul>
+  </div>
+  <div class="footer">
+    <!-- Footer contenu -->
+  </div>
+</div>
