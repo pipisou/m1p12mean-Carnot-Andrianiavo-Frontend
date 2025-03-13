@@ -1,31 +1,54 @@
 import { Component } from '@angular/core';
-import {RouterModule} from '@angular/router';
+import {RouterModule, Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import { ApiService } from '../../api.service';
+import {CommonModule} from '@angular/common';
+import { NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   standalone: true,
-  imports: [RouterModule, FormsModule]
+  imports: [RouterModule, FormsModule, CommonModule ]
 })
 export class LoginComponent {
   user = {
-    email: '',
-    password: ''
+    email: 'carnotrandriamiandravola@gmail.com',
+    motDePasse: 'password123'
   };
-  constructor(private apiService: ApiService) {}
+  isLoading:boolean = false;
+  errorMessage: string = '';
+
+  constructor(private apiService: ApiService,private message: NzMessageService, private router: Router) {}
+  ngOnInit() {//on charge la page avant que ceci soit terminé
+    const user = JSON.parse(localStorage.getItem("user") || '{}');
+    if (user.token){
+      this.apiService.checkToken({ Authorization: `Bearer ${user.token}` }).subscribe(
+        response => {
+          this.redirectToHome()
+        },
+        error => {
+        }
+      );
+
+    }
+  }
+  redirectToHome(){
+    this.router.navigate(['/client/home']);
+  }
   onSubmit() {
-    console.log("Données du formulaire :", this.user);
+    this.isLoading = true;
     this.apiService.login(this.user).subscribe(
       response => {
-        console.log('Réponse de l\'API:', response);
-        // Traiter la réponse ici (ex. rediriger l'utilisateur)
+        this.isLoading = false
+        localStorage.setItem("user",JSON.stringify(response))
+        this.redirectToHome()
       },
       error => {
-        console.error('Erreur API:', error);
-        // Traiter l'erreur ici (ex. afficher un message d'erreur)
+        this.isLoading = false;
+        this.errorMessage = error.message
+        this.message.error("Verifier votre mot de passe ou l'email",{ nzDuration: 5000 });
       }
     );
   }

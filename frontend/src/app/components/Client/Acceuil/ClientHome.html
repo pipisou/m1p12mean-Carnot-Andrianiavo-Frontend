@@ -1,0 +1,11 @@
+<div class="min-vh-100 min-vw-100 w-100 overflow-x-hidden bg-danger">
+  <app-slidebar
+    [expanded]="slidebarExpanded"
+    (toggleExpanded)="onSlidebarToggle($event)">
+
+  </app-slidebar>
+  <div class="content">
+    <router-outlet></router-outlet> <!-- Affichage de la page active -->
+  </div>
+  <app-footer-element></app-footer-element>
+</div>
