@@ -18,5 +18,6 @@ footer {
     background: #222;
     color: white;
   height: 100px !important;
+  width: 100% !important;
 }
 
