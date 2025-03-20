@@ -1,37 +1,6 @@
-<nz-layout class="vh-100 bg-warning vw-100 overflow-x-hidden">
-  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
-    <div class="logo">
-      <img src="/images/logo.png" alt="logo">
+<nz-layout class="vh-100 bg-warning vw-100 overflow-x-hidden bg-danger">
+    <div class="">
+        slideBare
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline">
-      <li nz-submenu nzTitle="User" nzIcon="user">
-        <ul>
-          <li nz-menu-item>Tom</li>
-          <li nz-menu-item>Bill</li>
-          <li nz-menu-item>Alex</li>
-        </ul>
-      </li>
-      <li nz-submenu nzTitle="Team" nzIcon="team">
-        <ul>
-          <li nz-menu-item>Team 1</li>
-          <li nz-menu-item>Team 2</li>
-        </ul>
-      </li>
-      <li nz-menu-item>
-        <nz-icon nzType="file" />
-        <span>File</span>
-      </li>
-    </ul>
-  </nz-sider>
-  <nz-layout>
-    <nz-header class="p-0 bg-black bg-opacity-10 position-sticky">
-          <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></span>
-    </nz-header>
-    <nz-content>
-      <router-outlet></router-outlet>
-    </nz-content>
-    <nz-footer>
-      <app-footer-element></app-footer-element>
-    </nz-footer>
-  </nz-layout>
+    <app-footer-element></app-footer-element>
 </nz-layout>
