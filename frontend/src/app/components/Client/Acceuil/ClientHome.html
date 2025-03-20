@@ -1,6 +1,16 @@
-<nz-layout class="vh-100 bg-warning vw-100 overflow-x-hidden bg-danger">
-    <div class="">
-        slideBare
+<div class="vh-100 vw-100 p-0 m-0 overflow-x-hidden bg-danger d-flex">
+    <div class="width-20 h-100 m-0 p-0 position-fixed top-0 bg-body shadow-lg">
+      slideBare
     </div>
-    <app-footer-element></app-footer-element>
-</nz-layout>
+    <div class="width-80 m-0 p-0 bg-primary d-flex flex-column h-100 ms-auto">
+        <div>
+          contenu de header
+        </div>
+        <div class="flex-grow-1">
+          contenu du menu
+        </div>
+        <div class="mt-auto bg-white shadow-lg">
+            <app-footer-element></app-footer-element>
+        </div>
+    </div>
+</div>
