@@ -39,3 +39,32 @@
 .width-80{
   width: calc(100% - 11rem) !important;
 }
+.top-125{
+  top: 134px;
+}
+.slide-element{
+  position: relative;
+}
+.slide-element::before{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rebeccapurple;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-in-out;
+}
+.slide-element:hover{
+  color: rebeccapurple;
+}
+.slide-element:hover::before {
+  transform: scaleX(1);
+}
+.hover-element{
+  transition: 400ms all ease-in-out;
+}
+.hover-element:hover{
+  transform: translateY(-3px);
+}

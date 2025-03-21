@@ -26,7 +26,8 @@
                 "input": "public",
                 "output": "/"
               },
-              "src/images/*"
+              "src/images",
+              "src/assets"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
