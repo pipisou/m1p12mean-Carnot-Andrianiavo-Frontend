@@ -21,8 +21,8 @@ export class LoginComponent {
   errorMessage: string = '';
 
   constructor(private apiService: ApiService,private message: NzMessageService, private router: Router) {}
-  ngOnInit() {//on charge la page avant que ceci soit terminé
-    const user = JSON.parse(localStorage.getItem("user") || '{}');
+  ngOnInit() {
+    const user = JSON.parse(sessionStorage.getItem("user") || '{}');
     if (user.token){
       this.apiService.checkToken({ Authorization: `Bearer ${user.token}` }).subscribe(
         response => {
@@ -42,7 +42,7 @@ export class LoginComponent {
     this.apiService.login(this.user).subscribe(
       response => {
         this.isLoading = false
-        localStorage.setItem("user",JSON.stringify(response))
+        sessionStorage.setItem("user",JSON.stringify(response))
         this.redirectToHome()
       },
       error => {
