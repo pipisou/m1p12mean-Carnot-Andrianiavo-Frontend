@@ -20,7 +20,7 @@ export class ClientHomeComponent {
   user: any
   img: string = 'images/logo.png'
   constructor(private router: Router) {
-    this.user = JSON.parse(localStorage.getItem("user") || '{}')
+    this.user = JSON.parse(sessionStorage.getItem("user") || '{}')
   }
   ngOnInit(){
     if (!this.user.token){
