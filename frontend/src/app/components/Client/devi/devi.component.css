@@ -1,0 +1,12 @@
+.w-50-1rem{
+  width: calc(50% - 1rem);
+}
+.border-purple{
+  color: purple;
+  border: 1px solid rgba(128, 0, 128, 0.2);
+}
+.border-purple-active{
+  color: #00ffea;
+  background-color: purple;
+  font-weight: bolder;
+}

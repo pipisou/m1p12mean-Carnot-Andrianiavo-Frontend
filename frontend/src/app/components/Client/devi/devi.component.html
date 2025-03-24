@@ -1,11 +1,44 @@
 <div class="mx-2 h-100">
     <div class="w-100">
         <h4 class="ms-3 mt-2 text-start text-print">Decrire votre problème pour le vehicule <span (click)="showModal()" nz-tooltip nzTooltipTitle="Cliquez ici pour changer le vehicule" nzTooltipPlacement="right" [nzTooltipColor]="'#2db7f5'" class="fw-bold text-info cursor-pointer">{{vehiculeSelected?.immatriculation}}</span>.</h4>
+        <div class="row ms-2 me-0 mt-3 mb-3">
+          <div class="col-4 d-flex justify-content-end align-items-center border-end" style="height: 270px">
+            <nz-steps class="h-100 flex-grow-1 mt-2 align-items-center" [nzCurrent]="1" nzDirection="vertical">
+              <nz-step nzTitle="Selection du vehicule" [nzSubtitle]="vehiculeSelected?.immatriculation"></nz-step>
+              <nz-step nzTitle="Selection des categories" [nzSubtitle]="'(3)'"></nz-step>
+              <nz-step nzTitle="Detail categories"></nz-step>
+            </nz-steps>
+          </div>
+          <div class="col-8 d-flex flex-column">
+            <h5 class="text-grey text-print fw-bolder text-center mb-2">Selectionner les categories</h5>
+            <div class="w-100 flex-grow-1 row mx-0 mt-2 p-0">
+              <div class="col-auto">
+                <span class="py-1 px-3 border-purple rounded-3 cursor-pointer hover-element d-block">Moteur</span>
+              </div>
+              <div class="col-auto">
+                <span class="py-1 px-3 border-purple-active rounded-3 cursor-pointer hover-element d-block">Moteur</span>
+              </div>
+              <div class="col-auto">
+                <span>Moteur</span>
+              </div>
+              <div class="col-auto">
+                <span>Moteur</span>
+              </div>
+              <div class="col-auto">
+                <span>Moteur</span>
+              </div>
+            </div>
+            <div class="w-100 mt-2 d-inline-flex justify-content-between">
+              <button class="w-50-1rem btn hover-element btn-outline-light color-bleu">Passer et Prendre Rendez-Vous</button>
+              <button class="w-50-1rem btn hover-element btn-primary">Suivant</button>
+            </div>
+          </div>
+        </div>
     </div>
 </div>
-<nz-modal [(nzVisible)]="isVisible" [nzFooter]="null" nzTitle="Liste de vos Vehicules" [nzMaskClosable]="false" [nzClosable]="false">
+<nz-modal [(nzVisible)]="isVisible" [nzFooter]="vehiculeSelected ? footerTemplate : null"  nzTitle="Liste de vos Vehicules" [nzMaskClosable]="false" [nzClosable]="false">
   <div *nzModalContent class="m-0 p-0 w-100">
-    <nz-table #sortTable [nzData]="listVehicule" [nzBordered]="false" [nzLoading]="loading" [nzShowPagination]="false">
+    <nz-table class="mb-0" #sortTable [nzData]="listVehicule" [nzBordered]="false" [nzLoading]="loading" [nzShowPagination]="false">
       <thead>
       <tr>
         <th></th>
@@ -21,15 +54,21 @@
         <td>{{ data.immatriculation }}</td>
         <td>{{ data.categorie.nom }}</td>
       </tr>
-      <tr>
-        <td colspan="3" class="text-end"><span class="color-bleu bg-primary-subtle"><i class="fa fa-add me-1 "></i> Ajouter Vehicule</span></td>
+      <tr class="border-0">
+        <td colspan="3" class="border-0">
+          <div class="d-inline-flex justify-content-end w-100">
+            <span class="color-bleu bg-primary-subtle py-2 px-3 rounded-3 hover-element cursor-pointer d-block w-max"><i class="fa fa-add me-1 "></i> Ajouter Vehicule</span>
+          </div>
+        </td>
       </tr>
       </tbody>
     </nz-table>
-
   </div>
-<!--  <div *nzModalFooter>-->
-<!--    <button nz-button nzType="default" (click)="handleCancel()">Custom Callback</button>-->
-<!--    <button nz-button nzType="primary" (click)="handleOk()" >Custom Submit</button>-->
-<!--  </div>-->
+  <ng-template #footerTemplate>
+    <div class="mt-0">
+      <button class="btn btn-danger btn-sm me-2 px-2" (click)="handleCancel()">Annuler</button>
+      <button class="btn btn-primary btn-sm px-3" (click)="handleOk()">Valider</button>
+    </div>
+  </ng-template>
+
 </nz-modal>

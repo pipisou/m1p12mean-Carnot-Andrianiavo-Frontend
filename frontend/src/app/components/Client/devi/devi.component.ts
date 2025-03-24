@@ -6,6 +6,8 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzTableModule} from 'ng-zorro-antd/table';
 import {CommonModule} from '@angular/common';
 import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
+import { Location } from '@angular/common';
+import {NzStepsModule} from 'ng-zorro-antd/steps';
 
 interface Vehicule {
   _id?: string
@@ -16,7 +18,7 @@ interface Vehicule {
 
 @Component({
   selector: 'app-devi',
-  imports: [NzModalModule, NzToolTipModule, NzTableModule,CommonModule,NzCheckboxModule ],
+  imports: [NzModalModule, NzToolTipModule, NzTableModule,CommonModule,NzCheckboxModule , NzStepsModule],
   templateUrl: './devi.component.html',
   styleUrl: './devi.component.css',
   standalone: true
@@ -41,7 +43,7 @@ export class DeviComponent {
     },
   ];
 
-  constructor(private deviSerice : DeviService, private toast: NzMessageService) {
+  constructor(private deviSerice : DeviService, private toast: NzMessageService, private router: Location ) {
     this.user = JSON.parse(sessionStorage.getItem("user") || '{}')
     const storedVehicule = sessionStorage.getItem("selectedVehicule");
     this.vehiculeSelected = storedVehicule ? JSON.parse(storedVehicule) : null;
@@ -76,18 +78,20 @@ export class DeviComponent {
 
 
   handleOk(): void {
-    console.log('Button ok clicked!');
-    this.isVisible = false;
+    if (this.vehiculeSelected){
+      this.isVisible = false;
+      sessionStorage.setItem("selectedVehicule", JSON.stringify(this.vehiculeSelected))
+    }else{
+      this.toast.warning("Veillez selectionner un vehicule",{ nzDuration: 5000 })
+    }
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
+    this.router.back()
   }
 
   setVehiculeSelected(vehicule: Vehicule){
-    console.log(vehicule)
     this.vehiculeSelected = vehicule;
-    // sessionStorage.setItem("selectedVehicule", vehicule)
   }
 }
