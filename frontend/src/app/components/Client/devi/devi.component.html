@@ -5,20 +5,24 @@
 </div>
 <nz-modal [(nzVisible)]="isVisible" [nzFooter]="null" nzTitle="Liste de vos Vehicules" [nzMaskClosable]="false" [nzClosable]="false">
   <div *nzModalContent class="m-0 p-0 w-100">
-    <nz-table #sortTable [nzData]="listVehicule" [nzBordered]="true" [nzLoading]="loading" [nzShowPagination]="false">
+    <nz-table #sortTable [nzData]="listVehicule" [nzBordered]="false" [nzLoading]="loading" [nzShowPagination]="false">
       <thead>
       <tr>
-        <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare ? column.compare : null" [nzSortPriority]="column.priority">
+        <th></th>
+        <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+<!--        <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare ? column.compare : null" [nzSortPriority]="column.priority">-->
           {{ column.title }}
         </th>
-        <th></th>
       </tr>
       </thead>
       <tbody>
-      <tr class="cursor-pointer" *ngFor="let data of listVehicule">
+      <tr (click)="setVehiculeSelected(data)" class="cursor-pointer" *ngFor="let data of listVehicule">
+        <td [nzChecked]="data._id===vehiculeSelected?._id"></td>
         <td>{{ data.immatriculation }}</td>
         <td>{{ data.categorie.nom }}</td>
-        <td>ito no kitihana</td>
+      </tr>
+      <tr>
+        <td colspan="3" class="text-end"><span class="color-bleu bg-primary-subtle"><i class="fa fa-add me-1 "></i> Ajouter Vehicule</span></td>
       </tr>
       </tbody>
     </nz-table>

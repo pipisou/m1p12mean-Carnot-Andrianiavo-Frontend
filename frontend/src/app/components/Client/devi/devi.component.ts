@@ -5,6 +5,7 @@ import {DeviService} from '../../../Services/devi.service';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzTableModule} from 'ng-zorro-antd/table';
 import {CommonModule} from '@angular/common';
+import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
 
 interface Vehicule {
   _id?: string
@@ -15,7 +16,7 @@ interface Vehicule {
 
 @Component({
   selector: 'app-devi',
-  imports: [NzModalModule, NzToolTipModule, NzTableModule,CommonModule],
+  imports: [NzModalModule, NzToolTipModule, NzTableModule,CommonModule,NzCheckboxModule ],
   templateUrl: './devi.component.html',
   styleUrl: './devi.component.css',
   standalone: true
@@ -35,6 +36,7 @@ export class DeviComponent {
     },
     {
       title: 'categorie',
+      compare: (a: Vehicule, b: Vehicule) => ((a?.categorie?.nom || '').localeCompare(b?.categorie?.nom || '')),
       priority: 1
     },
   ];
@@ -59,7 +61,6 @@ export class DeviComponent {
       resp=>{
         this.loading = false
         this.listVehicule = resp
-        console.log(resp)
       },
       error => {
         this.loading = false
@@ -82,5 +83,11 @@ export class DeviComponent {
   handleCancel(): void {
     console.log('Button cancel clicked!');
     this.isVisible = false;
+  }
+
+  setVehiculeSelected(vehicule: Vehicule){
+    console.log(vehicule)
+    this.vehiculeSelected = vehicule;
+    // sessionStorage.setItem("selectedVehicule", vehicule)
   }
 }
