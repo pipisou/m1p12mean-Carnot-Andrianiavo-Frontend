@@ -1,1 +1,117 @@
-<p>home-page works!</p>
+<div class="mx-2 h-100">
+  <h3 class="m-4">Mon tableau de bord</h3>
+  <div class="row m-0 p-0 w-100 justify-content-between">
+    <div class="ms-3 bg-green rounded-4">
+      <div class="m-3">
+        <i class="fa fa-user-alt text-primary fs-4"></i>
+      </div>
+      <div class="w-100 text-print fs-6 text-white">
+        <span class="text-uppercase d-block mb-2">RAKOTONDRASOA RAZANADAHY</span>
+        <span class="text-capitalize d-block mb-2">Andrianiavo</span>
+        <span class="mb-2 d-block">Lot III A 198</span>
+        <span class="mb-4 d-block">andrianiavo.vit&#64;gmail.com</span>
+        <button type="button" class="btn btn-edit btn-sm mb-3 text-white float-end hover-element">Mettre à jour</button>
+      </div>
+    </div>
+    <div class="bg-content d-flex justify-content-between align-items-center">
+      <div class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element bg-body mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+        <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
+          <i class="fa fa-globe small text-grey"></i>
+        </div>
+        <code class="text-pink d-block fs-3 fw-bold">1</code>
+        <span class="d-block fs-5 text-print">Service</span>
+      </div>
+      <div class="flex-grow-1 w-25-5rem bg-body cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+        <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
+          <i class="fa fa-pen-to-square small text-grey"></i>
+        </div>
+        <code class="text-pink d-block fs-3 fw-bold">1</code>
+        <span class="d-block fs-5 text-print">Devi</span>
+      </div>
+      <div class="flex-grow-1 bg-body w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+        <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
+          <i class="fa fa-id-card-clip small text-grey"></i>
+        </div>
+        <code class="text-pink d-block fs-3 fw-bold">1</code>
+        <span class="d-block fs-5 text-print">Demande</span>
+      </div>
+      <div class="flex-grow-1 w-25-5rem bg-body cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+        <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
+          <i class="fa fa-money-check-dollar small text-grey"></i>
+        </div>
+        <code class="text-pink d-block fs-3 fw-bold">1</code>
+        <span class="d-block fs-5 text-print">Factures</span>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3 mb-3 w-100 d-inline-flex justify-content-between">
+    <div class="w-25">
+      <h4 class="text-print ms-3 mb-3">Raccourcis</h4>
+      <div class="d-inline-flex align-items-center cursor-pointer mb-2 hover-element text-print fs-6 color-bleu">
+        <i class="fa fa-car-alt mx-2"></i>
+        <span>Gestion des véhicules</span>
+      </div>
+      <div class="d-inline-flex align-items-center mb-2 cursor-pointer hover-element text-print fs-6 color-bleu">
+        <i class="fa fa-signs-post mx-2"></i>
+        <span>Historique d'entretien</span>
+      </div>
+      <div class="d-inline-flex align-items-center mb-2 cursor-pointer hover-element text-print fs-6 color-bleu">
+        <i class="fa fa-right-from-bracket mx-2"></i>
+        <span>Quitter</span>
+      </div>
+    </div>
+    <div class="w-75-2rem">
+      <div class="mx-2 mb-3 shadow-lg rounded-3">
+        <div class="bg-body p-2 w-100 rounded-top-3 border-bottom d-inline-flex justify-content-between align-items-center">
+          <span class="d-block text-start text-print fs-5">Suivi des Réparations</span>
+          <i class="fa fa-highlighter small text-grey"></i>
+        </div>
+        <div class="w-100 mt-2 bg-body d-inline-flex justify-content-between align-items-center px-2 cursor-pointer">
+          <div class="flex-grow-1">
+            <h4 class="mb-0 pb-0">ref-service</h4>
+            <span class="letter-spacing fw-bold text-print text-grey ms-2">1234TAB</span>
+          </div>
+          <div class="d-inline-flex rounded-bottom-3 justify-content-between align-items-center">
+            <span class="me-2 cursor-pointer py-2 px-3 fw-bold rounded-3 border-warning bg-warning-sub text-white">EN COURS</span>
+            <span class="cursor-pointer hover-element py-2 px-3 border rounded-3 bg-dark bg-opacity-10">DETAIL</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mx-2 mb-3 shadow-lg rounded-3">
+        <table class="table">
+          <caption class="caption-top">
+            <h4 class="fw-bold text-print p-2">Dernier Demandes</h4>
+          </caption>
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Demande</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Detail</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Coloriage</td>
+            <td>ENCOURS</td>
+            <td>
+              <div class="bg-dark bg-opacity-10 rounded-3 w-max hover-element py-1 px-3 cursor-pointer"><i class="fa fa-ellipsis-vertical"></i></div>
+            </td>
+          </tr>
+          <tr> <!--ity zany asina sary ao anatiny-->
+            <th scope="row">2</th>
+            <td>Vidange</td>
+            <td>ENCOURS</td>
+            <td>
+              <div class="bg-dark bg-opacity-10 rounded-3 w-max hover-element py-1 px-3 cursor-pointer"><i class="fa fa-ellipsis-vertical"></i></div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--status du dernier service(on peut envoyer un video à un client)-->
+  </div>
+</div>

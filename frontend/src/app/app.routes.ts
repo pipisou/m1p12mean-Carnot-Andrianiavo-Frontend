@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import {InscriptionComponent} from './components/Inscription/Inscription.component';
 import {ClientHomeComponent} from './components/Client/Acceuil/ClientHome.Component';
 import {HomePageComponent} from './components/Client/home-page/home-page.component';
+import {DeviComponent} from './components/Client/devi/devi.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'bienvenu', pathMatch: 'full' },
@@ -14,7 +15,7 @@ export const routes: Routes = [
     path: 'client',
     component: ClientHomeComponent,
     children: [
-      {path: 'details', component: LoginComponent},
+      {path: 'devi', component: DeviComponent},
       {path: 'settings', component: LandingPageComponent},
       {path: 'home', component: HomePageComponent},
       {path: '', redirectTo: 'home', pathMatch: 'full'}
