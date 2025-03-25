@@ -3,34 +3,35 @@
         <h4 class="ms-3 mt-2 text-start text-print">Decrire votre problème pour le vehicule <span (click)="showModal()" nz-tooltip nzTooltipTitle="Cliquez ici pour changer le vehicule" nzTooltipPlacement="right" [nzTooltipColor]="'#2db7f5'" class="fw-bold text-info cursor-pointer">{{vehiculeSelected?.immatriculation}}</span>.</h4>
         <div class="row ms-2 me-0 mt-3 mb-3">
           <div class="col-4 d-flex justify-content-end align-items-center border-end" style="height: 270px">
-            <nz-steps class="h-100 flex-grow-1 mt-2 align-items-center" [nzCurrent]="1" nzDirection="vertical">
+            <nz-steps class="h-100 flex-grow-1 mt-2 align-items-center" [nzCurrent]="step" nzDirection="vertical">
               <nz-step nzTitle="Selection du vehicule" [nzSubtitle]="vehiculeSelected?.immatriculation"></nz-step>
-              <nz-step nzTitle="Selection des categories" [nzSubtitle]="'(3)'"></nz-step>
-              <nz-step nzTitle="Detail categories"></nz-step>
+              <nz-step nzTitle="Selection des categories" [nzSubtitle]="'('+listSelectedCategories.size+')'"></nz-step>
+              <nz-step nzTitle="Detail categories" [nzSubtitle]="nextElement.size>0 ? '('+nextElement.size+'/'+listSelectedCategories.size+')' : ''"></nz-step>
             </nz-steps>
           </div>
-          <div class="col-8 d-flex flex-column">
+          <div *ngIf="step===1" class="col-8 d-flex flex-column">
             <h5 class="text-grey text-print fw-bolder text-center mb-2">Selectionner les categories</h5>
             <div class="w-100 flex-grow-1 row mx-0 mt-2 p-0">
-              <div class="col-auto">
-                <span class="py-1 px-3 border-purple rounded-3 cursor-pointer hover-element d-block">Moteur</span>
-              </div>
-              <div class="col-auto">
-                <span class="py-1 px-3 border-purple-active rounded-3 cursor-pointer hover-element d-block">Moteur</span>
-              </div>
-              <div class="col-auto">
-                <span>Moteur</span>
-              </div>
-              <div class="col-auto">
-                <span>Moteur</span>
-              </div>
-              <div class="col-auto">
-                <span>Moteur</span>
+
+              <div *ngFor="let categorie of listCategorie" class="col-auto mb-2" (click)="setSelectedCategorie(categorie.id)">
+                <span [ngClass]="listSelectedCategories.has(categorie.id) ? 'border-purple-active' : 'border-purple'" class="py-1 px-3 rounded-3 cursor-pointer hover-element d-block">{{categorie.nom}}</span>
               </div>
             </div>
             <div class="w-100 mt-2 d-inline-flex justify-content-between">
               <button class="w-50-1rem btn hover-element btn-outline-light color-bleu">Passer et Prendre Rendez-Vous</button>
-              <button class="w-50-1rem btn hover-element btn-primary">Suivant</button>
+              <button class="w-50-1rem btn hover-element btn-primary" [disabled]="listSelectedCategories.size===0" (click)="nextLink()">Suivant</button>
+            </div>
+          </div>
+
+          <div *ngIf="step===2" class="col-8 d-flex flex-column">
+            <h5 class="text-grey text-print fw-bolder text-center mb-2">Selectionner les details de: <span class="fw-bolder color-purple">{{current?.nom}}</span></h5>
+            <app-detail-categorie class="flex-grow-1 w-100" [categorieId]="current?.id"></app-detail-categorie>
+            <div class="w-100 m-0 p-0 mt-2 d-inline-flex justify-content-between align-items-center">
+              <button class="me-2 btn hover-element btn-outline-light color-bleu px-2">Passer et Prendre Rendez-Vous</button>
+              <div class="d-inline-flex justify-content-between">
+                <button class="btn hover-element px-2 btn-danger me-2" (click)="prevDetail()">Precedent</button>
+                <button class="btn hover-element px-2 btn-primary" (click)="nextDetail()">Suivant</button>
+              </div>
             </div>
           </div>
         </div>

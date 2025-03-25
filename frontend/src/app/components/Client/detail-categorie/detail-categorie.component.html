@@ -1,0 +1,5 @@
+<div class="w-100 row mx-0 mt-2 p-0">
+  <div *ngFor="let categorie of listDetailService" class="col-auto mb-2" (click)="setSelectedCategorie(categorie.id)">
+    <span [ngClass]="listSelectedCategories.has(categorie.id) ? 'border-purple-active' : 'border-purple'" class="py-1 px-3 rounded-3 cursor-pointer hover-element d-block">{{categorie.nom}}</span>
+  </div>
+</div>
