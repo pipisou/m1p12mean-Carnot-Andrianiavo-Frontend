@@ -35,6 +35,7 @@ export class ClientHomeComponent {
         this.updatePageFromUrl()
       }
     });
+    console.log(this.user)
   }
 
   updatePageFromUrl() {

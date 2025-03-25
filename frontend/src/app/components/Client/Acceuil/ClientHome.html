@@ -41,10 +41,6 @@
                     <span [ngClass]="first ? 'text-primary-emphasis' : 'text-secondary-emphasis'" class="mx-1">{{ url }}</span>
                     <span *ngIf="!last" class="text-secondary-emphasis mx-1">/</span>
                 </ng-container>
-
-              <!--                <span class="text-primary-emphasis mx-1">acceuil</span>-->
-<!--                <span class="text-secondary-emphasis mx-1">/</span>-->
-<!--                <span class="text-secondary-emphasis mx-1">Espace client</span>-->
             </div>
             <div class="d-inline-flex align-items-center h-100">
                 <div class="mx-2">
@@ -53,9 +49,10 @@
                 <div class="mx-2">
                     <span class="bg-dark bg-opacity-10 w-h d-flex justify-content-center align-items-center rounded-circle cursor-pointer"><i class="fa fa-bell"></i></span>
                 </div>
-                <div class="mx-3 d-inline-flex align-items-center fs-6 text-print cursor-pointer text-info-emphasis">
+                <div class="mx-3 d-inline-flex align-items-center fs-6 text-print cursor-pointer text-info-emphasis text-capitalize">
                     <span class="w-h-min d-flex justify-content-center align-items-center me-2"><i class="fa fa-user"></i></span>
-                    Andrianiavo Razanadahy
+                   <span class="me-2 text-capitalize"> {{user.client.prenom}}</span>
+                   <span class="text-capitalize"> {{user.client.nom}}</span>
                 </div>
             </div>
         </div>

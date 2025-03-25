@@ -1,0 +1,33 @@
+<nz-table class="mb-0" #sortTable [nzData]="listVehicule" [nzBordered]="false" [nzLoading]="loading" [nzShowPagination]="false">
+  <thead>
+  <tr>
+    <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+      {{ column.title }}
+    </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr  class="cursor-pointer" *ngFor="let data of listVehicule">
+    <td>{{ data.immatriculation }}</td>
+    <td>{{ data.categorie.nom }}</td>
+    <td>
+      <i *ngIf="!listDeletedVehicule.has(data._id)" (click)="deleteVehicule(data)" class="fa fa-trash text-danger cursor-pointer"></i>
+      <nz-icon *ngIf="listDeletedVehicule.has(data._id)" class="text-danger" nzType="loading"></nz-icon>
+    </td>
+  </tr>
+  <tr class="border-0">
+    <td colspan="3" class="border-0">
+      <div class="d-inline-flex justify-content-end w-100">
+        <span (click)="showModal()" class="color-bleu bg-primary-subtle py-2 px-3 rounded-3 hover-element cursor-pointer d-block w-max"><i class="fa fa-add me-1 "></i> Ajouter Vehicule</span>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-modal *ngIf="isVisible" [(nzVisible)]="isVisible" [nzFooter]="null"  nzTitle="Liste de vos Vehicules" (nzOnCancel)="hideModal()" [nzMaskClosable]="true" [nzClosable]="true">
+  <div *nzModalContent class="m-0 p-0 w-100">
+
+  </div>
+
+</nz-modal>

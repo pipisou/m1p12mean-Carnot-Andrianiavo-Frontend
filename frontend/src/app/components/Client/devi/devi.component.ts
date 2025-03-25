@@ -138,6 +138,7 @@ export class DeviComponent {
       sessionStorage.setItem("selectedVehicule", JSON.stringify(this.vehiculeSelected))
       this.step = 1
       this.current = null
+      this.listSelectedCategories.clear()
     }else{
       this.toast.warning("Veillez selectionner un vehicule",{ nzDuration: 5000 })
     }
