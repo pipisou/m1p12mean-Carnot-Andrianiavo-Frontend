@@ -9,17 +9,15 @@ import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
 import { Location } from '@angular/common';
 import {NzStepsModule} from 'ng-zorro-antd/steps';
 import {DetailCategorieComponent} from '../detail-categorie/detail-categorie.component';
-
-interface Vehicule {
-  _id?: string
-  immatriculation?: string
-  proprietaire?: any
-  categorie?: any
-}
+import {VehiculeService} from '../../../Services/vehicule.service';
+import {CategorieDeVehicule, Vehicule} from '../../../Models/Interfaces';
+import {FormsModule} from '@angular/forms';
+import {NzSelectModule} from 'ng-zorro-antd/select';
+import {NzButtonModule} from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'app-devi',
-  imports: [NzModalModule, NzToolTipModule, NzTableModule,CommonModule,NzCheckboxModule , NzStepsModule, DetailCategorieComponent],
+  imports: [NzModalModule, NzToolTipModule, NzTableModule,CommonModule,NzCheckboxModule , NzStepsModule, DetailCategorieComponent, FormsModule, NzSelectModule, NzButtonModule],
   templateUrl: './devi.component.html',
   styleUrl: './devi.component.css',
   standalone: true
@@ -83,7 +81,7 @@ export class DeviComponent {
     return this._step;
   }
 
-  constructor(private deviSerice : DeviService, private toast: NzMessageService, private router: Location ) {
+  constructor(private deviSerice : DeviService, private vehiculeService: VehiculeService, private toast: NzMessageService, private router: Location ) {
     this.user = JSON.parse(sessionStorage.getItem("user") || '{}')
     const storedVehicule = sessionStorage.getItem("selectedVehicule");
     this.vehiculeSelected = storedVehicule ? JSON.parse(storedVehicule) : null;
@@ -199,6 +197,60 @@ export class DeviComponent {
 
     }else{
       this.step = 1
+    }
+  }
+
+
+
+  visibleAdd:boolean = false
+  allCategorie: CategorieDeVehicule[] = []
+  newCat: Vehicule = {_id: '', categorie: {nom: '', description: ''}, immatriculation: ''}
+
+
+  hideModal(){
+    this.visibleAdd = false
+    this.newCat = {_id: '', categorie: {nom: '', description: ''}, immatriculation: ''}
+  }
+
+  showModalAdd(){
+    this.visibleAdd = true
+    if (this.allCategorie.length ===0){
+      this.getAllCat()
+    }else{
+      this.newCat.categorie=this.allCategorie[0]
+    }
+  }
+  getAllCat(){
+    this.vehiculeService.getAllCategories({ Authorization: `Bearer ${this.user.token}` }).subscribe(
+      resp=>{
+        this.allCategorie=resp
+        if (resp.length>0){
+          this.newCat.categorie = resp[0]
+        }
+      },
+      error => {
+        this.toast.error("Erreur lors de l'initialisation de Categorie Vehicule", {nzDuration: 5000})
+      }
+    )
+  }
+
+  loadingInsert: boolean = false
+  submit(){
+    if (this.newCat.immatriculation.trim().length>0 && this.newCat.categorie){
+      this.loadingInsert = true
+      this.vehiculeService.addVehicule({ Authorization: `Bearer ${this.user.token}`}, this.newCat).subscribe(
+        rep=>{
+          this.loadingInsert=false
+          this.listVehicule.push({...this.newCat,_id: rep.vehicule._id})
+          this.hideModal()
+        },
+        error => {
+          this.toast.error(error.message, {nzDuration: 5000})
+          this.loadingInsert=false
+        }
+      )
+    }else{
+      this.toast.warning("Verifiez vos données", {nzDuration: 5000})
     }
   }
 }

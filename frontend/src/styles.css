@@ -116,3 +116,6 @@
 .w-max{
   width: max-content !important;
 }
+input:active,select:active{
+  outline: none !important;
+}

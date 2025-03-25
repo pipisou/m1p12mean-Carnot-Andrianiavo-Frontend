@@ -3,8 +3,6 @@ import {Login} from '../../../Models/Interfaces';
 import {VehiculeComponent} from '../../vehicule/vehicule.component';
 import {NzModalModule} from 'ng-zorro-antd/modal';
 import {CommonModule} from '@angular/common';
-import {HomeService} from './HomeService';
-
 
 @Component({
   selector: 'app-home-page',
@@ -16,16 +14,13 @@ import {HomeService} from './HomeService';
 export class HomePageComponent {
   user: Login
   isVisible: boolean = false
-  constructor(private showService: HomeService) {
+  constructor() {
     this.user = JSON.parse(sessionStorage.getItem("user") || '{}')
-    this.showService.modalState$.subscribe(state => {
-      this.isVisible = state;
-    });
   }
   showModal(){
-    this.showService.showModal();
+    this.isVisible = true
   }
   hideModal(){
-    this.showService.hideModal();
+    this.isVisible = false
   }
 }

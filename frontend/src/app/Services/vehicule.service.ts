@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {apiUrl} from '../Conf/APIURL';
-import {Vehicule} from '../Models/Interfaces';
+import {CategorieDeVehicule, Vehicule} from '../Models/Interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +23,20 @@ export class VehiculeService {
       'Authorization': header.Authorization,
     });
     return this.http.delete(`${apiUrl()}vehicule/${id}`, { headers });
+  }
+
+  getAllCategories(header: { Authorization: string }): Observable<CategorieDeVehicule[]>{
+    const headers = new HttpHeaders({
+      'Authorization': header.Authorization,
+    });
+    return this.http.get<CategorieDeVehicule[]>(`${apiUrl()}categorieDeVehicule/`, { headers });
+  }
+
+  addVehicule(header: { Authorization: string }, newCar: Vehicule): Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': header.Authorization,
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<any>(`${apiUrl()}vehicule/`, newCar,{ headers });
   }
 }
