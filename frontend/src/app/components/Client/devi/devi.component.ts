@@ -18,8 +18,7 @@ import {CategorieService} from '../../../Services/categorie.service';
 import {NzListModule} from 'ng-zorro-antd/list';
 import {NzPaginationModule} from 'ng-zorro-antd/pagination';
 import {Router} from '@angular/router';
-import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
-import { endOfMonth } from 'date-fns';
+import {NzDatePickerModule} from 'ng-zorro-antd/date-picker'
 
 @Component({
   selector: 'app-devi',
@@ -103,7 +102,7 @@ export class DeviComponent {
     return this._step;
   }
 
-  constructor( private categorieService: CategorieService, private deviSerice : DeviService, private vehiculeService: VehiculeService, private toast: NzMessageService, private router: Location , private navigate: Router) {
+  constructor(private categorieService: CategorieService, private deviSerice : DeviService, private vehiculeService: VehiculeService, private toast: NzMessageService, private router: Location , private navigate: Router) {
     this.user = JSON.parse(sessionStorage.getItem("user") || '{}')
     const storedVehicule = sessionStorage.getItem("selectedVehicule");
     this.vehiculeSelected = storedVehicule ? JSON.parse(storedVehicule) : null;
@@ -328,7 +327,11 @@ export class DeviComponent {
     console.log('onChange: ', result);
   }
 
-  getWeek(result: Date[]): void {
-    // console.log('week: ', result.map());
+  onOk(result: Date | Date[] | null): void {
+    console.log('onOk', result);
+  }
+
+  onCalendarChange(result: Array<Date | null>): void {
+    console.log('onCalendarChange', result);
   }
 }

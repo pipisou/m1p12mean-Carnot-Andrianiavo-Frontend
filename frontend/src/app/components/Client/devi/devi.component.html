@@ -155,10 +155,16 @@
 </nz-modal>
 
 
-<nz-modal *ngIf="visibleRendezVous" [(nzVisible)]="visibleRendezVous" [nzFooter]="null"  nzTitle="Employe du temps" (nzOnCancel)="hideRendezVous()" [nzMaskClosable]="false" [nzClosable]="false">
+<nz-modal *ngIf="visibleRendezVous" [(nzVisible)]="visibleRendezVous" [nzFooter]="null"  nzTitle="Programme de rendez-vous" (nzOnCancel)="hideRendezVous()" [nzMaskClosable]="false" [nzClosable]="false">
   <div *nzModalContent class="m-0 p-0 w-100">
-    <nz-range-picker [nzShowTime]="true" [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
-    <br />
+    <nz-range-picker
+      [nzShowTime]="{ nzFormat: 'HH:mm' }"
+      nzFormat="yyyy-MM-dd HH:mm"
+      [ngModel]="date"
+      (ngModelChange)="onChange($event)"
+      (nzOnCalendarChange)="onCalendarChange($event)"
+      (nzOnOk)="onOk($event)"
+    ></nz-range-picker>
   </div>
 <!--  <ng-template #modalFooter>-->
 <!--    <button nz-button nzType="default" nzDanger class="rounded-3 hover-element" (click)="hideModal()">Annuler</button>-->
