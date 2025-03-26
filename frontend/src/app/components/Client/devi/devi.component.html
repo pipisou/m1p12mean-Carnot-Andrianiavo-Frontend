@@ -1,22 +1,26 @@
 <div class="mx-2 h-100">
     <div class="w-100">
         <h4 class="ms-3 mt-2 text-start text-print">Decrire votre problème pour le vehicule <span (click)="showModal()" nz-tooltip nzTooltipTitle="Cliquez ici pour changer le vehicule" nzTooltipPlacement="right" [nzTooltipColor]="'#2db7f5'" class="fw-bold text-info cursor-pointer">{{vehiculeSelected?.immatriculation}}</span>.</h4>
-        <div class="row ms-2 me-0 mt-3 mb-3">
-          <div class="col-4 d-flex justify-content-end align-items-center border-end" style="height: 270px">
-            <nz-steps class="h-100 flex-grow-1 mt-2 align-items-center" [nzCurrent]="step" nzDirection="vertical">
+        <div *ngIf="step<3" class="row ms-2 me-0 mt-3 mb-3">
+          <div class="col-4 d-flex justify-content-end align-items-center border-end" style="height: 300px">
+            <nz-steps class="h-100 flex-grow-1 mt-2 " [nzCurrent]="step" nzDirection="vertical">
               <nz-step nzTitle="Selection du vehicule" [nzSubtitle]="vehiculeSelected?.immatriculation"></nz-step>
               <nz-step nzTitle="Selection des categories" [nzSubtitle]="'('+listSelectedCategories.size+')'"></nz-step>
               <nz-step nzTitle="Detail categories" [nzSubtitle]="nextElement.size>0 ? '('+nextElement.size+'/'+listSelectedCategories.size+')' : ''"></nz-step>
+              <nz-step nzTitle="Validation et Prendre Rendez-vous"></nz-step>
             </nz-steps>
           </div>
           <div *ngIf="step===1" class="col-8 d-flex flex-column">
             <h5 class="text-grey text-print fw-bolder text-center mb-2">Selectionner les categories</h5>
-            <div class="w-100 flex-grow-1 row mx-0 mt-2 p-0">
-
-              <div *ngFor="let categorie of listCategorie" class="col-auto mb-2" (click)="setSelectedCategorie(categorie.id)">
-                <span [ngClass]="listSelectedCategories.has(categorie.id) ? 'border-purple-active' : 'border-purple'" class="py-1 px-3 rounded-3 cursor-pointer hover-element d-block">{{categorie.nom}}</span>
+            <nz-list nzItemLayout="horizontal" *ngIf="loadingCat" class="flex-grow-1" [nzLoading]="loadingCat">
+              <nz-list-empty></nz-list-empty>
+            </nz-list>
+            <div *ngIf="!loadingCat" class="flex-grow-1 row w-100 mx-0 mt-2 p-0">
+              <div *ngFor="let categorie of listCategorie" class="col-auto mb-2" (click)="setSelectedCategorie(categorie._id)">
+                <span [ngClass]="listSelectedCategories.has(categorie._id) ? 'border-purple-active' : 'border-purple'" class="py-1 px-3 rounded-3 cursor-pointer hover-element d-block">{{categorie.service.nomService}}</span>
               </div>
             </div>
+
             <div class="w-100 mt-2 d-inline-flex justify-content-between">
               <button class="w-50-1rem btn hover-element btn-outline-light color-bleu">Passer et Prendre Rendez-Vous</button>
               <button class="w-50-1rem btn hover-element btn-primary" [disabled]="listSelectedCategories.size===0" (click)="nextLink()">Suivant</button>
@@ -24,13 +28,69 @@
           </div>
 
           <div *ngIf="step===2" class="col-8 d-flex flex-column">
-            <h5 class="text-grey text-print fw-bolder text-center mb-2">Selectionner les details de: <span class="fw-bolder color-purple">{{current?.nom}}</span></h5>
-            <app-detail-categorie class="flex-grow-1 w-100" [categorieId]="current?.id"></app-detail-categorie>
+            <h5 class="text-grey text-print fw-bolder text-center mb-2">Selectionner les details de: <span class="fw-bolder color-purple">{{current?.service.nomService}}</span></h5>
+            <app-detail-categorie (categorieSelected)="receiveSelectedDetailsService($event)" [listSelectedCategories]="listSelectedDetailCat" [user]="user" class="flex-grow-1 w-100" [categorieId]="current?._id"></app-detail-categorie>
             <div class="w-100 m-0 p-0 mt-2 d-inline-flex justify-content-between align-items-center">
               <button class="me-2 btn hover-element btn-outline-light color-bleu px-2">Passer et Prendre Rendez-Vous</button>
               <div class="d-inline-flex justify-content-between">
                 <button class="btn hover-element px-2 btn-danger me-2" (click)="prevDetail()">Precedent</button>
                 <button class="btn hover-element px-2 btn-primary" (click)="nextDetail()">Suivant</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="step>=3" class="row ms-2 me-0 mt-3 mb-3">
+          <div class="w-100 mb-3">
+              <nz-steps class="h-100 flex-grow-1 mt-2" [nzCurrent]="step" nzDirection="horizontal">
+                <nz-step nzTitle="Selection du vehicule" ></nz-step>
+                <nz-step nzTitle="Selection des categories"></nz-step>
+                <nz-step nzTitle="Detail categories"></nz-step>
+                <nz-step nzTitle="Validation et Prendre Rendez-vous"></nz-step>
+              </nz-steps>
+          </div>
+          <div class="row w-100 m-0 p-0">
+              <div class="col-7 border-end">
+                <table class="table">
+                  <caption class="text-print fs-4 text-grey caption-top">Details du services</caption>
+                  <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Service</th>
+                    <th scope="col">Prix (MGA)</th>
+                    <th scope="col">Estimation (H)</th>
+                    <th scope="col"></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let serv of paginatedList; let index=index">
+                      <th scope="row">{{(pageSize*(currentPage-1))+index+1}}</th>
+                      <td class="text-print">{{serv.description}}</td>
+                      <td class="text-prin">{{formatNumber(serv.prix)}}</td>
+                      <td>{{serv.tempsEstime}}</td>
+                      <td><i (click)="receiveSelectedDetailsService(serv)" class="fa fa-trash text-danger cursor-pointer"></i></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="w-100 d-flex justify-content-end">
+                  <nz-pagination [(nzPageIndex)]="currentPage" [nzPageSize]="pageSize" [nzTotal]="listSelectedDetailCat.size" ></nz-pagination>
+                </div>
+              </div>
+            <div class="col-5 d-flex flex-column">
+              <div class="my-2 text-print w-100 bg-dark p-3 bg-opacity-10 rounded-3 shadow-lg">
+                <h5 class="text-grey text-center mb-0">Total prix : <span class="me-1 color-purple fs-5 fw-bolder">{{formatNumber(totalHeure().prix)}}</span>MGA</h5>
+              </div>
+              <div class="my-3 flex-grow-1 text-print w-100 p-3  rounded-3">
+                <h5 class="text-grey text-center mb-0">Durrée <span class="small">en heure</span></h5>
+                <div class="d-inline-flex w-100 mt-2 justify-content-center align-items-center">
+                  <span class="fs-5 fw-bolder">{{formatNumber(totalHeure().heureMin)}}</span>
+                  <i class="fa fa-long-arrow-right mx-2"></i>
+                  <span class="fs-5 fw-bolder">{{formatNumber(totalHeure().heureMax)}}</span>
+                </div>
+              </div>
+              <div class="w-100 mb-3 d-inline-flex justify-content-between">
+                <button nz-button nzType="default" nzDanger class="w-50-1rem hover-element" (click)="navigationHome()">Annuler</button>
+                <button nz-button nzType="primary" class="w-50-1rem hover-element" (click)="showVisibleRendezVous()">Progammer le rendez-vous</button>
               </div>
             </div>
           </div>
@@ -92,4 +152,16 @@
     <button nz-button nzType="default" nzDanger class="rounded-3 hover-element" (click)="hideModal()">Annuler</button>
     <button nz-button nzType="primary" class="rounded-3 hover-element" [nzLoading]="loadingInsert" (click)="submit()">Ajouter</button>
   </ng-template>
+</nz-modal>
+
+
+<nz-modal *ngIf="visibleRendezVous" [(nzVisible)]="visibleRendezVous" [nzFooter]="null"  nzTitle="Employe du temps" (nzOnCancel)="hideRendezVous()" [nzMaskClosable]="false" [nzClosable]="false">
+  <div *nzModalContent class="m-0 p-0 w-100">
+    <nz-range-picker [nzShowTime]="true" [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
+    <br />
+  </div>
+<!--  <ng-template #modalFooter>-->
+<!--    <button nz-button nzType="default" nzDanger class="rounded-3 hover-element" (click)="hideModal()">Annuler</button>-->
+<!--    <button nz-button nzType="primary" class="rounded-3 hover-element" [nzLoading]="loadingInsert" (click)="submit()">Ajouter</button>-->
+<!--  </ng-template>-->
 </nz-modal>

@@ -21,3 +21,18 @@ export interface Vehicule {
   _id: string
   categorie: CategorieDeVehicule
 }
+
+export interface ServiceDetail {
+  _id: string
+  categorieDeVehicule: CategorieDeVehicule
+  service: {_id: string, nomService: string}
+}
+
+export interface DetailService{
+  _id: string
+  tempsEstime: number
+  prix: number
+  marge: number
+  serviceDetails:{_id: string, service: string}
+  description: string
+}

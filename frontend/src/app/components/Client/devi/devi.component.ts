@@ -10,14 +10,20 @@ import { Location } from '@angular/common';
 import {NzStepsModule} from 'ng-zorro-antd/steps';
 import {DetailCategorieComponent} from '../detail-categorie/detail-categorie.component';
 import {VehiculeService} from '../../../Services/vehicule.service';
-import {CategorieDeVehicule, Vehicule} from '../../../Models/Interfaces';
+import {CategorieDeVehicule, DetailService, ServiceDetail, Vehicule} from '../../../Models/Interfaces';
 import {FormsModule} from '@angular/forms';
 import {NzSelectModule} from 'ng-zorro-antd/select';
 import {NzButtonModule} from 'ng-zorro-antd/button';
+import {CategorieService} from '../../../Services/categorie.service';
+import {NzListModule} from 'ng-zorro-antd/list';
+import {NzPaginationModule} from 'ng-zorro-antd/pagination';
+import {Router} from '@angular/router';
+import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
+import { endOfMonth } from 'date-fns';
 
 @Component({
   selector: 'app-devi',
-  imports: [NzModalModule, NzToolTipModule, NzTableModule,CommonModule,NzCheckboxModule , NzStepsModule, DetailCategorieComponent, FormsModule, NzSelectModule, NzButtonModule],
+  imports: [NzModalModule, NzDatePickerModule, NzPaginationModule, NzListModule, NzToolTipModule, NzTableModule,CommonModule,NzCheckboxModule , NzStepsModule, DetailCategorieComponent, FormsModule, NzSelectModule, NzButtonModule],
   templateUrl: './devi.component.html',
   styleUrl: './devi.component.css',
   standalone: true
@@ -42,32 +48,30 @@ export class DeviComponent {
     },
   ];
 
-  listCategorie = [
-    {id: 1, nom: 'Mécanique Générale'},
-    {id: 2, nom: ' Système de Transmission'},
-    {id: 3, nom: 'Système de Freinage'},
-    {id: 4, nom: 'Suspension et Direction'},
-    {id: 5, nom: 'Système Électrique et Électronique'},
-    {id: 6, nom: 'Climatiseur et Chauffage'},
-    {id: 7, nom: 'Système d’Échappement'},
-    {id: 8, nom: 'Pneumatiques'},
-    {id: 9, nom: 'Carrosserie et Peinture'},
-    {id: 10, nom: 'Vitrage et Accessoires'},
-  ]
-  listSelectedCategories: Set<number> = new Set<number>()
-  nextElement: Set<number> = new Set<number>()
+  listCategorie: ServiceDetail[]=[]
+  listSelectedCategories: Set<string> = new Set<string>()
+  nextElement: Set<string> = new Set<string>()
   current: any = null
   private _step: number = 0;
 
+  loadingCat: boolean = true
+  listSelectedDetailCat: Set<DetailService> = new Set<DetailService>()
+
   set step(value: number) {
     this._step = value;
+    if (this._step ===1){
+      this.getAllCategorieService()
+    }
+
+    if (this._step ===3){
+      //validation et prendre rendez-vous
+    }
 
     if (this._step === 2) {
-      const firstElement = this.listSelectedCategories.values().next().value;
-
-      if (firstElement !== undefined) {
-        this.current = this.listCategorie.find((e) => e.id === firstElement);
-        if (typeof firstElement === "number") {
+      if (this.listSelectedCategories.size>0){
+        const firstElement = this.listSelectedCategories.values().next().value;
+        this.current = this.listCategorie.find((e) => e._id === firstElement);
+        if (typeof firstElement === "string") {
           this.nextElement.add(firstElement);
         }
       }
@@ -75,13 +79,31 @@ export class DeviComponent {
       this.current = null;
       this.nextElement.clear();
     }
+    if(this._step<2){
+      this.listSelectedDetailCat.clear()
+    }
+  }
+  getAllCategorieService(){
+    this.loadingCat = true
+    if (this.vehiculeSelected){
+      this.categorieService.getServices({ Authorization: `Bearer ${this.user.token}` }, this.vehiculeSelected?.categorie._id).subscribe(
+        rep=>{
+          this.listCategorie=rep
+          this.loadingCat = false
+        },
+        error => {
+          this.toast.error(error.message,{nzDuration: 5000})
+          this.loadingCat = false
+        }
+      )
+    }
   }
 
   get step(): number {
     return this._step;
   }
 
-  constructor(private deviSerice : DeviService, private vehiculeService: VehiculeService, private toast: NzMessageService, private router: Location ) {
+  constructor( private categorieService: CategorieService, private deviSerice : DeviService, private vehiculeService: VehiculeService, private toast: NzMessageService, private router: Location , private navigate: Router) {
     this.user = JSON.parse(sessionStorage.getItem("user") || '{}')
     const storedVehicule = sessionStorage.getItem("selectedVehicule");
     this.vehiculeSelected = storedVehicule ? JSON.parse(storedVehicule) : null;
@@ -93,7 +115,7 @@ export class DeviComponent {
     this.current = null
   }
 
-  setSelectedCategorie(categorie: number){
+  setSelectedCategorie(categorie: string){
     if (this.listSelectedCategories.has(categorie)){
       this.listSelectedCategories.delete(categorie)
     }else{
@@ -155,20 +177,19 @@ export class DeviComponent {
     this.step=2
   }
 
-  getNextElementLoop(set: Set<number>, currentElement: number): number {
+  getNextElementLoop(set: Set<string>, currentElement: string): string {
     const array = Array.from(set);
     const index = array.indexOf(currentElement);
 
-    return index !== -1 ? array[(index + 1) % array.length] : array[0];
+    return index >=0 && index<array.length-1 ? array[(index + 1)] : array[0];
   }
 
   nextDetail(){
     if (this.current){
-      const first = this.listSelectedCategories.values().next().value;
-      const next = this.getNextElementLoop(this.listSelectedCategories, this.current.id)
+      const next = this.getNextElementLoop(this.listSelectedCategories, this.current._id)
 
-      if (first!==next){
-        this.current = this.listCategorie.find((e) => e.id === next);
+      if (this.nextElement.size<this.listSelectedCategories.size){
+        this.current = this.listCategorie.find((e) => e._id === next);
         this.nextElement.add(next);
       }else{
         this.step=3
@@ -178,10 +199,9 @@ export class DeviComponent {
     }
   }
 
-  getPrevElement(set: Set<number>, currentElement: number): number {
+  getPrevElement(set: Set<string>, currentElement: string): string {
     const array = Array.from(set);
     const index = array.indexOf(currentElement);
-
     return index > 0 ? array[index - 1] : array[array.length - 1];
   }
 
@@ -191,10 +211,9 @@ export class DeviComponent {
         this.step = 1
         return
       }
-      const prev = this.getPrevElement(this.nextElement, this.current.id)
-      this.nextElement.delete(prev)
-      this.current=this.listCategorie.find((e) => e.id === prev)
-
+      const prev = this.getPrevElement(this.nextElement, this.current._id)
+      this.nextElement.delete(this.current._id)
+      this.current=this.listCategorie.find((e) => e._id === prev)
     }else{
       this.step = 1
     }
@@ -252,5 +271,64 @@ export class DeviComponent {
     }else{
       this.toast.warning("Verifiez vos données", {nzDuration: 5000})
     }
+  }
+
+  receiveSelectedDetailsService(idCategorie: DetailService){
+    const objToDelete = Array.from(this.listSelectedDetailCat).find(item => item._id === idCategorie._id);
+    if (objToDelete) {
+      this.listSelectedDetailCat.delete(objToDelete);
+    }else{
+      this.listSelectedDetailCat.add(idCategorie);
+    }
+  }
+  currentPage: number=1
+  pageSize = 10;
+  get paginatedList() {
+    const arrayList = Array.from(this.listSelectedDetailCat);
+    const start = (this.currentPage - 1) * this.pageSize;
+    return arrayList.slice(start, start + this.pageSize);
+  }
+  formatNumber(value: number): string {
+    return new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
+  }
+  totalHeure() {
+    const  prixHeur={prix: 0, heureMin: 0, heureMax: 0}
+    for (const item of this.listSelectedDetailCat) {
+      prixHeur.prix+=item.prix
+      prixHeur.heureMin+=(item.tempsEstime-(item.tempsEstime*(item.marge/100)))
+      prixHeur.heureMax+=(item.tempsEstime+(item.tempsEstime*(item.marge/100)))
+    }
+    return prixHeur
+  }
+
+  navigationHome(){
+    sessionStorage.removeItem("selectedVehicule")
+    this.navigate.navigate(["/client/home"])
+  }
+
+  visibleRendezVous: boolean = false
+
+  showVisibleRendezVous(){
+    this.visibleRendezVous = true
+  }
+
+  hideRendezVous(){
+    this.visibleRendezVous = false
+  }
+
+  // ranges = { Today: [new Date(), new Date()], 'This Month': [new Date(), endOfMonth(new Date())] };
+  //
+  // onChange(result: Date[]): void {
+  //   console.log('From: ', result[0], ', to: ', result[1]);
+  // }
+
+  date = null;
+
+  onChange(result: Date[]): void {
+    console.log('onChange: ', result);
+  }
+
+  getWeek(result: Date[]): void {
+    // console.log('week: ', result.map());
   }
 }
