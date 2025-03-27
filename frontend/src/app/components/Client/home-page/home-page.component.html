@@ -14,33 +14,35 @@
       </div>
     </div>
     <div class="bg-content d-flex justify-content-between align-items-center">
-      <div class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element bg-body mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+      <div (click)="showAfficheEnAttent(0)" class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element bg-body mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
         <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
           <i class="fa fa-globe small text-grey"></i>
         </div>
-        <code class="text-pink d-block fs-3 fw-bold">1</code>
+        <code class="text-pink d-block fs-3 fw-bold">{{tabAll[0].length}}</code>
         <span class="d-block fs-5 text-print">Service</span>
       </div>
-      <div class="flex-grow-1 w-25-5rem bg-body cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+      <div (click)="showAfficheEnAttent(1)" class="flex-grow-1 w-25-5rem bg-body cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
         <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
-          <i class="fa fa-pen-to-square small text-grey"></i>
+          <nz-icon *ngIf="loadingValidate" class="small" nzType="loading" nzTheme="outline"></nz-icon>
+          <i *ngIf="!loadingAttente" class="fa fa-calendar small text-grey"></i>
         </div>
-        <code class="text-pink d-block fs-3 fw-bold">1</code>
+        <code class="text-pink d-block fs-3 fw-bold">{{tabAll[1].length}}</code>
         <span class="d-block fs-5 text-print">Rendez-Vous</span>
       </div>
-      <div class="flex-grow-1 bg-body w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+      <div (click)="showAfficheEnAttent(2)" disa class="flex-grow-1 bg-body w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
         <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
-          <i class="fa fa-id-card-clip small text-grey"></i>
+          <nz-icon *ngIf="loadingAttente" class="small" nzType="loading" nzTheme="outline"></nz-icon>
+          <i *ngIf="!loadingAttente" class="fa fa-calendar-xmark small text-grey"></i>
         </div>
-        <code class="text-pink d-block fs-3 fw-bold">1</code>
-        <span class="d-block fs-5 text-print">Demande</span>
+        <code class="text-pink d-block fs-3 fw-bold">{{tabAll[2].length}}</code>
+        <span class="d-block fs-5 text-print">En attente</span>
       </div>
       <div class="flex-grow-1 w-25-5rem bg-body cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
         <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
           <i class="fa fa-money-check-dollar small text-grey"></i>
         </div>
         <code class="text-pink d-block fs-3 fw-bold">1</code>
-        <span class="d-block fs-5 text-print">Factures</span>
+        <span class="d-block fs-5 text-print">Demande Admin</span>
       </div>
     </div>
   </div>
@@ -124,3 +126,5 @@
   </div>
 </nz-modal>
 <app-rendez-vous (modalClosed)="onModalClosed()" (closeInnerModal)="hideRendezVous()" [listSelectedDetailCat]="listSelectedDetailCat" [visibleRendezVous]="visibleRendezVous"></app-rendez-vous>
+
+<app-affiche-devi *ngIf="afficheEnAttent" [isVisible]="afficheEnAttent" [listRendezVous]="tabAll[currentSelected]" (fonctHide)="hideAfficheEnAttent()"></app-affiche-devi>

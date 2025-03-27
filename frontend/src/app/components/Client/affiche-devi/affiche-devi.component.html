@@ -1,0 +1,12 @@
+<nz-modal  [nzWidth]="'40rem'" [(nzVisible)]="isVisible" [nzFooter]="footer"  nzTitle="Programme de rendez-vous" (nzOnCancel)="hideRendezVous()" [nzMaskClosable]="false" [nzClosable]="false">
+  <div *nzModalContent class="m-0 p-0 w-100">
+    <div class="-w-100 mb-3">
+      <h5 class="text-grey text-print text-break text-center mb-2">Dites-nous à quelles dates vous êtes disponible</h5>
+    </div>
+
+  </div>
+  <ng-template #footer>
+    <button nz-button nzType="default" nzDanger class="rounded-3 hover-element" (click)="hideRendezVous()">Annuler</button>
+    <button nz-button nzType="primary" class="rounded-3 hover-element"  (click)="hideRendezVous()">Ajouter</button>
+  </ng-template>
+</nz-modal>
