@@ -119,3 +119,5 @@ page devi: ok
 page mes service:
     -detail service avec status du detail
     -ajout de nouvelle detail serices
+
+ity zany teste aloh
