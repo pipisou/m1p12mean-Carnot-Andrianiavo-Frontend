@@ -19,10 +19,11 @@ import {NzListModule} from 'ng-zorro-antd/list';
 import {NzPaginationModule} from 'ng-zorro-antd/pagination';
 import {Router} from '@angular/router';
 import {NzDatePickerModule} from 'ng-zorro-antd/date-picker'
+import {RendezVousComponent} from '../rendez-vous/rendez-vous.component';
 
 @Component({
   selector: 'app-devi',
-  imports: [NzModalModule, NzDatePickerModule, NzPaginationModule, NzListModule, NzToolTipModule, NzTableModule,CommonModule,NzCheckboxModule , NzStepsModule, DetailCategorieComponent, FormsModule, NzSelectModule, NzButtonModule],
+  imports: [NzModalModule, RendezVousComponent, NzDatePickerModule, NzPaginationModule, NzListModule, NzToolTipModule, NzTableModule,CommonModule,NzCheckboxModule , NzStepsModule, DetailCategorieComponent, FormsModule, NzSelectModule, NzButtonModule],
   templateUrl: './devi.component.html',
   styleUrl: './devi.component.css',
   standalone: true
@@ -315,23 +316,9 @@ export class DeviComponent {
     this.visibleRendezVous = false
   }
 
-  // ranges = { Today: [new Date(), new Date()], 'This Month': [new Date(), endOfMonth(new Date())] };
-  //
-  // onChange(result: Date[]): void {
-  //   console.log('From: ', result[0], ', to: ', result[1]);
-  // }
-
-  date = null;
-
-  onChange(result: Date[]): void {
-    console.log('onChange: ', result);
-  }
-
-  onOk(result: Date | Date[] | null): void {
-    console.log('onOk', result);
-  }
-
-  onCalendarChange(result: Array<Date | null>): void {
-    console.log('onCalendarChange', result);
+  onModalClosed(): void {
+    this.navigate.navigate(["/client/home"]).then(() => {
+      window.location.reload();
+    });
   }
 }

@@ -1,0 +1,37 @@
+<nz-modal  [nzWidth]="'40rem'" [(nzVisible)]="visibleRendezVous" [nzFooter]="footer"  nzTitle="Programme de rendez-vous" (nzOnCancel)="hideRendezVous()" [nzMaskClosable]="false" [nzClosable]="false">
+  <div *nzModalContent class="m-0 p-0 w-100">
+    <div class="-w-100 mb-3">
+        <h5 class="text-grey text-print text-break text-center mb-2">Dites-nous à quelles dates vous êtes disponible</h5>
+        <div *ngFor="let redn of rendezVous; let index=index" class="w-100 shadow-sm mb-2 p-2 bg-body d-inline-flex position-relative">
+          <div class="py-2 w-50 border-end text-print text-center fs-6">
+            {{redn.dateHeureDebut | date: 'yyyy-MM-dd HH:mm' }}
+          </div>
+          <div class="py-2 w-50 text-print text-center fs-6">
+            {{redn.dateHeureFin | date: 'yyyy-MM-dd HH:mm' }}
+          </div>
+          <div class="position-absolute w-100 justify-content-end d-flex top-0">
+            <span (click)="deleteDate(index)" class="bg-dark bg-opacity-25 cursor-pointer d-flex justify-content-center align-items-center rounded-circle" style="height: 30px; width: 30px; transform: translateY(-10px)">
+              <i class="fa fa-close text-danger"></i>
+            </span>
+          </div>
+        </div>
+    </div>
+    <div class="w-100 d-flex justify-content-center py-2 shadow-sm">
+      <nz-range-picker
+        [nzAllowClear]="true"
+        [(ngModel)]="dateSelectionnee"
+        [nzShowTime]="{ nzFormat: 'HH:mm' }"
+        nzFormat="yyyy-MM-dd HH:mm"
+        (nzOnOk)="onOk($event)"
+        [nzAutoFocus]="true"
+        [nzDisabledDate]="disabledDate"
+        [nzDisabledTime]="disabledTimeRange"
+      ></nz-range-picker>
+<!--      [nzDisabledTime]="disableTime"-->
+    </div>
+  </div>
+    <ng-template #footer>
+      <button nz-button nzType="default" nzDanger class="rounded-3 hover-element" (click)="hideRendezVous()">Annuler</button>
+      <button nz-button nzType="primary" class="rounded-3 hover-element" [disabled]="rendezVous.length===0" [nzLoading]="loadingInsert" (click)="submit()">Ajouter</button>
+    </ng-template>
+</nz-modal>

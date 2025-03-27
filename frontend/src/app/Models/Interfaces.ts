@@ -36,3 +36,9 @@ export interface DetailService{
   serviceDetails:{_id: string, service: string}
   description: string
 }
+
+export interface DeviInsert {
+  taches: DetailService[]
+  dateDemande :{dateHeureDebut: Date, dateHeureFin: Date}[]
+  vehicule: string | null
+}

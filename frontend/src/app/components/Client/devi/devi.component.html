@@ -22,7 +22,7 @@
             </div>
 
             <div class="w-100 mt-2 d-inline-flex justify-content-between">
-              <button class="w-50-1rem btn hover-element btn-outline-light color-bleu">Passer et Prendre Rendez-Vous</button>
+              <button class="w-50-1rem btn hover-element btn-outline-light color-bleu" (click)="showVisibleRendezVous()">Passer et Prendre Rendez-Vous</button>
               <button class="w-50-1rem btn hover-element btn-primary" [disabled]="listSelectedCategories.size===0" (click)="nextLink()">Suivant</button>
             </div>
           </div>
@@ -31,7 +31,7 @@
             <h5 class="text-grey text-print fw-bolder text-center mb-2">Selectionner les details de: <span class="fw-bolder color-purple">{{current?.service.nomService}}</span></h5>
             <app-detail-categorie (categorieSelected)="receiveSelectedDetailsService($event)" [listSelectedCategories]="listSelectedDetailCat" [user]="user" class="flex-grow-1 w-100" [categorieId]="current?._id"></app-detail-categorie>
             <div class="w-100 m-0 p-0 mt-2 d-inline-flex justify-content-between align-items-center">
-              <button class="me-2 btn hover-element btn-outline-light color-bleu px-2">Passer et Prendre Rendez-Vous</button>
+              <button class="me-2 btn hover-element btn-outline-light color-bleu px-2" (click)="showVisibleRendezVous()">Passer et Prendre Rendez-Vous</button>
               <div class="d-inline-flex justify-content-between">
                 <button class="btn hover-element px-2 btn-danger me-2" (click)="prevDetail()">Precedent</button>
                 <button class="btn hover-element px-2 btn-primary" (click)="nextDetail()">Suivant</button>
@@ -134,7 +134,6 @@
 
 </nz-modal>
 
-
 <nz-modal *ngIf="visibleAdd" [(nzVisible)]="visibleAdd" [nzFooter]="modalFooter"  nzTitle="Ajout de Vehicules" (nzOnCancel)="hideModal()" [nzMaskClosable]="true" [nzClosable]="true">
   <div *nzModalContent class="m-0 p-0 w-100">
     <div class="mb-3">
@@ -154,20 +153,4 @@
   </ng-template>
 </nz-modal>
 
-
-<nz-modal *ngIf="visibleRendezVous" [(nzVisible)]="visibleRendezVous" [nzFooter]="null"  nzTitle="Programme de rendez-vous" (nzOnCancel)="hideRendezVous()" [nzMaskClosable]="false" [nzClosable]="false">
-  <div *nzModalContent class="m-0 p-0 w-100">
-    <nz-range-picker
-      [nzShowTime]="{ nzFormat: 'HH:mm' }"
-      nzFormat="yyyy-MM-dd HH:mm"
-      [ngModel]="date"
-      (ngModelChange)="onChange($event)"
-      (nzOnCalendarChange)="onCalendarChange($event)"
-      (nzOnOk)="onOk($event)"
-    ></nz-range-picker>
-  </div>
-<!--  <ng-template #modalFooter>-->
-<!--    <button nz-button nzType="default" nzDanger class="rounded-3 hover-element" (click)="hideModal()">Annuler</button>-->
-<!--    <button nz-button nzType="primary" class="rounded-3 hover-element" [nzLoading]="loadingInsert" (click)="submit()">Ajouter</button>-->
-<!--  </ng-template>-->
-</nz-modal>
+<app-rendez-vous (modalClosed)="onModalClosed()" [idVehicule]="vehiculeSelected?._id" (closeInnerModal)="hideRendezVous()" [listSelectedDetailCat]="listSelectedDetailCat" [visibleRendezVous]="visibleRendezVous"></app-rendez-vous>

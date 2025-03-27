@@ -51,7 +51,7 @@
         <i class="fa fa-car-alt mx-2"></i>
         <span>Gestion des véhicules</span>
       </div>
-      <div class="d-inline-flex align-items-center mb-2 cursor-pointer hover-element text-print fs-6 color-bleu">
+      <div (click)="showVisibleRendezVous()" class="d-inline-flex align-items-center mb-2 cursor-pointer hover-element text-print fs-6 color-bleu">
         <i class="fa fa-calendar-week mx-2"></i>
         <span>Prendre rendez-vous</span>
       </div>
@@ -122,5 +122,5 @@
   <div *nzModalContent class="m-0 p-0 w-100">
     <app-vehicule ></app-vehicule>
   </div>
-
 </nz-modal>
+<app-rendez-vous (modalClosed)="onModalClosed()" (closeInnerModal)="hideRendezVous()" [listSelectedDetailCat]="listSelectedDetailCat" [visibleRendezVous]="visibleRendezVous"></app-rendez-vous>
