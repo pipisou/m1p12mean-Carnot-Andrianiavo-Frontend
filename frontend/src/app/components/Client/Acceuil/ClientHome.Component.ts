@@ -8,20 +8,22 @@ import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzMenuModule} from 'ng-zorro-antd/menu';
 import {NzLayoutModule} from 'ng-zorro-antd/layout';
 import {RouteConf} from '../../../Conf/RouteConf'
+import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
+import {QuitterService} from '../../quitter/quitter.service';
 
 @Component({
   selector: 'app-client-home',
   templateUrl: './ClientHome.html',
   styleUrl: './ClientHome.css',
-  //standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, FooterElementComponent, NzBreadCrumbModule, NzIconModule, NzMenuModule, NzLayoutModule]
+  standalone: true,
+  imports: [RouterModule, NzDropDownModule, FormsModule, CommonModule, FooterElementComponent, NzBreadCrumbModule, NzIconModule, NzMenuModule, NzLayoutModule]
 })
 export class ClientHomeComponent {
   isCollapsed = false;
   user: any
   page: any = null
   routeConf: any[]
-  constructor(private router: Router) {
+  constructor(private router: Router, private quitter: QuitterService) {
     this.user = JSON.parse(sessionStorage.getItem("user") || '{}')
     this.routeConf = RouteConf
   }
@@ -51,5 +53,9 @@ export class ClientHomeComponent {
   }
   changeRoute(url: string){
     this.router.navigate([`/client/${url}`])
+  }
+
+  logOut(){
+    this.quitter.showConfirm()
   }
 }

@@ -20,6 +20,7 @@
                     <span class="d-block mt-1">Devi</span>
                 </div>
                 <div
+                  (click)="changeRoute('service')"
                   [ngClass]="{ 'bg-active-slid': page?.id === 3 }"
                   class="d-flex flex-column align-items-center fs-5 text-print justify-content-center py-3 cursor-pointer hover-element mb-2 slide-element">
                     <i class="fa fa-globe"></i>
@@ -49,11 +50,21 @@
                 <div class="mx-2">
                     <span class="bg-dark bg-opacity-10 w-h d-flex justify-content-center align-items-center rounded-circle cursor-pointer"><i class="fa fa-bell"></i></span>
                 </div>
-                <div class="mx-3 d-inline-flex align-items-center fs-6 text-print cursor-pointer text-info-emphasis text-capitalize">
+                <div nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomCenter" class="mx-3 d-inline-flex align-items-center fs-6 text-print cursor-pointer text-info-emphasis text-capitalize">
                     <span class="w-h-min d-flex justify-content-center align-items-center me-2"><i class="fa fa-user"></i></span>
                    <span class="me-2 text-capitalize"> {{user.client.prenom}}</span>
                    <span class="text-capitalize"> {{user.client.nom}}</span>
                 </div>
+              <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu>
+                  <li nz-menu-item>
+                    <span class="text-grey"><i class="fa fa-user-edit me-2"></i>Mettre à jour Mes infos</span>
+                  </li>
+                  <li nz-menu-item (click)="logOut()">
+                   <span class="text-grey"><i class="fa fa-power-off me-2"></i>Deconnecter</span>
+                  </li>
+                </ul>
+              </nz-dropdown-menu>
             </div>
         </div>
         <div class="flex-grow-1">

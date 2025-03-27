@@ -5,6 +5,7 @@ import {NzModalModule} from 'ng-zorro-antd/modal';
 import {CommonModule} from '@angular/common';
 import {RendezVousComponent} from '../rendez-vous/rendez-vous.component';
 import {Router} from '@angular/router';
+import {QuitterService} from '../../quitter/quitter.service';
 
 @Component({
   selector: 'app-home-page',
@@ -17,7 +18,7 @@ export class HomePageComponent {
   user: Login
   isVisible: boolean = false
   listSelectedDetailCat: Set<DetailService> = new Set<DetailService>()
-  constructor( private router: Router) {
+  constructor( private router: Router, private quitter: QuitterService) {
     this.user = JSON.parse(sessionStorage.getItem("user") || '{}')
   }
   showModal(){
@@ -41,5 +42,9 @@ export class HomePageComponent {
     this.router.navigate(["/client/home"]).then(() => {
       window.location.reload();
     });
+  }
+
+  showConfirm(){
+    this.quitter.showConfirm()
   }
 }

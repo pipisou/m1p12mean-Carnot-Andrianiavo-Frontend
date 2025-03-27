@@ -5,6 +5,7 @@ import {InscriptionComponent} from './components/Inscription/Inscription.compone
 import {ClientHomeComponent} from './components/Client/Acceuil/ClientHome.Component';
 import {HomePageComponent} from './components/Client/home-page/home-page.component';
 import {DeviComponent} from './components/Client/devi/devi.component';
+import {CommandeComponent} from './components/Client/commande/commande.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'bienvenu', pathMatch: 'full' },
@@ -16,7 +17,7 @@ export const routes: Routes = [
     component: ClientHomeComponent,
     children: [
       {path: 'devi', component: DeviComponent},
-      {path: 'settings', component: LandingPageComponent},
+      {path: 'service', component: CommandeComponent},
       {path: 'home', component: HomePageComponent},
       {path: '', redirectTo: 'home', pathMatch: 'full'}
     ]

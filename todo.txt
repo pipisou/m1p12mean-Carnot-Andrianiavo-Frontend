@@ -107,3 +107,15 @@
 
 ---
 
+
+
+page d'accueil:
+    -service: nombre de service en cours(kitihana de makao am'page de service)
+    -devi: nb devi encours(clique -> reference devi + de rendez-vous)=>alefa ao am'notification
+    -demandes: demande venant d'admin
+
+page devi: ok
+
+page mes service:
+    -detail service avec status du detail
+    -ajout de nouvelle detail serices
