@@ -1,12 +1,21 @@
-<nz-modal  [nzWidth]="'40rem'" [(nzVisible)]="isVisible" [nzFooter]="footer"  nzTitle="Programme de rendez-vous" (nzOnCancel)="hideRendezVous()" [nzMaskClosable]="false" [nzClosable]="false">
+<nz-modal  [nzWidth]="'50rem'" [(nzVisible)]="isVisible" [nzFooter]="null"
+           nzTitle="Reference de rendez-vous" (nzOnCancel)="hideRendezVous()"
+           [nzMaskClosable]="true" [nzClosable]="true">
   <div *nzModalContent class="m-0 p-0 w-100">
     <div class="-w-100 mb-3">
-      <h5 class="text-grey text-print text-break text-center mb-2">Dites-nous à quelles dates vous êtes disponible</h5>
+      <h5 class="text-grey text-print text-break text-center mb-2">Cliquer Sur la reference pour voir le detail</h5>
     </div>
-
+    <nz-empty *ngIf="listRendezVous.length===0"></nz-empty>
+    <div *ngFor="let dev of listRendezVous" (click)="navigateCommandeClicked(dev)" class="rounded-3 bg-dark bg-opacity-25 p-2 cursor-pointer mb-2 hover-element">
+      <div [class]="dev.statut.toLowerCase().includes('attente') ? 'text-danger' : 'color-bleu'" class="w-100 d-flex justify-content-between small text-print pb-2 border-bottom">
+        <span class="ms-2 fw-bolder">{{dev.devis.referenceDevis}}</span>
+        <span class="me-2">{{dev.devis.vehicule ? dev.devis.vehicule.immatriculation : '---- ---'}}</span>
+      </div>
+      <div class="mt-2 w-100 d-flex justify-content-center fs-5 text-print align-items-center">
+        <i class="fa fa-calendar-check text-success me-2"></i>
+        <span *ngIf="dev.dateChoisie; else indefini">{{ dev.dateChoisie | date: 'yyyy-MM-dd HH:mm' }}</span>
+        <ng-template #indefini>Status En cours de Validation</ng-template>
+      </div>
+    </div>
   </div>
-  <ng-template #footer>
-    <button nz-button nzType="default" nzDanger class="rounded-3 hover-element" (click)="hideRendezVous()">Annuler</button>
-    <button nz-button nzType="primary" class="rounded-3 hover-element"  (click)="hideRendezVous()">Ajouter</button>
-  </ng-template>
 </nz-modal>

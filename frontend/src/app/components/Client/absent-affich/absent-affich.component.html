@@ -1,0 +1,29 @@
+<nz-modal  [nzWidth]="'50rem'" [(nzVisible)]="isVisible" [nzFooter]="null"
+           nzTitle="Rendez-vous Absent"
+           [nzBodyStyle]="{background: 'linear-gradient(-180deg, #13acf3, #d96869)'}"
+           (nzOnCancel)="hideRendezVous()"
+           [nzMaskClosable]="false" [nzClosable]="false">
+  <div *nzModalContent class="m-0 p-0 w-100">
+    <div class="-w-100 mb-3">
+      <h5 class="text-white text-print text-break text-center mb-2">Vous Avez manqué {{listRendezVous.length}} rendez-vous</h5>
+    </div>
+    <div *ngFor="let dev of listRendezVous" class="rounded-3 bg-danger bg-opacity-50 p-2 cursor-pointer mb-2">
+      <div [class]="dev.statut.toLowerCase().includes('attente') ? 'text-danger' : 'color-bleu'" class="w-100 d-flex justify-content-between small text-print pb-2 border-bottom">
+        <span class="ms-2 fw-bolder">{{dev.devis.referenceDevis}}</span>
+        <span class="me-2">{{dev.devis.vehicule ? dev.devis.vehicule.immatriculation : '---- ---'}}</span>
+      </div>
+      <div class="my-3 w-100 d-flex justify-content-center fs-5 text-print align-items-center">
+        <i class="fa fa-calendar-check text-success me-2"></i>
+        <span class="text-white" *ngIf="dev.dateChoisie; else indefini">{{ dev.dateChoisie | date: 'yyyy-MM-dd HH:mm' }}</span>
+        <ng-template #indefini>Status En cours de Validation</ng-template>
+      </div>
+      <div class="w-100 mb-2 d-flex justify-content-end align-items-center">
+        <button nz-button nzType="dashed" (click)="clickDelete(dev._id, dev.devis.referenceDevis)" nzDanger [nzLoading]="currentDelete.has(dev._id)" class="me-2 hover-element">Supprimer le devi</button>
+        <button nz-button nzType="primary" class="hover-element" [disabled]="currentDelete.has(dev._id)" (click)="showGetRendezVous(dev._id)">Modifier le rendez-vous</button>
+      </div>
+    </div>
+  </div>
+</nz-modal>
+
+
+<app-modif-rendezvous [visibleRendezVous]="visibleRendezVous" (fonthideModifRendezVous)="hideModifRendezVous()" (onModifValidate)="submit($event)" [idRendezVous]="currentClickedModif"></app-modif-rendezvous>

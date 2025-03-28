@@ -1,0 +1,8 @@
+/*:host ::ng-deep .ant-modal-body {*/
+/*  background-color: #c12b2b !important; !* Exemple : gris clair *!*/
+/*}*/
+
+:host ::ng-deep .ant-modal-header {
+  background-color: #d96869 !important; /* Rose */
+  color: white !important; /* Texte blanc */
+}

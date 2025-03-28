@@ -33,7 +33,7 @@ export interface DetailService{
   tempsEstime: number
   prix: number
   marge: number
-  serviceDetails:{_id: string, service: string}
+  serviceDetails:{_id: string, service?: string}
   description: string
 }
 
@@ -41,4 +41,14 @@ export interface DeviInsert {
   taches: DetailService[]
   dateDemande :{dateHeureDebut: Date, dateHeureFin: Date}[]
   vehicule: string | null
+}
+
+export interface RenderVous {
+  _id: string
+  articlesUtilises: []
+  dateDemande: {dateHeureDebut: Date, dateHeureFin: Date, _id: string}[]
+  statut: string
+  devis: {_id: string, referenceDevis: string, vehicule: Vehicule, taches: DetailService}
+  dateChoisie?: Date
+  taches?: []
 }

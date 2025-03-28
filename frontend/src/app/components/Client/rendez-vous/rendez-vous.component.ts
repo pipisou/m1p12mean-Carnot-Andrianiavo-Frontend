@@ -53,9 +53,6 @@ export class RendezVousComponent {
     }
   }
 
-  formatDate(date: Date): string{
-    return new Date(date).toLocaleDateString('fr-FR', {day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit"})
-  }
   submit(){
     if (!this.user.token){
       this.toast.error("Utilisateur invalide. Veuillez vous reconnecter!", {nzDuration: 10000})
@@ -88,13 +85,6 @@ export class RendezVousComponent {
       this.rendezVous.splice(index, 1);
     }
   }
-  // disableTime  ( ) {
-  //   return {
-  //     nzDisabledHours: () => [...Array(24).keys()].filter(h => h < 7 || h > 18),
-  //     nzDisabledMinutes: (hour: number) => hour === 18 ? [...Array(60).keys()].slice(1) : [],
-  //     nzDisabledSeconds: () => [...Array(60).keys()]
-  //   };
-  // };
 
   disabledTimeRange = (): DisabledTimeConfig => {
     return {

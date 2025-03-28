@@ -75,3 +75,8 @@
         </div>
     </div>
 </div>
+<div *ngIf="loadingEncours" class="vh-100 vw-100 bg-dark position-fixed top-0 start-0 bg-opacity-25 d-flex justify-content-center align-items-center">
+  <nz-list nzItemLayout="horizontal" [nzLoading]="loadingEncours">
+  </nz-list>
+</div>
+<app-absent-affich (reload)="reload()" (fonctHide)="hideAbsent()" [isVisible]="showAbsent" [listRendezVous]="tabAbs"></app-absent-affich>

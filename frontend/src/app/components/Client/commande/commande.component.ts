@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { RendezVousService } from '../../../Services/rendez-vous.service';
 import { AfficheDeviComponent } from '../affiche-devi/affiche-devi.component';
+import {RenderVous} from '../../../Models/Interfaces';
+import {CurrentCommandeService} from './current-commande.service';
 
 @Component({
   selector: 'app-commande',
@@ -12,13 +14,22 @@ import { AfficheDeviComponent } from '../affiche-devi/affiche-devi.component';
 })
 export class CommandeComponent {
   afficheEnAttent: boolean = true
-  commandeServices=[]
+  commandeServices: RenderVous[] =[]//lister de tous les devi
 
   ngOnInit(){
-    this.afficheEnAttent = true
+    this.currentRendeVousObject.currentCommande$.subscribe(
+      (commande)=>{
+        if (commande){
+          console.log(commande)
+          this.afficheEnAttent = false
+        }else{
+          this.afficheEnAttent = true
+        }
+      }
+    )
   }
 
-  constructor(private rendezVous: RendezVousService) {
+  constructor(private rendezVous: RendezVousService, private currentRendeVousObject: CurrentCommandeService) {
   }
 
   hideAfficheEnAttent(){

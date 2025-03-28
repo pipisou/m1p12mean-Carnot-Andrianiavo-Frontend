@@ -97,7 +97,8 @@
         </div>
     </div>
 </div>
-<nz-modal [(nzVisible)]="isVisible" [nzFooter]="vehiculeSelected ? footerTemplate : null"  nzTitle="Liste de vos Vehicules" [nzMaskClosable]="false" [nzClosable]="false">
+<nz-modal [(nzVisible)]="isVisible" [nzFooter]="vehiculeSelected ? footerTemplate : null" (nzOnCancel)="handleCancel()"
+          nzTitle="Liste de vos Vehicules" [nzMaskClosable]="false" [nzClosable]="true">
   <div *nzModalContent class="m-0 p-0 w-100">
     <nz-table [nzNoResult]="'Aucune donnée disponible'" class="mb-0" #sortTable [nzData]="listVehicule" [nzBordered]="false" [nzLoading]="loading" [nzShowPagination]="false">
       <thead>

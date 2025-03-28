@@ -23,4 +23,17 @@ export class QuitterService {
       }
     });
   }
+
+  showValidate(callback: () => void, message: string): void {
+    this.modal.confirm({
+      nzTitle: `<i>${message}</i>`,
+      nzOkText: 'Valider',
+      nzOkType: 'primary',
+      nzOnOk: () => {
+        callback()
+      },
+      nzWidth: '30rem',
+      nzIconType: 'close-circle',
+    });
+  }
 }

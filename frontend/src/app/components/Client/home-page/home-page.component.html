@@ -16,10 +16,11 @@
     <div class="bg-content d-flex justify-content-between align-items-center">
       <div (click)="showAfficheEnAttent(0)" class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element bg-body mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
         <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
-          <i class="fa fa-globe small text-grey"></i>
+          <nz-icon *ngIf="loadingEncours" class="small" nzType="loading" nzTheme="outline"></nz-icon>
+          <i *ngIf="!loadingEncours" class="fa fa-globe small text-grey"></i>
         </div>
         <code class="text-pink d-block fs-3 fw-bold">{{tabAll[0].length}}</code>
-        <span class="d-block fs-5 text-print">Service</span>
+        <span class="d-block fs-5 text-print">En cours</span>
       </div>
       <div (click)="showAfficheEnAttent(1)" class="flex-grow-1 w-25-5rem bg-body cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
         <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
@@ -42,7 +43,7 @@
           <i class="fa fa-money-check-dollar small text-grey"></i>
         </div>
         <code class="text-pink d-block fs-3 fw-bold">1</code>
-        <span class="d-block fs-5 text-print">Demande Admin</span>
+        <span class="d-block fs-5 text-print">Facturation</span>
       </div>
     </div>
   </div>
@@ -69,17 +70,20 @@
     <div class="w-75-2rem">
       <div class="mx-2 mb-3 shadow-lg rounded-3">
         <div class="bg-body p-2 w-100 rounded-top-3 border-bottom d-inline-flex justify-content-between align-items-center">
-          <span class="d-block text-start text-print fs-5">Suivi des Réparations</span>
+          <span class="d-block text-start text-print fs-5 text-grey">Suivi des Réparations</span>
           <i class="fa fa-highlighter small text-grey"></i>
         </div>
-        <div class="w-100 mt-2 bg-body d-inline-flex justify-content-between align-items-center px-2 cursor-pointer">
+        <div class="my-3 bg-body d-flex justify-content-center align-items-center">
+          <nz-empty *ngIf="tabAll[0].length===0"></nz-empty>
+        </div>
+        <div *ngFor="let devi of tabAll[0]; let last = last" [class.border-bottom]="!last" class="w-100 my-2 pb-2 bg-body d-inline-flex justify-content-between align-items-center px-2 text-print">
           <div class="flex-grow-1">
-            <h4 class="mb-0 pb-0">ref-service</h4>
-            <span class="letter-spacing fw-bold text-print text-grey ms-2">1234TAB</span>
+            <h5 class="mb-0 pb-0 fw-bolder text-print fs-5">{{devi.devis.referenceDevis}}</h5>
+            <span class="small fw-bold text-print text-grey ms-2">{{devi.devis.vehicule?.immatriculation ?? '---- ---'}}</span>
           </div>
           <div class="d-inline-flex rounded-bottom-3 justify-content-between align-items-center">
-            <span class="me-2 cursor-pointer py-2 px-3 fw-bold rounded-3 border-warning bg-warning-sub text-white">EN COURS</span>
-            <span class="cursor-pointer hover-element py-2 px-3 border rounded-3 bg-dark bg-opacity-10">DETAIL</span>
+            <span class="me-2 cursor-pointer py-1 px-3 fw-bold rounded-2 border-warning bg-warning-sub text-white fw-bolder">EN COURS</span>
+            <span (click)="navigateCommandeClicked(devi)" class="cursor-pointer hover-element py-1 px-3 border rounded-2 bg-dark bg-opacity-10">DETAIL</span>
           </div>
         </div>
       </div>
@@ -87,7 +91,7 @@
       <div class="mx-2 mb-3 shadow-lg rounded-3">
         <table class="table">
           <caption class="caption-top">
-            <h4 class="fw-bold text-print p-2">Dernier Demandes</h4>
+            <h4 class="fw-bold text-print p-2 text-grey">Dernier Taches</h4>
           </caption>
           <thead>
           <tr>
