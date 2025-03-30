@@ -14,7 +14,6 @@ import {RendezVousService} from '../../../Services/rendez-vous.service';
 import {RenderVous} from '../../../Models/Interfaces';
 import {AbsentAffichComponent} from '../absent-affich/absent-affich.component';
 import {NzListModule} from 'ng-zorro-antd/list';
-import {CurrentCommandeService} from '../commande/current-commande.service';
 
 @Component({
   selector: 'app-client-home',
@@ -28,7 +27,7 @@ export class ClientHomeComponent {
   user: any
   page: any = null
   routeConf: any[]
-  constructor(private router: Router, private quitter: QuitterService, private rendezVous: RendezVousService, private currentRendeVousObject: CurrentCommandeService) {
+  constructor(private router: Router, private quitter: QuitterService, private rendezVous: RendezVousService) {
     this.user = JSON.parse(sessionStorage.getItem("user") || '{}')
     this.routeConf = RouteConf
   }
@@ -58,9 +57,6 @@ export class ClientHomeComponent {
     }
   }
   changeRoute(url: string){
-    if (url.includes('service')){
-      this.currentRendeVousObject.updateCommande(null)
-    }
     this.router.navigate([`/client/${url}`])
   }
 

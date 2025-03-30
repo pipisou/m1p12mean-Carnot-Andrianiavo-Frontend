@@ -5,7 +5,6 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import {NzEmptyModule} from 'ng-zorro-antd/empty';
 import {RenderVous} from '../../../Models/Interfaces';
 import {Router} from '@angular/router';
-import {CurrentCommandeService} from '../commande/current-commande.service';
 
 @Component({
   selector: 'app-affiche-devi',
@@ -27,11 +26,10 @@ export class AfficheDeviComponent {
     }
   }
 
-  constructor(private router: Router, private currentRendeVousObject: CurrentCommandeService) {
+  constructor(private router: Router) {
   }
   navigateCommandeClicked(clickedCommande: RenderVous){
-    this.currentRendeVousObject.updateCommande(clickedCommande)
-    this.router.navigate(["/client/service"])
+    this.router.navigate(["/client/service", clickedCommande._id])
   }
 
 }

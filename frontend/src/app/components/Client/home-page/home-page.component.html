@@ -74,7 +74,9 @@
           <i class="fa fa-highlighter small text-grey"></i>
         </div>
         <div class="my-3 bg-body d-flex justify-content-center align-items-center">
-          <nz-empty *ngIf="tabAll[0].length===0"></nz-empty>
+          <nz-list nzItemLayout="horizontal" [nzLoading]="loadingEncours">
+            <nz-empty *ngIf="tabAll[0].length===0"></nz-empty>
+          </nz-list>
         </div>
         <div *ngFor="let devi of tabAll[0]; let last = last" [class.border-bottom]="!last" class="w-100 my-2 pb-2 bg-body d-inline-flex justify-content-between align-items-center px-2 text-print">
           <div class="flex-grow-1">
@@ -89,37 +91,50 @@
       </div>
 
       <div class="mx-2 mb-3 shadow-lg rounded-3">
-        <table class="table">
+        <table class="table text-print">
           <caption class="caption-top">
             <h4 class="fw-bold text-print p-2 text-grey">Dernier Taches</h4>
           </caption>
           <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Demande</th>
+            <th scope="col">Tache</th>
             <th scope="col">Statut</th>
-            <th scope="col">Detail</th>
+            <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Coloriage</td>
-            <td>ENCOURS</td>
-            <td>
-              <div class="bg-dark bg-opacity-10 rounded-3 w-max hover-element py-1 px-3 cursor-pointer"><i class="fa fa-ellipsis-vertical"></i></div>
+          <tr *ngIf="loadingEncours">
+            <td colspan="4">
+              <div class="w-100 d-flex justify-content-center">
+                <nz-list nzItemLayout="horizontal" [nzLoading]="loadingEncours">
+                </nz-list>
+              </div>
             </td>
           </tr>
-          <tr> <!--ity zany asina sary ao anatiny-->
-            <th scope="row">2</th>
-            <td>Vidange</td>
-            <td>ENCOURS</td>
+          <tr>
+            <th scope="row" colspan="4" class="text-center text-grey">{{tabSelected?.devis?.referenceDevis}}</th>
+          </tr>
+          <tr *ngIf="tabSelected?.taches?.length===0">
+            <td colspan="4">
+              <div class="w-100 d-flex justify-content-center align-items-center">
+                <nz-empty ></nz-empty>
+              </div>
+            </td>
+          </tr>
+          <tr *ngFor="let tache of tabSelected?.taches; let index = index">
+            <th scope="row">{{index+1}}</th>
+            <td>{{tache.tache.description}}</td>
+            <td><span class="py-1 px-3 rounded-3 bg-black bg-opacity-25 fw-bolder text-primary">{{tache.statut}}</span></td>
             <td>
               <div class="bg-dark bg-opacity-10 rounded-3 w-max hover-element py-1 px-3 cursor-pointer"><i class="fa fa-ellipsis-vertical"></i></div>
             </td>
           </tr>
           </tbody>
         </table>
+        <div class="w-100 d-flex justify-content-end p-2">
+          <nz-pagination (nzPageIndexChange)="changeIndexSelected($event)" [nzPageIndex]="selectedIndex" [nzTotal]="tabAll[0].length" nzPageSize="1"></nz-pagination>
+        </div>
       </div>
     </div>
   </div>

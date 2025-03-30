@@ -6,17 +6,20 @@ import {ClientHomeComponent} from './components/Client/Acceuil/ClientHome.Compon
 import {HomePageComponent} from './components/Client/home-page/home-page.component';
 import {DeviComponent} from './components/Client/devi/devi.component';
 import {CommandeComponent} from './components/Client/commande/commande.component';
+import { LoginAdminComponent } from './components/Admin/Mecano/login-admin/login-admin.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'bienvenu', pathMatch: 'full' },
   { path: 'bienvenu', component: LandingPageComponent },
   { path: 'login', component: LoginComponent },
   {path: 'inscription', component: InscriptionComponent},
+  {path: 'admin/login', component: LoginAdminComponent},
   {
     path: 'client',
     component: ClientHomeComponent,
     children: [
       {path: 'devi', component: DeviComponent},
+      { path: 'service/:id', component: CommandeComponent },
       {path: 'service', component: CommandeComponent},
       {path: 'home', component: HomePageComponent},
       {path: '', redirectTo: 'home', pathMatch: 'full'}

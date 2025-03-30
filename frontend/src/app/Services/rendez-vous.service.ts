@@ -39,7 +39,6 @@ export class RendezVousService {
     return this.http.get<RenderVous[]>(`${apiUrl()}rendezVous/client/absent`, { headers });
   }
 
-
   deleteRendezVous(header: { Authorization: string }, id: string): Observable<any>{
     const headers = new HttpHeaders({
       'Authorization': header.Authorization,
@@ -55,4 +54,17 @@ export class RendezVousService {
     return this.http.put<any>(`${apiUrl()}rendezVous/rendezvous/${id}/modifier-dates`, {dateDemande: newDates},{ headers });
   }
 
+  getByID(header: { Authorization: string },id:string): Observable<RenderVous>{
+    const headers = new HttpHeaders({
+      'Authorization': header.Authorization,
+    });
+    return this.http.get<RenderVous>(`${apiUrl()}rendezVous/${id}`, { headers });
+  }
+
+  getAll(header: { Authorization: string }): Observable<RenderVous[]>{
+    const headers = new HttpHeaders({
+      'Authorization': header.Authorization,
+    });
+    return this.http.get<RenderVous[]>(`${apiUrl()}rendezVous/client`, { headers });
+  }
 }

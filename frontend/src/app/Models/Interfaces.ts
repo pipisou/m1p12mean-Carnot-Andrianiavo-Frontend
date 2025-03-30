@@ -42,7 +42,11 @@ export interface DeviInsert {
   dateDemande :{dateHeureDebut: Date, dateHeureFin: Date}[]
   vehicule: string | null
 }
-
+interface Mecanicien {
+  nom: string
+  prenom: string
+  email: string
+}
 export interface RenderVous {
   _id: string
   articlesUtilises: []
@@ -50,5 +54,5 @@ export interface RenderVous {
   statut: string
   devis: {_id: string, referenceDevis: string, vehicule: Vehicule, taches: DetailService}
   dateChoisie?: Date
-  taches?: []
+  taches?: {dateHeureDebut: Date, dateHeureFin: Date, _id: string, statut: string, tache: DetailService, mecanicien: Mecanicien}[]
 }

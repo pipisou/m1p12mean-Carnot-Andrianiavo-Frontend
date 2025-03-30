@@ -11,11 +11,12 @@ import { AfficheDeviComponent } from '../affiche-devi/affiche-devi.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzEmptyModule} from 'ng-zorro-antd/empty';
-import {CurrentCommandeService} from '../commande/current-commande.service';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @Component({
   selector: 'app-home-page',
-  imports: [VehiculeComponent, NzModalModule, CommonModule, RendezVousComponent, AfficheDeviComponent, NzIconModule, NzEmptyModule ],
+  imports: [VehiculeComponent, NzPaginationModule, NzListModule, NzModalModule, CommonModule, RendezVousComponent, AfficheDeviComponent, NzIconModule, NzEmptyModule ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
   standalone: true
@@ -25,7 +26,7 @@ export class HomePageComponent {
   isVisible: boolean = false
   listSelectedDetailCat: Set<DetailService> = new Set<DetailService>()
   currentSelected: number=0
-  constructor( private router: Router, private quitter: QuitterService, private rendezVous: RendezVousService, private toast: NzMessageService, private currentRendeVousObject: CurrentCommandeService) {
+  constructor( private router: Router, private quitter: QuitterService, private rendezVous: RendezVousService, private toast: NzMessageService) {
     this.user = JSON.parse(sessionStorage.getItem("user") || '{}')
   }
   showModal(){
@@ -54,7 +55,8 @@ export class HomePageComponent {
   showConfirm(){
     this.quitter.showConfirm()
   }
-
+  selectedIndex=1
+  tabSelected: RenderVous | null = null;
   ngOnInit(){
     this.getAllAttente()
     this.getAllValidate()
@@ -100,6 +102,7 @@ export class HomePageComponent {
       rep=>{
         this.tabAll[0]=rep
         this.loadingEncours=false
+        this.tabSelected=this.tabAll[0][this.selectedIndex-1]
         console.log(rep)
       },
       error=>{
@@ -118,7 +121,11 @@ export class HomePageComponent {
   }
 
   navigateCommandeClicked(clickedCommande: RenderVous){
-    this.currentRendeVousObject.updateCommande(clickedCommande)
-    this.router.navigate(["/client/service"])
+    this.router.navigate(["/client/service", clickedCommande._id])
+  }
+
+  changeIndexSelected(pageIndex: number){
+    this.selectedIndex=pageIndex
+    this.tabSelected=this.tabAll[0][this.selectedIndex-1]
   }
 }

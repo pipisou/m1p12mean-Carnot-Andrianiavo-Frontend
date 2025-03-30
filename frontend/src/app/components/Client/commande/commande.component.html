@@ -1,14 +1,22 @@
-<div class="mx-2 h-100">
-  <h3 class="m-4">Services en cours</h3>
+<div *ngIf="selectedElement" class="mx-2 h-100">
+  <div class="w-100 d-inline-flex align-items-center justify-content-end p-2">
+    <nz-select [ngModel]="selected" (ngModelChange)="changeSelectedValue($event)" class="w-25" nzShowSearch nzAllowClear [nzPlaceHolder]="selectedElement?.devis?.referenceDevis ?? '------'" nzMode="default">
+      <nz-option *ngFor="let redv of commandeServices" [nzLabel]="redv?.devis?.referenceDevis  ?? ''" [nzValue]="redv?._id"></nz-option>
+    </nz-select>
+  </div>
+  <h3 class="m-2">Suivi de Services</h3>
   <div class="row m-0 p-0 w-100 justify-content-between">
     <div class="ms-3 bg-service rounded-4">
       <div class="m-3">
         <i class="fa fa-globe text-primary fs-4"></i>
       </div>
       <div class="w-100 text-print fs-6 color-bleu">
-        <span class="text-uppercase d-inline-block mb-2"><i class="fa fa-passport"></i> <span class="ms-2 text-white fs-5">ref-009809</span></span>
-        <span class="text-uppercase d-block mb-2"><i class="fa fa-car-alt"></i> <span class="text-white ms-2 fs-5">7525 TAB</span></span>
-        <span class="text-uppercase d-block mb-2 cursor-pointer" ><i class="fa fa-hourglass-2"></i> <span nz-tooltip nzTooltipTitle="Temps approximatif restant en heure" nzTooltipPlacement="right" [nzTooltipColor]="'#2db7f5'" class="text-white ms-2 fs-5">20</span></span>
+        <span class="text-uppercase d-inline-block mb-2"><i class="fa fa-passport"></i> <span class="ms-2 text-white fs-5">{{selectedElement?.devis?.referenceDevis ?? ''}}</span></span>
+        <span class="text-uppercase d-block mb-2"><i class="fa fa-car-alt"></i> <span class="text-white ms-2 fs-5">{{selectedElement?.devis?.vehicule?.immatriculation ?? ''}}</span></span>
+        <span class="text-uppercase d-block mb-2"><i class="fa fa-chart-simple"></i> <span class="text-white ms-2 fs-5">
+           {{ selectedElement && selectedElement?.statut?.includes('pr') ? 'EN COURS' : (selectedElement?.statut ?? '') }}
+        </span></span>
+        <!--<span class="text-uppercase d-block mb-2 cursor-pointer" ><i class="fa fa-hourglass-2"></i> <span nz-tooltip nzTooltipTitle="Temps approximatif restant en heure" nzTooltipPlacement="right" [nzTooltipColor]="'#2db7f5'" class="text-white ms-2 fs-5">20</span></span>-->
       </div>
     </div>
     <div class="bg-content d-flex justify-content-between align-items-center">
@@ -43,4 +51,9 @@
     </div>
   </div>
 </div>
-<app-affiche-devi *ngIf="afficheEnAttent" [isVisible]="afficheEnAttent" [listRendezVous]="commandeServices" (fonctHide)="hideAfficheEnAttent()"></app-affiche-devi>
+<app-affiche-devi class="z-1" *ngIf="afficheEnAttent" [isVisible]="afficheEnAttent" [listRendezVous]="commandeServices" (fonctHide)="hideAfficheEnAttent()"></app-affiche-devi>
+
+<div *ngIf="loading" class="vh-100 vw-100 bg-dark bg-opacity-10 top-0 z-3 start-0 d-flex justify-content-center align-items-center">
+  <nz-list nzItemLayout="horizontal" [nzLoading]="loading"></nz-list>
+</div>
+
