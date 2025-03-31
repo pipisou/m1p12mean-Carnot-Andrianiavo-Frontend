@@ -1,5 +1,8 @@
 .bg-service{
   width: 22rem;
-  /*flex:0 0 auto;*/
   background: linear-gradient(180deg, #b07a91, #325cb2);
+}
+
+.active-element{
+  background: linear-gradient(180deg, #86be26, #a89a);
 }

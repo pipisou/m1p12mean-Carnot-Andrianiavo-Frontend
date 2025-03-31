@@ -103,7 +103,6 @@ export class HomePageComponent {
         this.tabAll[0]=rep
         this.loadingEncours=false
         this.tabSelected=this.tabAll[0][this.selectedIndex-1]
-        console.log(rep)
       },
       error=>{
         this.toast.error(error.message, {nzDuration: 5000})

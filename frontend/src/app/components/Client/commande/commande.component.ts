@@ -52,6 +52,8 @@ export class CommandeComponent {
         this.afficheEnAttent=false
         this.selectedElement=rep
         this.selected=rep.devis.referenceDevis
+
+        console.log(rep)
       },
       error=>{
         this.loading=false
@@ -96,5 +98,9 @@ export class CommandeComponent {
     })
   }
 
+  activeElement: number = 1
 
+  updateActiveElement(value: number){
+    this.activeElement = value
+  }
 }

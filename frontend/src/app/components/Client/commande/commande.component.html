@@ -4,7 +4,7 @@
       <nz-option *ngFor="let redv of commandeServices" [nzLabel]="redv?.devis?.referenceDevis  ?? ''" [nzValue]="redv?._id"></nz-option>
     </nz-select>
   </div>
-  <h3 class="m-2">Suivi de Services</h3>
+  <h3 class="mb-4 ms-2">Suivi de Services</h3>
   <div class="row m-0 p-0 w-100 justify-content-between">
     <div class="ms-3 bg-service rounded-4">
       <div class="m-3">
@@ -20,34 +20,54 @@
       </div>
     </div>
     <div class="bg-content d-flex justify-content-between align-items-center">
-      <div class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element bg-body mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+      <div (click)="updateActiveElement(1)" [class]="activeElement===1 ? 'active-element': 'bg-body'" class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
         <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
           <i class="fa fa-globe small text-grey"></i>
         </div>
         <code class="text-pink d-block fs-3 fw-bold">1</code>
-        <span class="d-block fs-5 text-print">Service</span>
+        <span class="d-block fs-5 text-print">Taches</span>
       </div>
-      <div class="flex-grow-1 w-25-5rem bg-body cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+      <div (click)="updateActiveElement(2)" [class]="activeElement===2 ? 'active-element': 'bg-body'" class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
         <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
           <i class="fa fa-pen-to-square small text-grey"></i>
         </div>
         <code class="text-pink d-block fs-3 fw-bold">1</code>
-        <span class="d-block fs-5 text-print">Rendez-Vous</span>
+        <span class="d-block fs-5 text-print">Articles</span>
       </div>
-      <div class="flex-grow-1 bg-body w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+      <div (click)="updateActiveElement(3)" [class]="activeElement===3 ? 'active-element': 'bg-body'" class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
         <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
           <i class="fa fa-id-card-clip small text-grey"></i>
         </div>
         <code class="text-pink d-block fs-3 fw-bold">1</code>
-        <span class="d-block fs-5 text-print">Demande</span>
+        <span class="d-block fs-5 text-print">Rendez-vous</span>
       </div>
-      <div class="flex-grow-1 w-25-5rem bg-body cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+      <div (click)="updateActiveElement(4)" [class]="activeElement===4 ? 'active-element': 'bg-body'" class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
         <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
           <i class="fa fa-money-check-dollar small text-grey"></i>
         </div>
         <code class="text-pink d-block fs-3 fw-bold">1</code>
         <span class="d-block fs-5 text-print">Factures</span>
       </div>
+    </div>
+  </div>
+  <div *ngIf="selectedElement" class="row mt-4 mx-0 p-0 mx-2">
+    <div *ngIf="activeElement===1" class="">
+      <h4 class="text-print fw-bold text-grey">Avancement de tache</h4>
+      <div *ngIf="selectedElement?.statut?.includes('p'); else statusNonValider">
+        she want
+      </div>
+      <div #statusNonValider>
+        non valier
+      </div>
+    </div>
+    <div *ngIf="activeElement===2" class="">
+      <h4 class="text-print fw-bold text-grey">Article necessaire</h4>
+    </div>
+    <div *ngIf="activeElement===3" class="">
+      <h4 class="text-print fw-bold text-grey">Rendez-vous</h4>
+    </div>
+    <div *ngIf="activeElement===4" class="">
+      <h4 class="text-print fw-bold text-grey">Facturation</h4>
     </div>
   </div>
 </div>
