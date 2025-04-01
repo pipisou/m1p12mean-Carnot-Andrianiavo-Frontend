@@ -1,5 +1,5 @@
-.bg-garage{
-  background: url("../../../images/garage-bg.jpg") no-repeat center center/cover;
+.bg-garage {
+  background: url('/assets/img/garage-bg.jpg') no-repeat center center/cover;
 }
 .w-60{
   width: 60% !important;

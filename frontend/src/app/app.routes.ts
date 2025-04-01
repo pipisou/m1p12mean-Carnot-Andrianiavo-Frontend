@@ -7,6 +7,8 @@ import {HomePageComponent} from './components/Client/home-page/home-page.compone
 import {DeviComponent} from './components/Client/devi/devi.component';
 import {CommandeComponent} from './components/Client/commande/commande.component';
 import { LoginAdminComponent } from './components/Admin/Mecano/login-admin/login-admin.component';
+import { AccueilMecanoComponent } from './components/Admin/Mecano/accueil-mecano/accueil-mecano.component';
+import { HomeMecanoComponent } from './components/Admin/Mecano/home-mecano/home-mecano.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'bienvenu', pathMatch: 'full' },
@@ -24,5 +26,13 @@ export const routes: Routes = [
       {path: 'home', component: HomePageComponent},
       {path: '', redirectTo: 'home', pathMatch: 'full'}
     ]
-  }
+  },
+  {
+    path: 'mecanicien',
+    component: AccueilMecanoComponent,
+    children: [
+      {path: 'home', component: HomeMecanoComponent},
+      {path: '', redirectTo: 'home', pathMatch: 'full'}
+    ]
+  },
 ];
