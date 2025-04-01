@@ -122,7 +122,7 @@
               </div>
             </td>
           </tr>
-          <tr *ngFor="let tache of tabSelected?.taches; let index = index">
+          <tr (click)="clickedDetail(tache._id)" *ngFor="let tache of tabSelected?.taches; let index = index" class="cursor-pointer">
             <th scope="row">{{index+1}}</th>
             <td>{{tache.tache.description}}</td>
             <td><span class="py-1 px-3 rounded-3 bg-black bg-opacity-25 fw-bolder text-primary">{{tache.statut}}</span></td>
@@ -147,3 +147,5 @@
 <app-rendez-vous (modalClosed)="onModalClosed()" (closeInnerModal)="hideRendezVous()" [listSelectedDetailCat]="listSelectedDetailCat" [visibleRendezVous]="visibleRendezVous"></app-rendez-vous>
 
 <app-affiche-devi *ngIf="afficheEnAttent" [isVisible]="afficheEnAttent" [listRendezVous]="tabAll[currentSelected]" (fonctHide)="hideAfficheEnAttent()"></app-affiche-devi>
+
+<app-affiche-detail-tache [isVisible]="showImageTache" (hide)="hideTache()" [idDetailService]="idClickedTache"></app-affiche-detail-tache>

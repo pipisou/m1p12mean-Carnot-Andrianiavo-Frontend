@@ -3,17 +3,22 @@ import { Component } from '@angular/core';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { RendezVousService } from '../../../Services/rendez-vous.service';
 import { AfficheDeviComponent } from '../affiche-devi/affiche-devi.component';
-import {Login, RenderVous} from '../../../Models/Interfaces';
+import {DetailService, Login, Mecanicien, RenderVous} from '../../../Models/Interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Location } from '@angular/common';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms';
+import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
+import {QuitterService} from '../../quitter/quitter.service';
+import {ModifRendezvousComponent} from '../modif-rendezvous/modif-rendezvous.component';
+import {NzPaginationModule} from 'ng-zorro-antd/pagination';
+import {AfficheDetailTacheComponent} from '../affiche-detail-tache/affiche-detail-tache.component';
 
 @Component({
   selector: 'app-commande',
-  imports: [NzToolTipModule, AfficheDeviComponent, CommonModule,NzListModule, NzSelectModule, FormsModule],
+  imports: [NzToolTipModule, AfficheDetailTacheComponent, NzPaginationModule, ModifRendezvousComponent, AfficheDeviComponent, CommonModule,NzListModule, NzSelectModule, FormsModule, NzDropDownModule],
   templateUrl: './commande.component.html',
   styleUrl: './commande.component.css'
 })
@@ -27,7 +32,7 @@ export class CommandeComponent {
   selectedElement: RenderVous | null | undefined
   loadingAll = true
 
-  constructor(private route: ActivatedRoute, private routerNav: Router, private router: Location, private rendezVous: RendezVousService,private toast: NzMessageService) {
+  constructor(private route: ActivatedRoute, private quitter: QuitterService, private routerNav: Router, private router: Location, private rendezVous: RendezVousService,private toast: NzMessageService) {
     this.user = JSON.parse(sessionStorage.getItem("user") || '{}')
   }
 
@@ -78,19 +83,15 @@ export class CommandeComponent {
   }
 
   hideAfficheEnAttent(){
-    this.router.back()
+    this.routerNav.navigate(["/client/home"])
     this.afficheEnAttent = false
   }
 
   selected: string = ''
 
-  /*changeSelectedValue(val: any){
-    this.loading = true
-    this.routerNav.navigate(["/client/service", val])//il y a un probleme avec ceci, le system de loading dans   selecteByID(id: string) ne marche pas
-  }
-  ngDoCheck(){
-    console.log("changement...")
-  }*/
+  // ngDoCheck(){
+  //   console.log("changement...")
+  // }
   changeSelectedValue(val: any){
     this.loading = true;
     this.routerNav.navigateByUrl("/client/home", { skipLocationChange: true }).then(() => {
@@ -102,5 +103,90 @@ export class CommandeComponent {
 
   updateActiveElement(value: number){
     this.activeElement = value
+  }
+
+  clickDelete(){
+    this.quitter.showValidate(()=> this.deletedValidate(this.selectedElement?._id ?? ''),`Voulez-vous vraiment supprimer: ${this.selectedElement?.devis?.referenceDevis}`)
+  }
+
+  deletedValidate(id: string ){
+    this.loading = true
+    this.rendezVous.deleteRendezVous({ Authorization: `Bearer ${this.user.token}` }, id).subscribe(
+      rep=>{
+        this.commandeServices=[]
+        this.getAll()
+        this.afficheEnAttent=true
+        this.toast.info(rep.message, {nzDuration:5000})
+      },
+      error => {
+        this.toast.info(error.message, {nzDuration:5000})
+      }
+    )
+  }
+
+  tabCurrentDate: { dateHeureDebut: Date, dateHeureFin: Date }[] = []
+  redemander(){
+    this.loading = true
+    this.selectedElement?.dateDemande.map(({dateHeureDebut, dateHeureFin})=>this.tabCurrentDate.push({dateHeureDebut, dateHeureFin}))
+    this.rendezVous.modifPlageDate({ Authorization: `Bearer ${this.user.token}` }, this.tabCurrentDate, this.selectedElement?._id ?? '').subscribe(
+      rep=>{
+        this.loading = false
+        this.routerNav.navigateByUrl("/client/home", { skipLocationChange: true }).then(() => {
+          this.routerNav.navigate(["/client/service", this.selectedElement?._id]);
+        })
+      },
+      error => {
+        this.loading = false
+        this.toast.error(error.message, {nzDuration: 5000})
+      }
+    )
+  }
+  visibleModifRendezVous = false
+  hideModif(){
+    this.loading = false
+    this.visibleModifRendezVous = false
+  }
+  showModif(){
+    this.loading = true
+    this.visibleModifRendezVous = true
+  }
+
+  modifier(value : boolean){
+    this.loading = true
+    this.routerNav.navigateByUrl("/client/home", { skipLocationChange: true }).then(() => {
+      this.routerNav.navigate(["/client/service", this.selectedElement?._id]);
+    })
+  }
+
+
+  currentPage: number=1
+  pageSize = 10;
+
+  formatNumber(value: number): string {
+    return new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
+  }
+
+  get paginatedList() {
+    let arrayList: { dateHeureDebut: Date; dateHeureFin: Date; _id: string; statut: string; tache: DetailService; mecanicien: Mecanicien }[] | undefined =[]
+    if (this.selectedElement?.statut?.toLowerCase().includes('p')){
+      arrayList = this.selectedElement?.taches
+    }else{
+      arrayList=[]
+    }
+    const start = (this.currentPage - 1) * this.pageSize;
+    return arrayList?.slice(start, start + this.pageSize);
+  }
+
+  currentPageNonValider = 1
+
+  showImageTache = false
+  idClickedTache = ''
+  clickedDetail(id: string){
+    this.showImageTache = true
+    this.idClickedTache = id
+  }
+
+  hideTache(){
+    this.showImageTache = false
   }
 }

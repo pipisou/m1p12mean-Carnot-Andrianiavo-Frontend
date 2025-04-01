@@ -5,7 +5,9 @@
     <div class="-w-100 mb-3">
       <h5 class="text-grey text-print text-break text-center mb-2">Cliquer Sur la reference pour voir le detail</h5>
     </div>
-    <nz-empty *ngIf="listRendezVous.length===0"></nz-empty>
+    <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
+    </nz-list>
+    <nz-empty *ngIf="listRendezVous.length===0 && !loading"></nz-empty>
     <div *ngFor="let dev of listRendezVous" (click)="navigateCommandeClicked(dev)" class="rounded-3 bg-dark bg-opacity-25 p-2 cursor-pointer mb-2 hover-element">
       <div [class]="dev.statut.toLowerCase().includes('attente') ? 'text-danger' : 'color-bleu'" class="w-100 d-flex justify-content-between small text-print pb-2 border-bottom">
         <span class="ms-2 fw-bolder">{{dev.devis.referenceDevis}}</span>

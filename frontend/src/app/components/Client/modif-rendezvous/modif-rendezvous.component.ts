@@ -44,7 +44,7 @@ export class ModifRendezvousComponent {
         let disabledHours: number[] = [];
         for (let i = 0; i < 24; i++) {
           if (i < 7 || i >= 18) {
-            disabledHours.push(i); // Désactiver avant 07h et après 18h
+            disabledHours.push(i);
           }
         }
         return disabledHours;

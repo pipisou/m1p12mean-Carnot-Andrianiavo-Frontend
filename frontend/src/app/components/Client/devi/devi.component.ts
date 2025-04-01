@@ -318,7 +318,6 @@ export class DeviComponent {
 
   onModalClosed(): void {
     this.navigate.navigate(["/client/home"]).then(() => {
-      window.location.reload();
     });
   }
 }

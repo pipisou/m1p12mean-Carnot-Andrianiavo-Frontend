@@ -13,10 +13,11 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzEmptyModule} from 'ng-zorro-antd/empty';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import {AfficheDetailTacheComponent} from '../affiche-detail-tache/affiche-detail-tache.component';
 
 @Component({
   selector: 'app-home-page',
-  imports: [VehiculeComponent, NzPaginationModule, NzListModule, NzModalModule, CommonModule, RendezVousComponent, AfficheDeviComponent, NzIconModule, NzEmptyModule ],
+  imports: [VehiculeComponent, AfficheDetailTacheComponent, NzPaginationModule, NzListModule, NzModalModule, CommonModule, RendezVousComponent, AfficheDeviComponent, NzIconModule, NzEmptyModule ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
   standalone: true
@@ -126,5 +127,17 @@ export class HomePageComponent {
   changeIndexSelected(pageIndex: number){
     this.selectedIndex=pageIndex
     this.tabSelected=this.tabAll[0][this.selectedIndex-1]
+  }
+
+
+  showImageTache = false
+  idClickedTache = ''
+  clickedDetail(id: string){
+    this.showImageTache = true
+    this.idClickedTache = id
+  }
+
+  hideTache(){
+    this.showImageTache = false
   }
 }

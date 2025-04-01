@@ -5,16 +5,18 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import {NzEmptyModule} from 'ng-zorro-antd/empty';
 import {RenderVous} from '../../../Models/Interfaces';
 import {Router} from '@angular/router';
+import {NzListModule} from 'ng-zorro-antd/list';
 
 @Component({
   selector: 'app-affiche-devi',
-  imports: [NzModalModule, CommonModule, NzButtonModule, NzEmptyModule],
+  imports: [NzModalModule, CommonModule, NzButtonModule, NzEmptyModule, NzListModule],
   templateUrl: './affiche-devi.component.html',
   styleUrl: './affiche-devi.component.css'
 })
 export class AfficheDeviComponent {
   @Input() isVisible: boolean = false
   @Input() listRendezVous: RenderVous[] = []
+  @Input() loading?: boolean = false
 
   @Output() fonctHide: EventEmitter<void> = new EventEmitter<void>();
 

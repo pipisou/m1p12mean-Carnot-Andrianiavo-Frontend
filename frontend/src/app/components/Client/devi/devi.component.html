@@ -65,7 +65,7 @@
                     <tr *ngFor="let serv of paginatedList; let index=index">
                       <th scope="row">{{(pageSize*(currentPage-1))+index+1}}</th>
                       <td class="text-print">{{serv.description}}</td>
-                      <td class="text-prin">{{formatNumber(serv.prix)}}</td>
+                      <td class="text-print">{{formatNumber(serv.prix)}}</td>
                       <td>{{serv.tempsEstime}}</td>
                       <td><i (click)="receiveSelectedDetailsService(serv)" class="fa fa-trash text-danger cursor-pointer"></i></td>
                     </tr>
