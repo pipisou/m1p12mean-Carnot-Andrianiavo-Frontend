@@ -1,15 +1,8 @@
 <div class="vh-100 vw-100 p-0 m-0 overflow-x-hidden d-flex">
-
   <div class="w-100 m-0 p-0 d-flex flex-column h-100 ms-auto position-relative">
     <div class="bg-body position-absolute top-0 height-70px border-bottom w-100 d-inline-flex align-items-center justify-content-between p-2">
       <div class="ms-2">
         <img src="assets/img/logo.png" alt="logo" width="82.2" height="60">
-      </div>
-      <div class="h-100 d-inline-flex align-items-center ms-2 small text-print">
-        <!--<ng-container *ngFor="let url of page?.links; let last = last; let first = first">
-          <span [ngClass]="first ? 'text-primary-emphasis' : 'text-secondary-emphasis'" class="mx-1">{{ url }}</span>
-          <span *ngIf="!last" class="text-secondary-emphasis mx-1">/</span>
-        </ng-container>-->
       </div>
       <div class="d-inline-flex align-items-center h-100">
         <div class="mx-2">
@@ -28,16 +21,72 @@
             <li nz-menu-item>
               <span class="text-grey"><i class="fa fa-user-edit me-2"></i>Mettre à jour Mes infos</span>
             </li>
-            <li nz-menu-item>
+            <li (click)="showConfirm()" nz-menu-item>
               <span class="text-grey"><i class="fa fa-power-off me-2"></i>Deconnecter</span>
             </li>
           </ul>
         </nz-dropdown-menu>
       </div>
     </div>
-    <div class="flex-grow-1 mt-7">
-
-      <router-outlet></router-outlet>
+    <div class="flex-grow-1 mt-7 d-flex flex-column">
+      <div class="w-100 d-flex justify-content-between align-items-center mb-2">
+        <nz-breadcrumb class="ms-3">
+          <nz-breadcrumb-item *ngFor="let items of page.links">{{items}}</nz-breadcrumb-item>
+        </nz-breadcrumb>
+      </div>
+      <div class="flex-grow-1">
+        <div class="mx-2 h-100 d-flex flex-column">
+          <div class="w-100 mt-3 d-flex justify-content-between align-items-center">
+            <h3 class="ms-4">Mon tableau de bord</h3>
+            <nz-segmented class="me-3" [ngModel]="page.id">
+              <label (click)="navigateTo('projets')" nz-segmented-item [nzValue]="1">
+                <div class="py-2 px-3 text-print">
+                  Mes Projets
+                </div>
+              </label>
+              <label (click)="navigateTo('terminer')" nz-segmented-item [nzValue]="2">
+                <div class="py-2 px-3 text-print">
+                  À terminer
+                </div>
+              </label>
+              <label (click)="navigateTo('afaire')" nz-segmented-item [nzValue]="3">
+                <div class="py-2 px-3 text-print">
+                  À Faire
+                </div>
+              </label>
+            </nz-segmented>
+          </div>
+          <div class="mt-2 mb-2 flex-grow-1 mx-3">
+            <div class="h-100 row w-100 m-0 p-0 position-relative">
+              <div class="position-absolute top-0 col-4 start-0 h-100 p-2 border-end d-flex flex-column">
+                <div class="flex-grow-1">
+                  <div (click)="navigateTo('projets')" [class.bg-active-slid]="page.id===1" class="w-100 py-3 mb-2 text-print shadow cursor-pointer hover-scale-element d-inline-flex justify-content-between align-items-center slide-element">
+                    <span class="ms-2 fs-5"><i class="fa fa-check-double me-2 color-bleu"></i>Mes Projets</span>
+                    <span class="me-3 fw-bolder fs-5 color-bleu">4</span>
+                  </div>
+                  <div (click)="navigateTo('terminer')"  [class.bg-active-slid]="page.id===2" class="w-100 py-3 mb-2 text-print shadow cursor-pointer hover-scale-element d-inline-flex justify-content-between align-items-center slide-element">
+                    <span class="ms-2 fs-5"><i class="fa fa-check-circle me-2 text-success"></i> À terminer</span>
+                    <span class="me-3 fw-bolder fs-5 color-bleu">4</span>
+                  </div>
+                  <div (click)="navigateTo('afaire')"  [class.bg-active-slid]="page.id===3" class="w-100 py-3 mb-2 text-print shadow cursor-pointer hover-scale-element d-inline-flex justify-content-between align-items-center slide-element">
+                    <span class="ms-2 fs-5"><i class="fa fa-list-check me-2 text-warning"></i>À Faire</span>
+                    <span class="me-3 fw-bolder fs-5 color-bleu">4</span>
+                  </div>
+                </div>
+                <div>
+                  <div (click)="showConfirm()" class="d-inline-flex align-items-center mb-2 cursor-pointer hover-element text-print fs-6 color-bleu">
+                    <i class="fa fa-right-from-bracket mx-2"></i>
+                    <span>Quitter</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-8 offset-4 h-100 overflow-hidden">
+                <router-outlet></router-outlet>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="mt-auto bg-white shadow-lg">
       <app-footer-element></app-footer-element>

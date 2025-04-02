@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {Router} from '@angular/router';
-import {routes} from '../../app.routes';
 
 @Injectable({
   providedIn: 'root'

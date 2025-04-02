@@ -1,0 +1,134 @@
+<nz-card class="bg-body shadow rounded-3 h-100 align-items-lg-stretch mb-2" style="width: 100%" [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+  <nz-card-meta
+    nzTitle="6958 TAB"
+    nzDescription="DEV-0006"
+    [nzAvatar]="avatarTemplate"
+  ></nz-card-meta>
+</nz-card>
+<ng-template #avatarTemplate>
+  <nz-avatar nzSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLu1Mr1yYrZboybh6892z96u_ZcQjXTDsGRQ&s"></nz-avatar>
+</ng-template>
+<ng-template #actionSetting>
+  <div class="w-100 h-100" nz-popover [nzPopoverTitle]="titleTemplate" [nzPopoverContent]="contentTemplate">
+    {{valeur}}
+  </div>
+</ng-template>
+<ng-template #actionEdit>
+  <nz-progress
+    nz-tooltip
+    [nzTooltipTitle]="7 +' Fait / '+4+' En cours / '+5+' À faire'"
+    nzType="circle"
+    [nzWidth]="30"
+    [nzStatus]="'normal'"
+    [nzPercent]="50"
+    [nzSuccessPercent]="20"
+  ></nz-progress>
+</ng-template>
+<ng-template #actionEllipsis>
+  <div class="w-100 h-100" nz-popover [nzPopoverTitle]="titleTemplate2" [nzPopoverContent]="contentTemplate2">
+    {{valeur}}
+  </div>
+</ng-template>
+
+<ng-template #titleTemplate>
+  <div class="text-print text-center fw-bolder fs-4 color-bleu" style="width: 25rem;">
+    Votre Tache
+  </div>
+</ng-template>
+<ng-template #contentTemplate>
+  <div class="d-block" style="width: 25rem">
+    <nz-progress [nzPercent]="50" nzStatus="active" nzType="line"></nz-progress>
+    <div class="mt-2 w-100">
+      <div class="d-flex w-100 align-items-center justify-content-between rounded-3 hover-element cursor-pointer text-print bg-tache-active p-2 mb-2">
+        <label class="d-inline-flex align-items-center cursor-pointer">
+          <span class="rounded-circle bg-dark bg-opacity-25 d-flex me-1 justify-content-center align-items-center" style="width: 30px; height: 30px"><i class="far fa-circle"></i></span>
+          <span class="">ity ny tache atao</span>
+        </label>
+        <span><i class="fa fa-long-arrow-right"></i> </span>
+      </div>
+      <div class="d-flex w-100 align-items-center justify-content-between rounded-3 text-print p-2 mb-2">
+        <label class="d-inline-flex align-items-center">
+          <span class="rounded-circle bg-success bg-opacity-25 d-flex me-1 justify-content-center align-items-center" style="width: 30px; height: 30px"><i class="fa fa-check-circle text-success"></i></span>
+          <span class="text-decoration-line-through">ity ny tache atao</span>
+        </label>
+        <span><i class="fa fa-long-arrow-right d-none"></i> </span>
+      </div>
+      <div class="d-flex w-100 align-items-center justify-content-between rounded-3 text-print p-2 mb-2">
+        <label class="d-inline-flex align-items-center">
+          <span class="rounded-circle bg-success bg-opacity-25 d-flex me-1 justify-content-center align-items-center" style="width: 30px; height: 30px"><i class="fa fa-check-circle text-success"></i></span>
+          <span class="text-decoration-line-through">ity ny tache atao</span>
+        </label>
+        <span><i class="fa fa-long-arrow-right d-none"></i> </span>
+      </div>
+      <div class="d-flex w-100 align-items-center justify-content-between rounded-3 text-print p-2 mb-2">
+        <label class="d-inline-flex align-items-center">
+          <span class="rounded-circle bg-success bg-opacity-25 d-flex me-1 justify-content-center align-items-center" style="width: 30px; height: 30px"><i class="fa fa-check-circle text-success"></i></span>
+          <span class="text-decoration-line-through">ity ny tache atao</span>
+        </label>
+        <span><i class="fa fa-long-arrow-right d-none"></i> </span>
+      </div>
+      <div class="d-flex w-100 align-items-center justify-content-between rounded-3 text-print p-2 mb-2">
+        <label class="d-inline-flex align-items-center">
+          <span class="rounded-circle bg-success bg-opacity-25 d-flex me-1 justify-content-center align-items-center" style="width: 30px; height: 30px"><i class="fa fa-check-circle text-success"></i></span>
+          <span class="text-decoration-line-through">ity ny tache atao</span>
+        </label>
+        <span><i class="fa fa-long-arrow-right d-none"></i> </span>
+      </div>
+     </div>
+    <div class="w-100 p-2 d-inline-flex justify-content-end">
+      <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #titleTemplate2>
+  <div class="text-print text-center fw-bolder fs-4 color-bleu" style="width: 25rem;">
+    Les Taches Dans le projet
+  </div>
+</ng-template>
+<ng-template #contentTemplate2>
+  <div class="d-block" style="width: 25rem">
+    <nz-progress [nzPercent]="50" nzStatus="active" nzType="line"></nz-progress>
+    <div class="mt-2 w-100">
+      <div class="d-flex w-100 align-items-center justify-content-between rounded-3 hover-element cursor-pointer text-print bg-tache-active p-2 mb-2">
+        <label class="d-inline-flex align-items-center cursor-pointer">
+          <span class="rounded-circle bg-dark bg-opacity-25 d-flex me-1 justify-content-center align-items-center" style="width: 30px; height: 30px">1</span>
+          <span class="">ity ny tache atao</span>
+        </label>
+        <span><i class="fa fa-long-arrow-right"></i> </span>
+      </div>
+      <div class="d-flex w-100 align-items-center justify-content-between rounded-3 text-print p-2 mb-2">
+        <label class="d-inline-flex align-items-center">
+          <span class="rounded-circle bg-dark bg-opacity-25 d-flex me-1 justify-content-center align-items-center" style="width: 30px; height: 30px">1</span>
+          <span class="text-decoration-line-through">ity ny tache atao</span>
+        </label>
+        <span><i class="fa fa-long-arrow-right d-none"></i> </span>
+      </div>
+      <div class="d-flex w-100 align-items-center justify-content-between rounded-3 text-print p-2 mb-2">
+        <label class="d-inline-flex align-items-center">
+          <span class="rounded-circle bg-dark bg-opacity-25 d-flex me-1 justify-content-center align-items-center" style="width: 30px; height: 30px">1</span>
+          <span class="text-decoration-line-through">ity ny tache atao</span>
+        </label>
+        <span><i class="fa fa-long-arrow-right d-none"></i> </span>
+      </div>
+      <div class="d-flex w-100 align-items-center justify-content-between rounded-3 text-print p-2 mb-2">
+        <label class="d-inline-flex align-items-center">
+          <span class="rounded-circle bg-dark bg-opacity-25 d-flex me-1 justify-content-center align-items-center" style="width: 30px; height: 30px">1</span>
+          <span class="text-decoration-line-through">ity ny tache atao</span>
+        </label>
+        <span><i class="fa fa-long-arrow-right d-none"></i> </span>
+      </div>
+      <div class="d-flex w-100 align-items-center justify-content-between rounded-3 text-print p-2 mb-2">
+        <label class="d-inline-flex align-items-center">
+          <span class="rounded-circle bg-dark bg-opacity-25 d-flex me-1 justify-content-center align-items-center" style="width: 30px; height: 30px">1</span>
+          <span class="text-decoration-line-through">ity ny tache atao</span>
+        </label>
+        <span><i class="fa fa-long-arrow-right d-none"></i> </span>
+      </div>
+    </div>
+    <div class="w-100 p-2 d-inline-flex justify-content-end">
+      <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+    </div>
+  </div>
+</ng-template>

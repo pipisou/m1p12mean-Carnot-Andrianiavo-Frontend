@@ -26,7 +26,7 @@ export class LoginAdminComponent {
 
 
   submitMecanicien(){
-    this.router.navigate(['/mecanicien/home']);
+    this.router.navigate(['/mecanicien/']);
   }
   submitAdmin(){
   }
