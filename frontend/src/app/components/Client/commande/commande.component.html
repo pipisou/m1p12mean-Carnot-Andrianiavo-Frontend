@@ -4,11 +4,19 @@
       <nz-option *ngFor="let redv of commandeServices" [nzLabel]="redv?.devis?.referenceDevis  ?? ''" [nzValue]="redv?._id"></nz-option>
     </nz-select>
   </div>
-  <h3 class="mb-4 ms-2">Suivi de Services</h3>
+  <h3 class="mb-4 ms-2"><i class="fa fa-globe text-primary fs-4 me-2"></i>Suivi de Services</h3>
   <div class="row m-0 p-0 w-100 justify-content-between">
     <div class="ms-3 bg-service rounded-4 position-relative">
       <div class="m-3">
-        <i class="fa fa-globe text-primary fs-4"></i>
+        <nz-progress
+          nz-tooltip
+          [nzTooltipTitle]="statistique.terminer +' Fait / '+statistique.encours+' En cours / '+statistique.afaire+' À faire'"
+          nzType="circle"
+          [nzWidth]="80"
+          [nzStatus]="(this.selectedElement?.taches?.length ?? 0)===0 ? 'exception' : statistique.pourcentage>99 ? 'success' : 'normal'"
+          [nzPercent]="statistique.pourcentage"
+          [nzSuccessPercent]="statistique.terminer"
+        ></nz-progress>
       </div>
       <div class="w-100 text-print fs-6 color-bleu">
         <span class="text-uppercase d-inline-block mb-2"><i class="fa fa-passport"></i><span class="ms-2 text-white fs-5">{{selectedElement?.devis?.referenceDevis ?? ''}}</span></span>

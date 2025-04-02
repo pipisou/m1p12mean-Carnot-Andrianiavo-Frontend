@@ -14,10 +14,11 @@ import {NzEmptyModule} from 'ng-zorro-antd/empty';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import {AfficheDetailTacheComponent} from '../affiche-detail-tache/affiche-detail-tache.component';
+import {NzProgressModule} from 'ng-zorro-antd/progress';
 
 @Component({
   selector: 'app-home-page',
-  imports: [VehiculeComponent, AfficheDetailTacheComponent, NzPaginationModule, NzListModule, NzModalModule, CommonModule, RendezVousComponent, AfficheDeviComponent, NzIconModule, NzEmptyModule ],
+  imports: [VehiculeComponent, NzProgressModule, AfficheDetailTacheComponent, NzPaginationModule, NzListModule, NzModalModule, CommonModule, RendezVousComponent, AfficheDeviComponent, NzIconModule, NzEmptyModule ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
   standalone: true
@@ -139,5 +140,25 @@ export class HomePageComponent {
 
   hideTache(){
     this.showImageTache = false
+  }
+
+  getPourcentage(objRendezVous: RenderVous){
+    let ter=0
+    let en = 0
+    let a = 0
+    objRendezVous?.taches?.map(({statut})=>{
+      if (statut.toLowerCase().includes('ter')){
+        ter+=10
+      }else if(statut.toLowerCase().includes('cou')){
+        en+=5
+      }else{
+        a+=1
+      }
+    })
+    let pour = 0
+    if ((objRendezVous?.taches?.length ?? 0) > 0) {
+      pour=(100*(ter+en))/((objRendezVous?.taches?.length ?? 0)*10)
+    }
+    return pour
   }
 }

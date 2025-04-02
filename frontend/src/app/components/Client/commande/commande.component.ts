@@ -15,10 +15,11 @@ import {QuitterService} from '../../quitter/quitter.service';
 import {ModifRendezvousComponent} from '../modif-rendezvous/modif-rendezvous.component';
 import {NzPaginationModule} from 'ng-zorro-antd/pagination';
 import {AfficheDetailTacheComponent} from '../affiche-detail-tache/affiche-detail-tache.component';
+import {NzProgressModule} from 'ng-zorro-antd/progress';
 
 @Component({
   selector: 'app-commande',
-  imports: [NzToolTipModule, AfficheDetailTacheComponent, NzPaginationModule, ModifRendezvousComponent, AfficheDeviComponent, CommonModule,NzListModule, NzSelectModule, FormsModule, NzDropDownModule],
+  imports: [NzToolTipModule, NzProgressModule, AfficheDetailTacheComponent, NzPaginationModule, ModifRendezvousComponent, AfficheDeviComponent, CommonModule,NzListModule, NzSelectModule, FormsModule, NzDropDownModule],
   templateUrl: './commande.component.html',
   styleUrl: './commande.component.css'
 })
@@ -188,5 +189,36 @@ export class CommandeComponent {
 
   hideTache(){
     this.showImageTache = false
+  }
+
+  private _statistique: { encours: number; afaire: number; pourcentage: number; terminer: number } = {
+    encours: 0,
+    afaire: 0,
+    pourcentage: 0,
+    terminer: 0
+  };
+
+
+  get statistique(){
+    let ter=0
+    let en = 0
+    let a = 0
+    if (this.selectedElement?.statut?.toLowerCase().includes('p')){
+      this.selectedElement?.taches?.map(({statut})=>{
+        if (statut.toLowerCase().includes('ter')){
+          ter+=10
+        }else if(statut.toLowerCase().includes('cou')){
+          en+=5
+        }else{
+          a+=1
+        }
+      })
+    }
+    let pour = 0
+    if ((this.selectedElement?.taches?.length ?? 0) > 0) {
+      pour=(100*(ter+en))/((this.selectedElement?.taches?.length ?? 0)*10)
+    }
+    this._statistique={terminer: ter/10, encours: en/5, afaire: a, pourcentage: pour}
+    return this._statistique
   }
 }

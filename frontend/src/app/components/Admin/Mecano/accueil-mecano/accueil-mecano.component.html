@@ -1,30 +1,10 @@
 <div class="vh-100 vw-100 p-0 m-0 overflow-x-hidden d-flex">
-  <div class="width-20 h-100 m-0 p-0 position-fixed top-0 bg-body shadow-lg position-relative">
-    <div class="w-100 p-3 position-absolute top-0 d-flex rounded-3 justify-content-center bg-body shadow-lg">
-      <img src="assets/img/logo.png" alt="logo" class="rounded-3" width="121" height="100">
-    </div>
-    <div class="d-flex flex-column overflow-auto m-125 mb-0 mx-0 w-100 p-0 ">
-      <div class="flex-grow-1 w-100">
-        <div
-          class="d-flex flex-column align-items-center fs-5 text-print justify-content-center py-3 cursor-pointer hover-element mb-2 slide-element">
-          <i class="fa fa-dashboard"></i>
-          <span class="d-block mt-1">Dashboard</span>
-        </div>
-        <div
-          class="d-flex flex-column align-items-center fs-5 text-print justify-content-center py-3 cursor-pointer hover-element mb-2 slide-element">
-          <i class="fa fa-pen-to-square"></i>
-          <span class="d-block mt-1">Devi</span>
-        </div>
-        <div
-          class="d-flex flex-column align-items-center fs-5 text-print justify-content-center py-3 cursor-pointer hover-element mb-2 slide-element">
-          <i class="fa fa-globe"></i>
-          <span class="d-block mt-1">Mes Commandes</span>
-        </div>
+
+  <div class="w-100 m-0 p-0 d-flex flex-column h-100 ms-auto position-relative">
+    <div class="bg-body position-absolute top-0 height-70px border-bottom w-100 d-inline-flex align-items-center justify-content-between p-2">
+      <div class="ms-2">
+        <img src="assets/img/logo.png" alt="logo" width="82.2" height="60">
       </div>
-    </div>
-  </div>
-  <div class="width-80 m-0 p-0 d-flex flex-column h-100 ms-auto position-relative">
-    <div class="bg-body height-70px border-bottom border-start mb-3 w-100 d-inline-flex align-items-center justify-content-between p-2">
       <div class="h-100 d-inline-flex align-items-center ms-2 small text-print">
         <!--<ng-container *ngFor="let url of page?.links; let last = last; let first = first">
           <span [ngClass]="first ? 'text-primary-emphasis' : 'text-secondary-emphasis'" class="mx-1">{{ url }}</span>
@@ -39,9 +19,9 @@
           <span class="bg-dark bg-opacity-10 w-h d-flex justify-content-center align-items-center rounded-circle cursor-pointer"><i class="fa fa-bell"></i></span>
         </div>
         <div nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomCenter" class="mx-3 d-inline-flex align-items-center fs-6 text-print cursor-pointer text-info-emphasis text-capitalize">
-          <!--<span class="w-h-min d-flex justify-content-center align-items-center me-2"><i class="fa fa-user"></i></span>
-          <span class="me-2 text-capitalize"> {{user.client.prenom}}</span>
-          <span class="text-capitalize"> {{user.client.nom}}</span>-->
+          <span class="w-h-min d-flex justify-content-center align-items-center me-2"><i class="fa fa-user"></i></span>
+          <span class="me-2 text-capitalize">Andrianiavo</span>
+          <span class="text-capitalize">Razanadahy</span>
         </div>
         <nz-dropdown-menu #menu="nzDropdownMenu">
           <ul nz-menu>
@@ -55,7 +35,8 @@
         </nz-dropdown-menu>
       </div>
     </div>
-    <div class="flex-grow-1">
+    <div class="flex-grow-1 mt-7">
+
       <router-outlet></router-outlet>
     </div>
     <div class="mt-auto bg-white shadow-lg">
