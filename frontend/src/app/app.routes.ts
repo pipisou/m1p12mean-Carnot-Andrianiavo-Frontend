@@ -8,9 +8,7 @@ import {DeviComponent} from './components/Client/devi/devi.component';
 import {CommandeComponent} from './components/Client/commande/commande.component';
 import { LoginAdminComponent } from './components/Admin/Mecano/login-admin/login-admin.component';
 import { AccueilMecanoComponent } from './components/Admin/Mecano/accueil-mecano/accueil-mecano.component';
-import { HomeMecanoComponent } from './components/Admin/Mecano/home-mecano/home-mecano.component';
-import {AfaireComponent} from './components/Admin/Mecano/afaire/afaire.component';
-import {TerminerComponent} from './components/Admin/Mecano/terminer/terminer.component';
+import {EmptyComponent} from './empty/empty.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'bienvenu', pathMatch: 'full' },
@@ -33,9 +31,9 @@ export const routes: Routes = [
     path: 'mecanicien',
     component: AccueilMecanoComponent,
     children: [
-      {path: 'projets', component: HomeMecanoComponent},
-      {path: 'afaire', component: AfaireComponent},
-      {path: 'terminer', component: TerminerComponent},
+      {path: 'projets', component: EmptyComponent},
+      {path: 'afaire', component: EmptyComponent},
+      {path: 'terminer', component: EmptyComponent},
       {path: '', redirectTo: 'projets', pathMatch: 'full'}
     ]
   },

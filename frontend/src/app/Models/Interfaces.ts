@@ -56,3 +56,7 @@ export interface RenderVous {
   dateChoisie?: Date
   taches?: {dateHeureDebut: Date, dateHeureFin: Date, _id: string, statut: string, tache: DetailService, mecanicien: Mecanicien}[]
 }
+export interface LoginMecanicien {
+  mecanicien: Mecanicien
+  token: string
+}

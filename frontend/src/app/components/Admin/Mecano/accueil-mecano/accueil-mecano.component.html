@@ -81,7 +81,9 @@
                 </div>
               </div>
               <div class="col-8 offset-4 h-100 overflow-hidden">
-                <router-outlet></router-outlet>
+                <app-home-mecano *ngIf="page.id===1"></app-home-mecano>
+                <app-afaire *ngIf="page.id===2"></app-afaire>
+                <app-terminer *ngIf="page.id===3"></app-terminer>
               </div>
             </div>
           </div>

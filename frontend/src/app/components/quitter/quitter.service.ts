@@ -15,10 +15,8 @@ export class QuitterService {
       nzOkText: 'Valider',
       nzOkType: 'primary',
       nzOnOk: () => {
-        sessionStorage.clear()
-        this.routeur.navigate(["/bienvenu"]).then(()=>{
-          // window.location.reload()
-        })
+        this.routeur.navigate(['/bienvenu']).then(()=>sessionStorage.clear())
+        return
       }
     });
   }

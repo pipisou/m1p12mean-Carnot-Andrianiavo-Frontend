@@ -14,21 +14,31 @@ import {QuitterService} from '../../../quitter/quitter.service';
 import {NzProgressModule} from 'ng-zorro-antd/progress';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {MecanoRoutes} from '../../../../Conf/RouteConf';
+import { HomeMecanoComponent } from '../home-mecano/home-mecano.component';
+import { AfaireComponent } from '../afaire/afaire.component';
+import { TerminerComponent } from '../terminer/terminer.component';
+import { LoginMecanicien } from '../../../../Models/Interfaces';
 
 @Component({
   selector: 'app-accueil-mecano',
-  imports: [NzDropDownModule, RouterModule, NzSegmentedModule,FormsModule, CommonModule, FooterElementComponent, NzBreadCrumbModule, NzIconModule, NzMenuModule, NzLayoutModule, NzListModule, NzProgressModule, NzToolTipModule],
+  imports: [NzDropDownModule, HomeMecanoComponent, AfaireComponent, TerminerComponent, RouterModule, NzSegmentedModule,FormsModule, CommonModule, FooterElementComponent, NzBreadCrumbModule, NzIconModule, NzMenuModule, NzLayoutModule, NzListModule, NzProgressModule, NzToolTipModule],
   templateUrl: './accueil-mecano.component.html',
   styleUrl: './accueil-mecano.component.css'
 })
 export class AccueilMecanoComponent {
   routeConf: any[]
   page: any = null
+  mecanicien: LoginMecanicien
   constructor(private router: Router,  private quitter: QuitterService) {
     this.routeConf = MecanoRoutes
+    this.mecanicien = JSON.parse(sessionStorage.getItem("user") || '{}')
   }
 
   ngOnInit(){
+    if (!this.mecanicien.token){
+      this.router.navigate(["admin/login"])
+      return
+    }
     this.updatePageFromUrl()
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

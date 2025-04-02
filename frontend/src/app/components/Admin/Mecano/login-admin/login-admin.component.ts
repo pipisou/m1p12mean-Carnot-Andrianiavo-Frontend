@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ApiService } from '../../../../api.service';
 
 @Component({
   selector: 'app-login-admin',
@@ -12,7 +14,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 })
 export class LoginAdminComponent {
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private apiLogin: ApiService, private toast: NzMessageService) {
   }
 
   user = {
@@ -20,13 +22,30 @@ export class LoginAdminComponent {
     motDePasse: 'password123'
   };
   isAdmin = true
+  isLoading= false
   modifIsAdmin(value: boolean){
+    this.isLoading=false
+    this.user = {
+      email: 'carnotrandriamiandravola@gmail.com',
+      motDePasse: 'password123'
+    };
     this.isAdmin = value
   }
 
 
   submitMecanicien(){
-    this.router.navigate(['/mecanicien/']);
+    this.isLoading = true
+    this.apiLogin.loginMecanicien(this.user).subscribe(
+      rep=>{
+        sessionStorage.setItem("user",JSON.stringify(rep))
+        this.isLoading = false
+        this.router.navigate(['/mecanicien/']);
+      },
+      error=>{
+        this.isLoading = false
+        this.toast.error(error.message, {nzDuration: 5000})
+      }
+    )
   }
   submitAdmin(){
   }

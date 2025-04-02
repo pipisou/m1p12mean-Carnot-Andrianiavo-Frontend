@@ -19,7 +19,7 @@
             <label class="mb-1 fs-6" for="exampleInputPassword1">Mot de passe</label>
             <input type="password" autocomplete="off" [(ngModel)]="user.motDePasse" class="form-control" id="exampleInputPassword1" placeholder="Password">
           </div>
-          <button nz-button nzType="primary" [nzLoading]="false" (click)="submitAdmin()">Se connecter</button>
+          <button nz-button nzType="primary" [nzLoading]="isLoading" (click)="submitAdmin()">Se connecter</button>
          </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
             <label class="mb-1 fs-6" for="exampleInputPassword1">Mot de passe</label>
             <input type="password" autocomplete="off" [(ngModel)]="user.motDePasse" class="form-control" id="exampleInputPassword1" placeholder="Password">
           </div>
-          <button nz-button nzType="primary" [nzLoading]="false" (click)="submitMecanicien()">Se connecter</button>
+          <button nz-button nzType="primary" [nzLoading]="isLoading" (click)="submitMecanicien()">Se connecter</button>
         </div>
       </div>
       <div class="col-6 h-100 bg-info rounded-start-7 position-relative d-flex flex-column justify-content-center align-items-center">

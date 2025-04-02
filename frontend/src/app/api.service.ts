@@ -18,4 +18,7 @@ export class ApiService {
     });
     return this.http.get(`${apiUrl()}client/me`, { headers });
   }
+  loginMecanicien(credentials: { email: string; motDePasse: string }): Observable<any>{
+    return this.http.post(`${apiUrl()}mecanicien/login`, credentials);
+  }
 }
