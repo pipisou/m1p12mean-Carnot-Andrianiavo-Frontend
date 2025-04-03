@@ -17,6 +17,7 @@ export class AfficheDeviComponent {
   @Input() isVisible: boolean = false
   @Input() listRendezVous: RenderVous[] = []
   @Input() loading?: boolean = false
+  @Input() isFacture?: boolean = false
 
   @Output() fonctHide: EventEmitter<void> = new EventEmitter<void>();
 
@@ -31,7 +32,10 @@ export class AfficheDeviComponent {
   constructor(private router: Router) {
   }
   navigateCommandeClicked(clickedCommande: RenderVous){
+    if (this.isFacture){
+      this.router.navigate(["/client/service", clickedCommande._id],{queryParams:{facturation: true}})
+      return
+    }
     this.router.navigate(["/client/service", clickedCommande._id])
   }
-
 }

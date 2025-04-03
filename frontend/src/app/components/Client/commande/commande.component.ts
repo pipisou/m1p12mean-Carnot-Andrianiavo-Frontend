@@ -16,10 +16,12 @@ import {ModifRendezvousComponent} from '../modif-rendezvous/modif-rendezvous.com
 import {NzPaginationModule} from 'ng-zorro-antd/pagination';
 import {AfficheDetailTacheComponent} from '../affiche-detail-tache/affiche-detail-tache.component';
 import {NzProgressModule} from 'ng-zorro-antd/progress';
+import {query} from '@angular/animations';
+import {PdfViewerModule} from 'ng2-pdf-viewer';
 
 @Component({
   selector: 'app-commande',
-  imports: [NzToolTipModule, NzProgressModule, AfficheDetailTacheComponent, NzPaginationModule, ModifRendezvousComponent, AfficheDeviComponent, CommonModule,NzListModule, NzSelectModule, FormsModule, NzDropDownModule],
+  imports: [NzToolTipModule, PdfViewerModule, NzProgressModule, AfficheDetailTacheComponent, NzPaginationModule, ModifRendezvousComponent, AfficheDeviComponent, CommonModule,NzListModule, NzSelectModule, FormsModule, NzDropDownModule],
   templateUrl: './commande.component.html',
   styleUrl: './commande.component.css'
 })
@@ -47,6 +49,11 @@ export class CommandeComponent {
         this.afficheEnAttent = true
       }
     });
+    this.route.queryParams.subscribe(query=>{
+      if (query['facturation']){
+        this.updateActiveElement(4)
+      }
+    })
     this.getAll()
   }
 
@@ -58,8 +65,6 @@ export class CommandeComponent {
         this.afficheEnAttent=false
         this.selectedElement=rep
         this.selected=rep.devis.referenceDevis
-
-        console.log(rep)
       },
       error=>{
         this.loading=false
@@ -103,6 +108,9 @@ export class CommandeComponent {
   activeElement: number = 1
 
   updateActiveElement(value: number){
+    if (this.selectedElement?.statut.toLowerCase().includes('att') && value===4){
+      return
+    }
     this.activeElement = value
   }
 

@@ -21,7 +21,7 @@ export const routes: Routes = [
     component: ClientHomeComponent,
     children: [
       {path: 'devi', component: DeviComponent},
-      { path: 'service/:id', component: CommandeComponent },
+      { path: 'service/:id', component: CommandeComponent },//je veux envoyer aussi d'autre parametre
       {path: 'service', component: CommandeComponent},
       {path: 'home', component: HomePageComponent},
       {path: '', redirectTo: 'home', pathMatch: 'full'}

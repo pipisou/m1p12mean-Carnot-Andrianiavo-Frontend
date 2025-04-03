@@ -6,3 +6,7 @@
 .active-element{
   background: linear-gradient(180deg, #86be26, #a89a);
 }
+
+.h-max{
+  height: max-content;
+}

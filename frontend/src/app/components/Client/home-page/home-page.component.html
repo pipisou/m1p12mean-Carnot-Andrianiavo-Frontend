@@ -30,7 +30,7 @@
         <code class="text-pink d-block fs-3 fw-bold">{{tabAll[1].length}}</code>
         <span class="d-block fs-5 text-print">Rendez-Vous</span>
       </div>
-      <div (click)="showAfficheEnAttent(2)" disa class="flex-grow-1 bg-body w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+      <div (click)="showAfficheEnAttent(2)" class="flex-grow-1 bg-body w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
         <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
           <nz-icon *ngIf="loadingAttente" class="small" nzType="loading" nzTheme="outline"></nz-icon>
           <i *ngIf="!loadingAttente" class="fa fa-calendar-xmark small text-grey"></i>
@@ -38,11 +38,11 @@
         <code class="text-pink d-block fs-3 fw-bold">{{tabAll[2].length}}</code>
         <span class="d-block fs-5 text-print">En attente</span>
       </div>
-      <div class="flex-grow-1 w-25-5rem bg-body cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+      <div (click)="showAfficheEnAttent(3)"  class="flex-grow-1 w-25-5rem bg-body cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
         <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
           <i class="fa fa-money-check-dollar small text-grey"></i>
         </div>
-        <code class="text-pink d-block fs-3 fw-bold">1</code>
+        <code class="text-pink d-block fs-3 fw-bold">{{facturation.length}}</code>
         <span class="d-block fs-5 text-print">Facturation</span>
       </div>
     </div>
@@ -146,6 +146,6 @@
 </nz-modal>
 <app-rendez-vous (modalClosed)="onModalClosed()" (closeInnerModal)="hideRendezVous()" [listSelectedDetailCat]="listSelectedDetailCat" [visibleRendezVous]="visibleRendezVous"></app-rendez-vous>
 
-<app-affiche-devi *ngIf="afficheEnAttent" [isVisible]="afficheEnAttent" [listRendezVous]="tabAll[currentSelected]" (fonctHide)="hideAfficheEnAttent()"></app-affiche-devi>
+<app-affiche-devi [isFacture]="isFacture" *ngIf="afficheEnAttent" [isVisible]="afficheEnAttent" [listRendezVous]="tabAll[currentSelected]" (fonctHide)="hideAfficheEnAttent()"></app-affiche-devi>
 
 <app-affiche-detail-tache [isVisible]="showImageTache" (hide)="hideTache()" [idDetailService]="idClickedTache"></app-affiche-detail-tache>

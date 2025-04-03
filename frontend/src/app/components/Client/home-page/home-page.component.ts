@@ -65,7 +65,7 @@ export class HomePageComponent {
     this.getEncours()
   }
   afficheEnAttent: boolean = false
-  tabAll: RenderVous[][] =[[],[],[]]
+  tabAll: RenderVous[][] =[[],[],[],[]]
   loadingAttente = true
   getAllAttente(){
     this.loadingAttente = true
@@ -112,8 +112,13 @@ export class HomePageComponent {
       }
     )
   }
-
+  isFacture = false
   showAfficheEnAttent(selected: number){
+    if (selected===3){
+      this.isFacture = true
+    }else {
+      this.isFacture = false
+    }
     this.currentSelected = selected
     this.afficheEnAttent = true
   }
@@ -160,5 +165,18 @@ export class HomePageComponent {
       pour=(100*(ter+en))/((objRendezVous?.taches?.length ?? 0)*10)
     }
     return pour
+  }
+
+  private _facturation: RenderVous[] = []
+
+  get facturation(){
+    this._facturation = []
+    this.tabAll[0].map((element)=>{
+      if (this.getPourcentage(element)===100){
+        this._facturation.push(element)
+      }
+    })
+    this.tabAll[3]=this._facturation
+    return this._facturation
   }
 }
