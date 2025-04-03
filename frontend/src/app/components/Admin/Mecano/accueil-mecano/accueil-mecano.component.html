@@ -13,8 +13,8 @@
         </div>
         <div nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomCenter" class="mx-3 d-inline-flex align-items-center fs-6 text-print cursor-pointer text-info-emphasis text-capitalize">
           <span class="w-h-min d-flex justify-content-center align-items-center me-2"><i class="fa fa-user"></i></span>
-          <span class="me-2 text-capitalize">Andrianiavo</span>
-          <span class="text-capitalize">Razanadahy</span>
+          <span class="me-2 text-capitalize">{{mecanicien.mecanicien.prenom}}</span>
+          <span class="text-capitalize">{{mecanicien.mecanicien.nom}}</span>
         </div>
         <nz-dropdown-menu #menu="nzDropdownMenu">
           <ul nz-menu>
@@ -62,15 +62,15 @@
                 <div class="flex-grow-1">
                   <div (click)="navigateTo('projets')" [class.bg-active-slid]="page.id===1" class="w-100 py-3 mb-2 text-print shadow cursor-pointer hover-scale-element d-inline-flex justify-content-between align-items-center slide-element">
                     <span class="ms-2 fs-5"><i class="fa fa-check-double me-2 color-bleu"></i>Mes Projets</span>
-                    <span class="me-3 fw-bolder fs-5 color-bleu">4</span>
+                    <span class="me-3 fw-bolder fs-5 color-bleu">{{listRendezVous.length}}</span>
                   </div>
                   <div (click)="navigateTo('terminer')"  [class.bg-active-slid]="page.id===2" class="w-100 py-3 mb-2 text-print shadow cursor-pointer hover-scale-element d-inline-flex justify-content-between align-items-center slide-element">
                     <span class="ms-2 fs-5"><i class="fa fa-check-circle me-2 text-success"></i> À terminer</span>
-                    <span class="me-3 fw-bolder fs-5 color-bleu">4</span>
+                    <span class="me-3 fw-bolder fs-5 color-bleu">{{aterminer.length}}</span>
                   </div>
                   <div (click)="navigateTo('afaire')"  [class.bg-active-slid]="page.id===3" class="w-100 py-3 mb-2 text-print shadow cursor-pointer hover-scale-element d-inline-flex justify-content-between align-items-center slide-element">
                     <span class="ms-2 fs-5"><i class="fa fa-list-check me-2 text-warning"></i>À Faire</span>
-                    <span class="me-3 fw-bolder fs-5 color-bleu">4</span>
+                    <span class="me-3 fw-bolder fs-5 color-bleu">{{tacheAfaire.length}}</span>
                   </div>
                 </div>
                 <div>
@@ -81,9 +81,9 @@
                 </div>
               </div>
               <div class="col-8 offset-4 h-100 overflow-hidden">
-                <app-home-mecano *ngIf="page.id===1"></app-home-mecano>
-                <app-afaire *ngIf="page.id===2"></app-afaire>
-                <app-terminer *ngIf="page.id===3"></app-terminer>
+                <app-home-mecano *ngIf="page.id===1" [listRendezVous]="listRendezVous"></app-home-mecano>
+                <app-afaire [tacheAfaire]="tacheAfaire" (afterUpdate)="afterLoading()" (setLoading)="setLoading()" *ngIf="page.id===3"></app-afaire>
+                <app-terminer *ngIf="page.id===2" [tacheAfaire]="aterminer" (afterUpdate)="afterLoading()" (setLoading)="setLoading()"></app-terminer>
               </div>
             </div>
           </div>
@@ -94,4 +94,9 @@
       <app-footer-element></app-footer-element>
     </div>
   </div>
+</div>
+
+<div *ngIf="loading" class="position-fixed top-0 start-0 vw-100 vh-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-25">
+  <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
+  </nz-list>
 </div>

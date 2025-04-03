@@ -17,7 +17,9 @@ import {MecanoRoutes} from '../../../../Conf/RouteConf';
 import { HomeMecanoComponent } from '../home-mecano/home-mecano.component';
 import { AfaireComponent } from '../afaire/afaire.component';
 import { TerminerComponent } from '../terminer/terminer.component';
-import { LoginMecanicien } from '../../../../Models/Interfaces';
+import {DetailService, LoginMecanicien, Mecanicien, RenderVous} from '../../../../Models/Interfaces';
+import {RendezVousService} from '../../../../Services/rendez-vous.service';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-accueil-mecano',
@@ -29,7 +31,9 @@ export class AccueilMecanoComponent {
   routeConf: any[]
   page: any = null
   mecanicien: LoginMecanicien
-  constructor(private router: Router,  private quitter: QuitterService) {
+  listRendezVous: RenderVous[] = []
+  loading= true
+  constructor(private router: Router,  private quitter: QuitterService, private rendezVous: RendezVousService, private toast: NzMessageService) {
     this.routeConf = MecanoRoutes
     this.mecanicien = JSON.parse(sessionStorage.getItem("user") || '{}')
   }
@@ -39,6 +43,7 @@ export class AccueilMecanoComponent {
       this.router.navigate(["admin/login"])
       return
     }
+    this.getAllRendezVous()
     this.updatePageFromUrl()
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -55,7 +60,7 @@ export class AccueilMecanoComponent {
     if (routeCorrespondante) {
       this.page = routeCorrespondante;
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['admin/login']);
     }
   }
 
@@ -66,5 +71,67 @@ export class AccueilMecanoComponent {
 
   navigateTo(value: string){
     this.router.navigate([`/mecanicien/${value}`]);
+  }
+
+  getAllRendezVous(){
+    this.loading = true
+    this.rendezVous.getAllMecanicien({Authorization: `Bearer ${this.mecanicien.token}`}).subscribe(
+      rep=>{
+        this.listRendezVous = rep
+        this.loading = false
+      },
+      error => {
+        this.toast.error(error.message, {nzDuration: 5000})
+        this.loading = false
+      }
+    )
+  }
+
+  private _tacheAfaire: {dateHeureDebut: Date, dateHeureFin: Date, _id: string,  tache: DetailService, idRdv: string, immatriculation: string}[]=[]
+  private _aterminer: {dateHeureDebut: Date, dateHeureFin: Date, _id: string,  tache: DetailService, idRdv: string, immatriculation: string}[]=[]
+
+  get tacheAfaire(){
+    this._tacheAfaire=[]
+    this.listRendezVous.map((element)=>{
+      element.taches?.map((tache)=>{
+        if (this.mecanicien.mecanicien._id.includes(tache.mecanicien._id) && tache.statut.includes('atte')){
+          this._tacheAfaire.push({
+            dateHeureDebut: tache.dateHeureDebut,
+            dateHeureFin: tache.dateHeureFin,
+            _id: tache._id,
+            tache: tache.tache,
+            idRdv: element._id,
+            immatriculation: element.devis.vehicule.immatriculation
+          })
+        }
+      })
+    })
+    return this._tacheAfaire;
+  }
+
+  get aterminer(){
+    this._aterminer=[]
+    this.listRendezVous.map((element)=>{
+      element.taches?.map((tache)=>{
+        if (this.mecanicien.mecanicien._id.includes(tache.mecanicien._id) && tache.statut.toLowerCase().includes('en cours')){
+          this._aterminer.push({
+            dateHeureDebut: tache.dateHeureDebut,
+            dateHeureFin: tache.dateHeureFin,
+            _id: tache._id,
+            tache: tache.tache,
+            idRdv: element._id,
+            immatriculation: element.devis.vehicule.immatriculation
+          })
+        }
+      })
+    })
+    return this._aterminer;
+  }
+
+  setLoading(){
+    this.loading = true;
+  }
+  afterLoading(){
+    this.getAllRendezVous()
   }
 }

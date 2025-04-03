@@ -33,7 +33,7 @@ export class CommandeComponent {
   selectedElement: RenderVous | null | undefined
   loadingAll = true
 
-  constructor(private route: ActivatedRoute, private quitter: QuitterService, private routerNav: Router, private router: Location, private rendezVous: RendezVousService,private toast: NzMessageService) {
+  constructor(private route: ActivatedRoute, private quitter: QuitterService, private routerNav: Router, private router: Location, private rendezVous: RendezVousService, private toast: NzMessageService) {
     this.user = JSON.parse(sessionStorage.getItem("user") || '{}')
   }
 

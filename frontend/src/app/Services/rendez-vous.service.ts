@@ -67,4 +67,18 @@ export class RendezVousService {
     });
     return this.http.get<RenderVous[]>(`${apiUrl()}rendezVous/client`, { headers });
   }
+
+  getAllMecanicien(header: { Authorization: string }): Observable<RenderVous[]>{
+    const headers = new HttpHeaders({
+      'Authorization': header.Authorization,
+    });
+    return this.http.get<RenderVous[]>(`${apiUrl()}rendezVous/mecanicien/present`, { headers });
+  }
+
+  modifStatutTache(header: { Authorization: string }, idRdv: string, body:{tacheId: string, newStatus: string}): Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': header.Authorization,
+    });
+    return this.http.patch<any>(`${apiUrl()}rendezVous/changesatuts/${idRdv}`,body, { headers });
+  }
 }

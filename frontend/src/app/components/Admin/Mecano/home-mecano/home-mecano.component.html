@@ -1,33 +1,14 @@
-<h4 class="text-grey text-print">Liste de projets</h4>
-<div class="row m-0 p-0">
-  <div class="col-4 h-100 align-items-lg-stretch m-0 ps-2 pe-0">
-    <app-show-projet [valeur]="15"></app-show-projet>
+<div class="w-100 h-100 p-0 m-0 d-flex flex-column">
+  <h4 class="text-grey text-print">Liste de projets</h4>
+  <div class="flex-grow-1">
+    <div class="row m-0 p-0">
+      <div *ngFor="let rdv of listRendezVous.slice((currentPage-1)*9, currentPage*9)" class="col-4 h-100 align-items-lg-stretch m-0 ps-2 pe-0">
+        <app-show-projet [rendezVous]="rdv"></app-show-projet>
+      </div>
+      <nz-empty *ngIf="listRendezVous.length===0"></nz-empty>
+    </div>
   </div>
-  <div class="col-4 h-100 align-items-lg-stretch m-0 ps-2 pe-0">
-    <app-show-projet [valeur]="21"></app-show-projet>
+  <div class="w-100 p-2 d-inline-flex justify-content-end">
+    <nz-pagination [nzPageIndex]="currentPage" [nzTotal]="listRendezVous.length" [nzPageSize]="9" (nzPageIndexChange)="modifCurrentPage($event)"></nz-pagination>
   </div>
-  <div class="col-4 h-100 align-items-lg-stretch m-0 ps-2 pe-0">
-    <app-show-projet [valeur]="12"></app-show-projet>
-  </div>
-  <div class="col-4 h-100 align-items-lg-stretch m-0 ps-2 pe-0">
-    <app-show-projet [valeur]="15"></app-show-projet>
-  </div>
-  <div class="col-4 h-100 align-items-lg-stretch m-0 ps-2 pe-0">
-    <app-show-projet [valeur]="65"></app-show-projet>
-  </div>
-  <div class="col-4 h-100 align-items-lg-stretch m-0 ps-2 pe-0">
-    <app-show-projet [valeur]="98"></app-show-projet>
-  </div>
-  <div class="col-4 h-100 align-items-lg-stretch m-0 ps-2 pe-0">
-    <app-show-projet [valeur]="96"></app-show-projet>
-  </div>
-  <div class="col-4 h-100 align-items-lg-stretch m-0 ps-2 pe-0">
-    <app-show-projet [valeur]="56"></app-show-projet>
-  </div>
-  <div class="col-4 h-100 align-items-lg-stretch m-0 ps-2 pe-0">
-    <app-show-projet [valeur]="24"></app-show-projet>
-  </div>
-</div>
-<div class="w-100 p-2 d-inline-flex justify-content-end">
-  <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
 </div>

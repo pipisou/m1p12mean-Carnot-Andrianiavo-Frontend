@@ -27,7 +27,7 @@ export class LoginAdminComponent {
     this.isLoading=false
     this.user = {
       email: 'carnotrandriamiandravola@gmail.com',
-      motDePasse: 'password123'
+      motDePasse: '12345678'
     };
     this.isAdmin = value
   }
