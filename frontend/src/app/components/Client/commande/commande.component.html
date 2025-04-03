@@ -206,7 +206,7 @@
       <h4 class="text-print fw-bold text-grey">Facturation</h4>
       <div class="w-100 bg-dark bg-opacity-75 h-100 py-2">
         <pdf-viewer
-          [src]="'https://backend-deploy-hpnn.onrender.com/rendezVous/facture/'+selectedElement?._id"
+          [src]="pdfLink+selectedElement?._id"
           [render-text]="true"
           [show-all]="true"
           style="display: block; width: 100%; height: 500px; ">

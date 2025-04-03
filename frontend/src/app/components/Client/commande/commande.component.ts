@@ -18,6 +18,7 @@ import {AfficheDetailTacheComponent} from '../affiche-detail-tache/affiche-detai
 import {NzProgressModule} from 'ng-zorro-antd/progress';
 import {query} from '@angular/animations';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
+import {apiUrl} from '../../../Conf/APIURL';
 
 @Component({
   selector: 'app-commande',
@@ -30,7 +31,7 @@ export class CommandeComponent {
   commandeServices: RenderVous[] =[]
   user:Login
   id: string | null = null;
-
+  pdfLink: string = apiUrl()+'rendezVous/facture/'
   loading= true
   selectedElement: RenderVous | null | undefined
   loadingAll = true

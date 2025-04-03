@@ -119,3 +119,7 @@
 input:active,select:active{
   outline: none !important;
 }
+input:focus, textarea:focus, select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
