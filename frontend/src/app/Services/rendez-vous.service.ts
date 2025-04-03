@@ -81,4 +81,17 @@ export class RendezVousService {
     });
     return this.http.patch<any>(`${apiUrl()}rendezVous/changesatuts/${idRdv}`,body, { headers });
   }
+  downloadPdf(id: string, nom: string) {
+    const url =apiUrl()+ 'rendezVous/facture/'+id;
+
+    this.http.get(url, { responseType: 'blob' }).subscribe(blob => {
+      const fileURL = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = fileURL;
+      a.download = nom+'.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  }
 }

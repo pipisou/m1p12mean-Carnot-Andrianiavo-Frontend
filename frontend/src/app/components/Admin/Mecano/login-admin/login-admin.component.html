@@ -2,14 +2,14 @@
   <div class="h-75 w-60 border border-2 shadow-lg rounded-3 bg-white overflow-hidden">
     <div *ngIf="isAdmin" class="row w-100 h-100 m-0 p-0">
       <div class="col-6 h-100 bg-info position-relative rounded-end-7 d-flex flex-column justify-content-center align-items-center">
-        <h2 class="text-center">ESPACE ADMIN</h2>
+        <h2 class="text-center">ESPACE Manager</h2>
         <div class="mt-3 text-center text-white text-print fs-6">
           Confirmez-vous avec votre login
         </div>
         <a (click)="modifIsAdmin(false)" class="btn btn-light btn-sm hover-element position-absolute mb-3 bottom-0">Login Mecanicien</a>
       </div>
       <div class="col-6 h-100 d-flex flex-column justify-content-center align-items-center">
-        <h3 class="mb-4">Login</h3>
+        <h3 class="mb-4">Login Manager</h3>
         <div class="w-100 d-flex flex-column justify-content-center">
           <div class="form-group mb-3 w-100 px-2">
             <label class="mb-1 fs-6" for="exampleInputEmail1">Email</label>
@@ -25,7 +25,7 @@
     </div>
     <div *ngIf="!isAdmin" class="row w-100 h-100 m-0 p-0">
       <div class="col-6 h-100 d-flex flex-column justify-content-center align-items-center">
-        <h3 class="mb-4">Login</h3>
+        <h3 class="mb-4">Login Mecanicien</h3>
         <div class="w-100 d-flex flex-column justify-content-center">
           <div class="form-group mb-3 w-100 px-2">
             <label class="mb-1 fs-6" for="exampleInputEmail1">Email</label>

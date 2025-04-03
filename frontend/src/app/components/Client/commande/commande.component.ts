@@ -230,4 +230,8 @@ export class CommandeComponent {
     this._statistique={terminer: ter/10, encours: en/5, afaire: a, pourcentage: pour}
     return this._statistique
   }
+
+  downloadFacture(){
+    this.rendezVous.downloadPdf(this.selectedElement?._id??'', this.selectedElement?.devis?.referenceDevis ?? '')
+  }
 }

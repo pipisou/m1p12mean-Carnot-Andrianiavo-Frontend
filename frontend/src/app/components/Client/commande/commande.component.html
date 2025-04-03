@@ -205,6 +205,9 @@
     <div *ngIf="activeElement===4" class="">
       <h4 class="text-print fw-bold text-grey">Facturation</h4>
       <div class="w-100 bg-dark bg-opacity-75 h-100 py-2">
+        <div class="w-100 p-2 mb-2 d-flex justify-content-end">
+          <button (click)="downloadFacture()" type="button" class="btn btn-secondary mb-2"><i class="fa fa-download me-2"></i>Telecharger le facture</button>
+        </div>
         <pdf-viewer
           [src]="pdfLink+selectedElement?._id"
           [render-text]="true"

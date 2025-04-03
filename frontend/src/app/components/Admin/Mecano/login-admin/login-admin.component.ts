@@ -18,7 +18,7 @@ export class LoginAdminComponent {
   }
 
   user = {
-    email: 'carnotrandriamiandravola@gmail.com',
+    email: 'kelymau13@gmail.com',
     motDePasse: 'password123'
   };
   isAdmin = true
@@ -29,6 +29,12 @@ export class LoginAdminComponent {
       email: 'carnotrandriamiandravola@gmail.com',
       motDePasse: '12345678'
     };
+    if (value){
+      this.user = {
+        email: 'kelymau13@gmail.com',
+        motDePasse: 'password123'
+      };
+    }
     this.isAdmin = value
   }
 
@@ -48,5 +54,17 @@ export class LoginAdminComponent {
     )
   }
   submitAdmin(){
+    this.isLoading = true
+    this.apiLogin.loginAdmin(this.user).subscribe(
+      rep=>{
+        sessionStorage.setItem("user",JSON.stringify(rep))
+        this.isLoading = false
+        this.router.navigate(['/admin/menu']);
+      },
+      error=>{
+        this.isLoading = false
+        this.toast.error(error.message, {nzDuration: 5000})
+      }
+    )
   }
 }

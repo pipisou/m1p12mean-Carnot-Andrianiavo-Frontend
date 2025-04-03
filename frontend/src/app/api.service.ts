@@ -21,4 +21,8 @@ export class ApiService {
   loginMecanicien(credentials: { email: string; motDePasse: string }): Observable<any>{
     return this.http.post(`${apiUrl()}mecanicien/login`, credentials);
   }
+
+  loginAdmin(credentials: { email: string; motDePasse: string }): Observable<any>{
+    return this.http.post(`${apiUrl()}manager/login`, credentials);
+  }
 }
