@@ -1,0 +1,12 @@
+.bg-service{
+  width: 22rem;
+  background: linear-gradient(180deg, #b07a91, #325cb2);
+}
+
+.active-element{
+  background: linear-gradient(180deg, #86be26, #a89a);
+}
+
+.h-max{
+  height: max-content;
+}

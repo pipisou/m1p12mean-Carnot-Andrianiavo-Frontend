@@ -1,0 +1,14 @@
+<div class="w-100 h-100 p-0 m-0 d-flex flex-column">
+  <h4 class="text-grey text-print">Liste de projets</h4>
+  <div class="flex-grow-1">
+    <div class="row m-0 p-0">
+      <div *ngFor="let rdv of listRendezVous.slice((currentPage-1)*9, currentPage*9)" class="col-4 h-100 align-items-lg-stretch m-0 ps-2 pe-0">
+        <app-show-projet [rendezVous]="rdv"></app-show-projet>
+      </div>
+      <nz-empty *ngIf="listRendezVous.length===0"></nz-empty>
+    </div>
+  </div>
+  <div class="w-100 p-2 d-inline-flex justify-content-end">
+    <nz-pagination [nzPageIndex]="currentPage" [nzTotal]="listRendezVous.length" [nzPageSize]="9" (nzPageIndexChange)="modifCurrentPage($event)"></nz-pagination>
+  </div>
+</div>

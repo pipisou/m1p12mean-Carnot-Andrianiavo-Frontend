@@ -1,0 +1,21 @@
+<nz-modal  [nzWidth]="'55vw'" [(nzVisible)]="isVisible" [nzFooter]="null"
+           nzTitle="Avancement du Tache" (nzOnCancel)="hideRendezVous()"
+           [nzMaskClosable]="true" [nzClosable]="true">
+  <div *nzModalContent class="m-0 p-0 w-100">
+    <nz-list *ngIf="loading; else content" nzItemLayout="horizontal" [nzLoading]="loading">
+      <nz-empty></nz-empty>
+    </nz-list>
+
+    <ng-template #content>
+      <nz-empty *ngIf="listLinkImage.length === 0; else carosel"></nz-empty>
+    </ng-template>
+
+    <ng-template #carosel>
+      <nz-carousel [nzEffect]="'scrollx'">
+        <div *ngFor="let img of listLinkImage; let index = index" nz-carousel-content [ngStyle]="{ 'background-image': 'url(' + img + ')', 'background-position': 'center', 'background-repeat': 'no-repeat', 'background-size': 'cover', 'height': '380px' }">
+        </div>
+      </nz-carousel>
+    </ng-template>
+  </div>
+
+</nz-modal>

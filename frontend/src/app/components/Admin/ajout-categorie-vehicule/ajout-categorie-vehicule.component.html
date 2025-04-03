@@ -1,0 +1,18 @@
+<div>
+    <h2>Liste des Catégories de Véhicules</h2>
+    <ul>
+      <li *ngFor="let categorie of categories">
+        {{ categorie.nom }}
+        <button (click)="deleteCategory(categorie._id)">Supprimer</button>
+        <button (click)="editCategory(categorie._id)">Modifier</button>
+      </li>
+    </ul>
+  
+    <h3>Ajouter une nouvelle catégorie de véhicule</h3>
+    <form [formGroup]="categorieForm" (ngSubmit)="onSubmit()">
+      <input formControlName="nom" placeholder="Nom de la catégorie" />
+      <textarea formControlName="description" placeholder="Description de la catégorie"></textarea>
+      <button type="submit">Ajouter</button>
+    </form>
+  </div>
+  

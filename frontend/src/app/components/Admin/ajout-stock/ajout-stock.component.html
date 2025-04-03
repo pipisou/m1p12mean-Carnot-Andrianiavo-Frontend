@@ -1,0 +1,50 @@
+<div>
+    <h2>Ajouter un Stock</h2>
+    <form [formGroup]="stockForm" (ngSubmit)="onSubmit()">
+      <input formControlName="quantite" type="number" placeholder="Quantité" required />
+      <input formControlName="prixAchat" type="number" placeholder="Prix d'achat" required />
+      <input formControlName="prixVente" type="number" placeholder="Prix de vente" required />
+      <input formControlName="fournisseur" placeholder="Fournisseur" required />
+      <input formControlName="dateAchat" type="date" required />
+  
+      <select formControlName="article" required>
+        <option *ngFor="let article of articles" [value]="article._id">
+          {{ article.nomArticle }}
+        </option>
+      </select>
+  
+      <button type="submit">Ajouter</button>
+    </form>
+  
+    <hr />
+  
+    <h2>Liste des Stocks</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Article</th>
+          <th>Quantité</th>
+          <th>Prix Achat</th>
+          <th>Prix Vente</th>
+          <th>Fournisseur</th>
+          <th>Date Achat</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stock of stocks">
+          <td>{{ stock.article.nomArticle }}</td>
+          <td>{{ stock.quantite }}</td>
+          <td>{{ stock.prixAchat }}</td>
+          <td>{{ stock.prixVente }}</td>
+          <td>{{ stock.fournisseur }}</td>
+          <td>{{ stock.dateAchat | date }}</td>
+          <td>
+            <button (click)="editStock(stock._id)">Modifier</button>
+            <button (click)="deleteStock(stock._id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

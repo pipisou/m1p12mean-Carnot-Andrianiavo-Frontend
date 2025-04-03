@@ -1,0 +1,80 @@
+<nz-card class="bg-body shadow rounded-3 h-100 align-items-lg-stretch mb-2" style="width: 100%" [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+  <nz-card-meta
+    [nzTitle]="rendezVous?.devis?.vehicule?.immatriculation ?? ''"
+    [nzDescription]="rendezVous?.devis?.referenceDevis ?? ''"
+    [nzAvatar]="avatarTemplate"
+  ></nz-card-meta>
+</nz-card>
+<ng-template #avatarTemplate>
+  <i class="fa fa-car-alt color-bleu"></i>
+</ng-template>
+<ng-template #actionSetting>
+  <div class="w-100 h-100" nz-popover [nzPopoverTitle]="titleTemplate" [nzPopoverContent]="contentTemplate">
+    {{task.length}}
+  </div>
+</ng-template>
+<ng-template #actionEdit>
+  <nz-progress
+    nz-tooltip
+    [nzTooltipTitle]="statistique.terminer +' Fait / '+statistique.encours+' En cours / '+statistique.afaire+' À faire'"
+    nzType="circle"
+    [nzWidth]="30"
+    [nzStatus]="'normal'"
+    [nzPercent]="statistique.pourcentage"
+    [nzSuccessPercent]="statistique.terminer"
+  ></nz-progress>
+</ng-template>
+<ng-template #actionEllipsis>
+  <div class="w-100 h-100" nz-popover [nzPopoverTitle]="titleTemplate2" [nzPopoverContent]="contentTemplate2">
+    {{rendezVous?.taches?.length ?? 0}}
+  </div>
+</ng-template>
+
+<ng-template #titleTemplate>
+  <div class="text-print text-center fw-bolder fs-4 color-bleu" style="width: 25rem;">
+    Votre Tache
+  </div>
+</ng-template>
+<ng-template #contentTemplate>
+  <div class="d-block" style="width: 25rem">
+    <nz-progress [nzPercent]="statistique.pourcentage" nzStatus="active" nzType="line"></nz-progress>
+    <div class="mt-2 w-100">
+      <div  *ngFor="let tas of task.slice((paginateTask-1)*5, paginateTask*5)" [ngClass]="tas.statut.includes('ter') ? '' : 'hover-element bg-tache-active'" class="d-flex w-100 align-items-center justify-content-between rounded-3 cursor-pointer text-print  p-2 mb-2">
+        <label class="d-inline-flex align-items-center cursor-pointer">
+          <span [ngClass]="tas.statut.includes('ter') ? 'bg-success' : 'bg-dark'" class="rounded-circle bg-opacity-25 d-flex me-1 justify-content-center align-items-center" style="min-width: 30px !important; min-height: 30px !important;">
+            <i [ngClass]="tas.statut.includes('ter') ? 'fa-check-circle text-success' : 'fa-circle'" class="far"></i>
+          </span>
+          <span [class.text-decoration-line-through]="tas.statut.includes('ter')">{{tas.tache.description}}</span>
+        </label>
+      </div>
+     </div>
+    <div class="w-100 p-2 d-inline-flex justify-content-end">
+      <nz-pagination [nzPageIndex]="paginateTask" [nzTotal]="task.length" [nzPageSize]="5" (nzPageIndexChange)="modifCurrentPage($event)"></nz-pagination>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #titleTemplate2>
+  <div class="text-print text-center fw-bolder fs-4 color-bleu" style="width: 25rem;">
+    Les Taches Dans le projet
+  </div>
+</ng-template>
+<ng-template #contentTemplate2>
+  <div class="d-block" style="width: 25rem">
+    <nz-progress [nzPercent]="statistique.pourcentage" nzStatus="active" nzType="line"></nz-progress>
+    <div class="mt-2 w-100">
+      <div *ngFor="let tas of rendezVous?.taches?.slice((pageAll-1)*5, pageAll*5)" class="d-flex w-100 align-items-center justify-content-between rounded-3 text-print  p-2 mb-2">
+        <label class="d-inline-flex align-items-center">
+          <span [ngClass]="tas.statut.includes('ter') ? 'bg-success' : 'bg-dark'" class="rounded-circle bg-opacity-25 d-flex me-1 justify-content-center align-items-center" style="min-width: 30px !important; min-height: 30px !important;">
+            <i [ngClass]="tas.statut.includes('ter') ? 'fa-check-circle text-success' : 'fa-circle'" class="far"></i>
+          </span>
+          <span [class.text-decoration-line-through]="tas.statut.includes('ter')">{{tas.tache.description}}</span>
+        </label>
+      </div>
+    </div>
+    <div class="w-100 p-2 d-inline-flex justify-content-end">
+      <nz-pagination [nzPageIndex]="pageAll" [nzTotal]=" rendezVous?.taches?.length ?? 0" [nzPageSize]="5" (nzPageIndexChange)="modifPageAll($event)"></nz-pagination>
+    </div>
+  </div>
+</ng-template>

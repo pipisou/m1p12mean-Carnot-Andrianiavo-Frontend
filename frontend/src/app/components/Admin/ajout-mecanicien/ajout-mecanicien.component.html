@@ -1,0 +1,102 @@
+<form [formGroup]="mecanicienForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="nom">Nom:</label>
+    <input id="nom" formControlName="nom" type="text" />
+  </div>
+
+  <div class="form-group">
+    <label for="prenom">Prénom:</label>
+    <input id="prenom" formControlName="prenom" type="text" />
+  </div>
+
+  <div class="form-group">
+    <label for="salaire">Salaire:</label>
+    <input id="salaire" formControlName="salaire" type="number" />
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input id="email" formControlName="email" type="email" />
+  </div>
+
+  <div class="form-group">
+    <label for="telephone">Téléphone:</label>
+    <input id="telephone" formControlName="telephone" type="tel" />
+  </div>
+
+  <div class="form-group">
+    <label for="motDePasse">Mot de passe:</label>
+    <input id="motDePasse" formControlName="motDePasse" type="password" />
+  </div>
+
+  <!-- Section Services -->
+  <fieldset>
+    <legend>Services</legend>
+    <div class="services-container">
+      <div *ngFor="let service of services" class="service-item">
+        <input
+          type="checkbox"
+          [value]="service._id"
+          (change)="onServiceChange($event, service._id)"
+          [checked]="isServiceSelected(service._id)"
+        />
+        <label>{{ service.nomService }}</label>
+      </div>
+    </div>
+  </fieldset>
+
+  <button type="submit" class="full-width" [disabled]="mecanicienForm.invalid">
+    Soumettre
+  </button>
+</form>
+
+<!-- 🔹 Liste des mécaniciens -->
+<h2>Liste des Mécaniciens</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Salaire</th>
+      <th>Email</th>
+      <th>Téléphone</th>
+      <th>Horaires</th> <!-- Nouvelle colonne pour l'horaire -->
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let mecanicien of mecaniciens">
+      <td>{{ mecanicien.nom }}</td>
+      <td>{{ mecanicien.prenom }}</td>
+      <td>{{ mecanicien.salaire }}</td>
+      <td>{{ mecanicien.email }}</td>
+      <td>{{ mecanicien.telephone }}</td>
+
+      <!-- Affichage des horaires -->
+      <td>
+        <div *ngIf="mecanicien.horaire && mecanicien.horaire.joursTravail">
+          <ul>
+            <li *ngFor="let horaire of mecanicien.horaire.joursTravail">
+              <strong>{{ horaire.jour }}:</strong> {{ horaire.debut }} - {{ horaire.fin }}
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="!mecanicien.horaire">
+          Aucun horaire
+        </div>
+      </td>
+
+      <td>
+        <a [routerLink]="['/horaire', mecanicien._id]">Horaires</a>
+        <a [routerLink]="['/absence', mecanicien._id]">Absences</a>
+      </td>
+      <td>
+        <!-- Bouton Modifier -->
+        <button (click)="editMecanicien(mecanicien._id)">Modifier</button>
+        
+        <!-- Bouton Supprimer -->
+        <button (click)="deleteMecanicien(mecanicien._id)">Supprimer</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

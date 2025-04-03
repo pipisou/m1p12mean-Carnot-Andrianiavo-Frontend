@@ -1,0 +1,53 @@
+<h2>Modifier un Mécanicien</h2>
+
+<form [formGroup]="mecanicienForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="nom">Nom:</label>
+    <input id="nom" formControlName="nom" type="text" />
+  </div>
+
+  <div class="form-group">
+    <label for="prenom">Prénom:</label>
+    <input id="prenom" formControlName="prenom" type="text" />
+  </div>
+
+  <div class="form-group">
+    <label for="salaire">Salaire:</label>
+    <input id="salaire" formControlName="salaire" type="number" />
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input id="email" formControlName="email" type="email" />
+  </div>
+
+  <div class="form-group">
+    <label for="telephone">Téléphone:</label>
+    <input id="telephone" formControlName="telephone" type="tel" />
+  </div>
+
+  <div class="form-group">
+    <label for="motDePasse">Mot de passe:</label>
+    <input id="motDePasse" formControlName="motDePasse" type="password" />
+  </div>
+
+  <!-- Section des services -->
+  <fieldset>
+    <legend>Services</legend>
+    <div class="services-container">
+      <div *ngFor="let service of services; let i = index" class="service-item">
+        <input
+          type="checkbox"
+          [value]="service._id"
+          [checked]="mecanicienForm.get('services')?.value?.includes(service._id) ?? false"
+          (change)="onServiceChange($event, service._id)"
+        />
+        <label>{{ service.nomService }}</label>
+      </div>
+    </div>
+  </fieldset>
+
+  <button type="submit" class="full-width" [disabled]="mecanicienForm.invalid">
+    Mettre à jour
+  </button>
+</form>

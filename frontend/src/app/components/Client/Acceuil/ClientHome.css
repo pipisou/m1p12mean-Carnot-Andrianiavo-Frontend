@@ -1,0 +1,5 @@
+.bg-active-slid{
+  background-color: rgba(138, 43, 226, 0.2);
+  color: rebeccapurple;
+  border-bottom: 2px solid rebeccapurple;
+}

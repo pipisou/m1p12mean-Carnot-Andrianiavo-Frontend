@@ -1,0 +1,11 @@
+<div>
+  <h2>Modifier le Service</h2>
+  <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+    <input formControlName="nomService" placeholder="Nom du service" required />
+    <textarea formControlName="description" placeholder="Description" required></textarea>
+
+
+
+    <button type="submit">Mettre à jour</button>
+  </form>
+</div>

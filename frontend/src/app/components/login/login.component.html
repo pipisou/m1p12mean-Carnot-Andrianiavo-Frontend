@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="vh-100 vw-100 bg-garage d-flex justify-content-center align-items-center">
+    <div class="h-75 w-60 border border-2 shadow-lg rounded-3 bg-white overflow-hidden">
+        <div class="row w-100 h-100 m-0 p-0">
+            <div class="col-6 h-100 bg-info position-relative rounded-end-7 d-flex flex-column justify-content-center align-items-center">
+                <h2 class="text-center">ESPACE CLIENT</h2>
+                <div class="mt-3 text-center text-white text-print fs-6">
+                    Pour le suivi et contact avec un responsable, confirmez-vous avec votre login
+                </div>
+              <a routerLink="/inscription" class="btn btn-light btn-sm hover-element position-absolute mb-3 bottom-0">S'inscrire ici</a>
+            </div>
+            <div class="col-6 h-100 d-flex flex-column justify-content-center align-items-center">
+                <h3 class="mb-4">Login</h3>
+                <div class="w-100 d-flex flex-column justify-content-center">
+                    <div class="form-group mb-3 w-100 px-2">
+                        <label class="mb-1 fs-6" for="exampleInputEmail1">Email</label>
+                        <input type="email" autocomplete="off" [(ngModel)]="user.email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    <div class="form-group mb-3 w-100 px-2">
+                        <label class="mb-1 fs-6" for="exampleInputPassword1">Mot de passe</label>
+                        <input type="password" autocomplete="off" [(ngModel)]="user.motDePasse" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <button class="btn btn-primary" type="button" disabled *ngIf="isLoading">
+                      <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                      <span class="visually-hidden" role="status">Loading...</span>
+                    </button>
+                    <button type="button" (click)="onSubmit()" *ngIf="!isLoading" class="btn btn-primary">Se connecter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+
+<div>
+    <h2>Ajouter une Spécialité</h2>
+    <form [formGroup]="specialiteForm" (ngSubmit)="onSubmit()">
+      <input formControlName="typeSpecialite" placeholder="Nom de la spécialité" required />
+      <button type="submit">Ajouter</button>
+    </form>
+  
+    <hr />
+  
+    <h2>Liste des Spécialités</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nom de la Spécialité</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let specialite of specialites">
+          <td>{{ specialite.typeSpecialite }}</td>
+          <td>
+            <button (click)="editSpecialite(specialite._id)">Modifier</button>
+            <button (click)="deleteSpecialite(specialite._id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

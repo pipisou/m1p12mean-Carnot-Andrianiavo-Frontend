@@ -1,0 +1,59 @@
+<div class="container">
+    <h2 class="my-4">Liste des devis pour le service</h2>
+    <button class="btn btn-success mb-3" (click)="onAddDevis()">Ajouter un Devis</button>
+  
+    <!-- Vérification si des devis existent -->
+    <div *ngIf="devis.length > 0; else noDevis">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Référence</th>
+            <th scope="col">Description</th>
+            <th scope="col">Tâches</th>
+            <th scope="col">Prix Total</th> <!-- Colonne prix total -->
+            <th scope="col">Temps Total (Estime + Marge)</th> <!-- Colonne temps total -->
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let devisItem of devis">
+            <td>{{ devisItem.referenceDevis }}</td>
+            <td>{{ devisItem.description }}</td>
+  
+            <td>
+              <ul>
+                <li *ngFor="let tache of devisItem.taches">
+                  {{ tache.description }} ({{ tache.prix }}€) - 
+                  {{ tache.tempsEstime }}min (Temps Estimé) - 
+                  {{ tache.marge }}min(Marge)
+                </li>
+              </ul>
+            </td>
+  
+            <!-- Calcul du prix total des tâches -->
+            <td>
+              {{ calculateTotalPrice(devisItem.taches) }}€
+            </td>
+  
+            <!-- Calcul du temps total Estimé + Marge -->
+            <td>
+              {{ calculateTotalTime(devisItem.taches) }}min
+            </td>
+  
+            <td>
+              <button class="btn btn-info btn-sm" (click)="editDevis(devisItem._id)">Modifier</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteDevis(devisItem._id)">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Message si aucun devis n'est trouvé -->
+    <ng-template #noDevis>
+      <div class="alert alert-warning" role="alert">
+        Aucun devis trouvé pour ce service.
+      </div>
+    </ng-template>
+  </div>
+  

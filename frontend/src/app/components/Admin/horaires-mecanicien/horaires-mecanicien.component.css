@@ -1,0 +1,65 @@
+/* Style général pour le formulaire */
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Style pour chaque jour */
+  .jour-item {
+    margin-bottom: 20px;
+  }
+  
+  .jour {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .jour label {
+    margin-right: 10px;
+  }
+  
+  /* Style pour les champs d'heure */
+  .horaire {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  input[type="time"] {
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    display: block;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  button:hover:not(:disabled) {
+    background-color: #45a049;
+  }
+  

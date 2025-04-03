@@ -1,0 +1,31 @@
+<h2>Bénéfice Annuel - {{ annee }}</h2>
+
+<!-- Input pour choisir l'année -->
+<label for="annee">Année :</label>
+<input type="number" id="annee" [(ngModel)]="annee" min="2000" max="2100" />
+
+<!-- Bouton pour charger les données -->
+<button (click)="chargerBeneficeAnnuel()">Rechercher</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mois</th>
+      <th>Total Recettes</th>
+      <th>Total Charges</th>
+      <th>Bénéfice</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let mois of beneficeAnnuel">
+      <td>{{ mois.mois }}</td>
+      <td>{{ mois.totalRecettes }} €</td>
+      <td>{{ mois.totalCharges }} €</td>
+      <td>{{ mois.beneficeMensuel }} €</td>
+      <td>
+        <button (click)="voirDetails(mois.mois)">Voir Détails</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

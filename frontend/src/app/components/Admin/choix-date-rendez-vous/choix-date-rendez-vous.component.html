@@ -1,0 +1,39 @@
+<div class="container">
+    <h2>Choisir une date pour le rendez-vous</h2>
+  
+    <div class="row">
+      <!-- Section de gauche : Choisir la date -->
+      <div class="col-md-6">
+        <div *ngIf="rendezVous">
+          <p><strong>Référence Devis :</strong> {{ rendezVous.devis?.referenceDevis }}</p>
+          <p><strong>Client :</strong> {{ rendezVous.client?.nom }} {{ rendezVous.client?.prenom }}</p>
+  
+          <h3>Plages horaires disponibles</h3>
+          <ul>
+            <li *ngFor="let date of rendezVous.dateDemande">
+              {{ date.dateHeureDebut | date:'dd/MM/yyyy HH:mm' }} -
+              {{ date.dateHeureFin | date:'dd/MM/yyyy HH:mm' }}
+            </li>
+          </ul>
+  
+          <label for="dateChoisie">Choisissez une date :</label>
+          <input type="datetime-local" id="dateChoisie" [(ngModel)]="dateChoisie" class="form-control" />
+  
+          <button class="btn btn-success mt-3" (click)="validerDate()">Valider</button>
+        </div>
+      </div>
+  
+      <!-- Section de droite : Rendez-vous "Présents" -->
+      <div class="col-md-6">
+        <h3>Rendez-vous Présents</h3>
+        <ul>
+          <li *ngFor="let rdv of rendezVousPresents">
+            {{ rdv.client?.nom }} {{ rdv.client?.prenom }} -
+            {{ rdv.devis?.referenceDevis }} -
+            {{ rdv.dateChoisie | date:'dd/MM/yyyy HH:mm' }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  

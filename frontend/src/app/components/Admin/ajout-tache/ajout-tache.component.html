@@ -1,0 +1,69 @@
+<div class="tache-form">
+    <h2 *ngIf="serviceDetails">Tâches pour le service : {{ serviceDetails.service.nomService }}/{{ serviceDetails.categorieDeVehicule.nom }}</h2>
+
+    <form [formGroup]="tacheForm" (ngSubmit)="onSubmit()">
+      <!-- Service Details (ID récupéré depuis l'URL) -->
+      <input type="hidden" id="serviceDetailsId" [value]="serviceDetailsId" />
+
+  
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" id="description" class="form-control" formControlName="description" />
+        <div *ngIf="tacheForm.get('description')?.invalid && tacheForm.get('description')?.touched" class="text-danger">
+          La description est requise.
+        </div>
+      </div>
+  
+      <!-- Prix -->
+      <div class="form-group">
+        <label for="prix">Prix</label>
+        <input type="number" id="prix" class="form-control" formControlName="prix" />
+        <div *ngIf="tacheForm.get('prix')?.invalid && tacheForm.get('prix')?.touched" class="text-danger">
+          Le prix est requis.
+        </div>
+      </div>
+  
+      <!-- Temps Estimé -->
+      <div class="form-group">
+        <label for="tempsEstime">Temps Estimé (en heures)</label>
+        <input type="number" id="tempsEstime" class="form-control" formControlName="tempsEstime" />
+        <div *ngIf="tacheForm.get('tempsEstime')?.invalid && tacheForm.get('tempsEstime')?.touched" class="text-danger">
+          Le temps estimé est requis.
+        </div>
+      </div>
+  
+      <!-- Marge -->
+      <div class="form-group">
+        <label for="marge">Marge</label>
+        <input type="number" id="marge" class="form-control" formControlName="marge" />
+      </div>
+  
+      <!-- Articles Nécessaires -->
+      <div formArrayName="articlesNecessaires">
+        <div *ngFor="let article of articlesNecessaires().controls; let i = index" [formGroupName]="i" class="form-group">
+          <label for="article-{{ i }}">Article</label>
+          <select id="article-{{ i }}" formControlName="article" class="form-control">
+            <option *ngFor="let a of articles" [value]="a._id">{{ a.nomArticle }}</option>
+          </select>
+          <div *ngIf="articlesNecessaires().at(i).get('article')?.invalid && articlesNecessaires().at(i).get('article')?.touched" class="text-danger">
+            L'article est requis.
+          </div>
+  
+          <label for="quantite-{{ i }}">Quantité</label>
+          <input type="number" id="quantite-{{ i }}" formControlName="quantite" class="form-control" />
+          <div *ngIf="articlesNecessaires().at(i).get('quantite')?.invalid && articlesNecessaires().at(i).get('quantite')?.touched" class="text-danger">
+            La quantité est requise.
+          </div>
+  
+          <button type="button" (click)="removeArticle(i)" class="btn btn-danger">Supprimer cet article</button>
+        </div>
+  
+        <button type="button" (click)="addArticle()" class="btn btn-primary">Ajouter un article</button>
+      </div>
+  
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-success" [disabled]="tacheForm.invalid">Soumettre</button>
+    </form>
+  </div>
+  

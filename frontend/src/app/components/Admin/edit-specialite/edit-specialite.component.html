@@ -1,0 +1,8 @@
+<div>
+    <h2>Modifier la Spécialité</h2>
+    <form [formGroup]="specialiteForm" (ngSubmit)="updateSpecialite()">
+      <input formControlName="typeSpecialite" placeholder="Nom de la spécialité" required />
+      <button type="submit">Mettre à jour</button>
+    </form>
+  </div>
+  

@@ -1,0 +1,164 @@
+<div class="container">
+    <!-- Colonne gauche : Détails du rendez-vous -->
+    <div class="left-column" *ngIf="rendezVous">
+      <h2>Détails du Rendez-vous</h2>
+  
+      <p><strong>Client :</strong> {{ rendezVous.client.nom }} {{ rendezVous.client.prenom }}</p>
+      <p><strong>Référence Devis :</strong> {{ rendezVous.devis.referenceDevis }}</p>
+      <p><strong>Statut :</strong> {{ rendezVous.statut }}</p>
+      <p><strong>Date Choisie :</strong> {{ rendezVous.dateChoisie | date:'dd/MM/yyyy HH:mm' }}</p>
+  
+      <button (click)="modifierDevis(rendezVous.devis._id)" class="btn btn-warning mt-3">
+        Modifier le Devis
+      </button>
+  
+      <h3>Mécaniciens et Tâches :</h3>
+      <ul>
+        <li *ngFor="let tache of rendezVous.taches">
+          <p><strong>Mécanicien :</strong></p>
+          <ul>
+            <li>
+              <strong>Description :</strong> {{ tache.tache.description }} <br>
+              <label>Temps estimé : {{ tache.tache.tempsEstime }} min</label><br>
+  
+              <label>Sélectionner un Mécanicien :</label>
+              <select [(ngModel)]="tache.mecanicien" class="form-control" (change)="checkMecanicienService(tache)">
+                <option *ngFor="let mecanicien of mecaniciens" [value]="mecanicien._id">
+                  {{ mecanicien.nom }} {{ mecanicien.prenom }}
+                </option>
+              </select>
+  
+              <label>Début :</label>
+              <input type="datetime-local" [(ngModel)]="tache.dateHeureDebut" class="form-control"
+                     (change)="validateAllDates()" [disabled]="!tache.mecanicien || !tache.serviceAutorise"/>
+  
+              <label>Fin :</label>
+              <input type="datetime-local" [(ngModel)]="tache.dateHeureFin" class="form-control"
+                     (change)="validateAllDates()" [disabled]="!tache.mecanicien || !tache.serviceAutorise"/>
+  
+              <button (click)="updateTache(tache)" class="btn btn-primary mt-2"
+                      [disabled]="!tache.mecanicien || !tache.dateHeureDebut || !tache.dateHeureFin">
+                Enregistrer cette tâche
+              </button>
+            </li>
+          </ul>
+        </li>
+      </ul>
+  
+      <h3>Articles Utilisés :</h3>
+      <ul>
+        <li *ngFor="let article of rendezVous.articlesUtilises; let i = index">
+          <strong>Article :</strong> {{ article.article.nomArticle }} - {{ article.prixVente }}€
+          - Quantité : {{ article.quantite }}
+          <button (click)="supprimerArticle(i)" class="btn btn-danger btn-sm ml-2">Supprimer</button>
+        </li>
+      </ul>
+  
+      <button (click)="ouvrirModalArticles()" class="btn btn-success mt-2">Ajouter un article</button>
+  
+      <!-- MODALE POUR AJOUTER UN ARTICLE -->
+      <div class="modal" tabindex="-1" [ngClass]="{'d-block': modalOuvert}" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Ajouter un article</h5>
+              <button type="button" class="close" (click)="fermerModal()" aria-label="Fermer">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <label for="article">Sélectionner un article :</label>
+              <select [(ngModel)]="articleSelectionne" class="form-control" (ngModelChange)="verifierQuantite()">
+                <option *ngFor="let article of totalStock" [ngValue]="article">
+                  {{ article.article.nomArticle }} - {{ article.prixVente }}€ - (Stock: {{ article.totalQuantite }}) 
+                </option>
+              </select>
+  
+              <label for="quantite">Quantité :</label>
+              <input type="number" [(ngModel)]="quantiteSelectionnee" class="form-control" min="1"
+                     (ngModelChange)="verifierQuantite()">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="ajouterArticle()">Ajouter</button>
+              <button type="button" class="btn btn-secondary" (click)="fermerModal()">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Message d'erreur si la quantité dépasse le stock -->
+      <div *ngIf="erreurQuantite" class="text-danger">
+        {{ erreurQuantite }}
+      </div>
+  
+      <!-- Bouton ENREGISTRER -->
+      <button (click)="updatearticlesUtilisesRendezVous()" class="btn btn-primary mt-3"
+              [disabled]="!validDates">
+        Enregistrer
+      </button>
+  
+      <button (click)="payerRendezVous()" class="btn btn-success mt-3">Marquer comme Payé</button>
+    </div>
+  
+    <!-- Colonne droite : Légende + Sélecteur mécanicien + Calendrier -->
+    <div class="right-column">
+      <div class="legend">
+        <div class="legend-item">
+          <span class="color-box" style="background-color: green;"></span> Terminée
+        </div>
+        <div class="legend-item">
+          <span class="color-box" style="background-color: orange;"></span> En cours
+        </div>
+        <div class="legend-item">
+          <span class="color-box" style="background-color: red;"></span> Non commencée
+        </div>
+      </div>
+  
+      <div>
+        <label>Filtrer par mécanicien :</label>
+        <select [(ngModel)]="selectedMecanicien" (ngModelChange)="onSelectMecanicien()">
+          <option value="">Aucun filtre</option>
+          <option *ngFor="let mecanicien of mecaniciens" [ngValue]="mecanicien">
+            {{ mecanicien.nom }}
+          </option>
+        </select>
+      </div>
+      <button (click)="openModal()">Voir les horaires</button>
+
+<!-- Modal -->
+<div *ngIf="isModalOpen" class="mechanic-modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Horaires des mécaniciens</h2>
+  
+      <div *ngFor="let mecanicien of mecaniciens" class="mecanicien-container">
+        <h3>{{ mecanicien.nom }} {{ mecanicien.prenom }}</h3>
+        
+        <div class="container">
+          <div class="left-column">
+            <h4>Jours de travail :</h4>
+            <ul>
+              <li *ngFor="let jour of mecanicien.horaire?.joursTravail">
+                {{ jour.jour }} : {{ jour.debut }} - {{ jour.fin }}
+                <span *ngIf="jour.pause?.debut"> (Pause : {{ jour.pause.debut }} - {{ jour.pause.fin }})</span>
+              </li>
+            </ul>
+          </div>
+  
+          <div class="right-column">
+            <h4>Absences :</h4>
+            <ul>
+              <li *ngFor="let absence of mecanicien.absences">
+                {{ absence.date | date:'dd/MM/yyyy' }} de {{ absence.debut }} à {{ absence.fin }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+      <full-calendar [options]="calendarOptions"></full-calendar>
+    </div>
+  </div>
+  

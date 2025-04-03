@@ -1,0 +1,9 @@
+<!-- edit-categorie.component.html -->
+<div>
+    <h2>Modifier la Catégorie</h2>
+    <form [formGroup]="categorieForm" (ngSubmit)="updateCategory()">
+      <input formControlName="nomCategorie" placeholder="Nom de la catégorie" />
+      <button type="submit">Mettre à jour</button>
+    </form>
+  </div>
+  

@@ -1,0 +1,230 @@
+/* Styles de base pour la page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+/* Conteneur du formulaire */
+form {
+    max-width: 600px;
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Espacement entre les champs */
+  div {
+    margin-bottom: 15px;
+  }
+  
+  /* Styles des labels */
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Champs de saisie */
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  /* Bouton de soumission */
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+    /* Conteneur des spécialités */
+fieldset {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Légende du fieldset */
+  legend {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Alignement des cases à cocher */
+  .specialite-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  /* Style des cases à cocher */
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #007bff; /* Change la couleur de la case cochée */
+    cursor: pointer;
+  }
+  
+  /* Style des labels des spécialités */
+  .specialite-item label {
+    font-size: 16px;
+    cursor: pointer;
+  }
+/* Conteneur du tableau */
+.mecanicien-list {
+    max-width: 800px;
+    width: 100%;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  /* Style du tableau */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  /* Style des en-têtes du tableau */
+  thead {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Style des lignes */
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style des liens "Horaire" et "Absence" */
+  .mecanicien-links a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .mecanicien-links a:hover {
+    text-decoration: underline;
+  }/* Conteneur du formulaire */
+form {
+    max-width: 600px;
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  
+  /* Champ individuel */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Pour les champs qui doivent occuper toute la ligne */
+  .full-width {
+    grid-column: span 2;
+  }
+  
+  /* Label */
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Champs de saisie */
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  /* Section des spécialités */
+  fieldset {
+    grid-column: span 2;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Organisation des cases à cocher */
+  .specialites-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .specialite-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* Bouton sur toute la largeur */
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+    

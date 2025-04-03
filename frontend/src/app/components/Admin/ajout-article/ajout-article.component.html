@@ -1,0 +1,36 @@
+<div>
+    <h2>Ajouter un Article</h2>
+    <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+      <input formControlName="nomArticle" placeholder="Nom de l'article" required />
+      <select formControlName="categorie" required>
+        <option *ngFor="let categorie of categories" [value]="categorie._id">
+          {{ categorie.nomCategorie }}
+        </option>
+      </select>
+      <button type="submit">Ajouter</button>
+    </form>
+  
+    <hr />
+  
+    <h2>Liste des Articles</h2>
+    <table >
+      <thead>
+        <tr>
+          <th>Nom de l'Article</th>
+          <th>Catégorie</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let article of articles">
+          <td>{{ article.nomArticle }}</td>
+          <td>{{ article.categorie?.nomCategorie }}</td>
+          <td>
+            <button (click)="editArticle(article._id)">Modifier</button>
+            <button (click)="deleteArticle(article._id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

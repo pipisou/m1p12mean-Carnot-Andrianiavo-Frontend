@@ -1,0 +1,229 @@
+<div *ngIf="selectedElement" class="mx-2 h-100">
+  <div class="w-100 d-inline-flex align-items-center justify-content-end p-2">
+    <nz-select [ngModel]="selected" (ngModelChange)="changeSelectedValue($event)" class="w-25 rounded-3" nzShowSearch nzAllowClear [nzPlaceHolder]="selectedElement?.devis?.referenceDevis ?? '------'" nzMode="default">
+      <nz-option *ngFor="let redv of commandeServices" [nzLabel]="redv?.devis?.referenceDevis  ?? ''" [nzValue]="redv?._id"></nz-option>
+    </nz-select>
+  </div>
+  <h3 class="mb-4 ms-2"><i class="fa fa-globe text-primary fs-4 me-2"></i>Suivi de Services</h3>
+  <div class="row m-0 p-0 w-100 justify-content-between">
+    <div class="ms-3 bg-service rounded-4 position-relative">
+      <div class="m-3">
+        <nz-progress
+          nz-tooltip
+          [nzTooltipTitle]="statistique.terminer +' Fait / '+statistique.encours+' En cours / '+statistique.afaire+' À faire'"
+          nzType="circle"
+          [nzWidth]="80"
+          [nzStatus]="(this.selectedElement?.taches?.length ?? 0)===0 ? 'exception' : statistique.pourcentage>99 ? 'success' : 'normal'"
+          [nzPercent]="statistique.pourcentage"
+          [nzSuccessPercent]="statistique.terminer"
+        ></nz-progress>
+      </div>
+      <div class="w-100 text-print fs-6 color-bleu">
+        <span class="text-uppercase d-inline-block mb-2"><i class="fa fa-passport"></i><span class="ms-2 text-white fs-5">{{selectedElement?.devis?.referenceDevis ?? ''}}</span></span>
+        <span class="text-uppercase d-block mb-2"><i class="fa fa-car-alt"></i><span class="text-white ms-2 fs-5">{{selectedElement?.devis?.vehicule?.immatriculation ?? ''}}</span></span>
+        <span class="text-uppercase d-block mb-2"><i class="fa fa-chart-simple"></i><span class="text-white ms-2 fs-5">
+           {{ selectedElement && selectedElement?.statut?.includes('pr') ? 'EN COURS' : (selectedElement?.statut ?? '') }}
+        </span></span>
+      </div>
+      <div *ngIf="!selectedElement?.statut?.includes('p')" class="w-100 justify-content-end d-flex position-absolute m-0 top-0 pe-3 pt-2">
+        <div  nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomCenter" class="py-1 px-3 rounded-3 bg-dark bg-opacity-25 cursor-pointer hover-element">
+          <i class="fa fa-ellipsis-vertical"></i>
+        </div>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item nzDanger (click)="clickDelete()">
+              <span class="text-grey"><i class="fa fa-trash me-2"></i>Supprimer le devi</span>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+    </div>
+    <div class="bg-content d-flex justify-content-between align-items-center">
+      <div (click)="updateActiveElement(1)" [class]="activeElement===1 ? 'active-element': 'bg-body'" class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+        <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
+          <i class="fa fa-globe small text-grey"></i>
+        </div>
+        <code class="text-pink d-block fs-3 fw-bold">{{selectedElement?.statut?.includes('p') ? selectedElement?.taches?.length : selectedElement?.devis?.taches?.length}}</code>
+        <span class="d-block fs-5 text-print">Taches</span>
+      </div>
+      <div (click)="updateActiveElement(2)" [class]="activeElement===2 ? 'active-element': 'bg-body'" class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+        <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
+          <i class="fa fa-pen-to-square small text-grey"></i>
+        </div>
+        <code class="text-pink d-block fs-3 fw-bold">{{selectedElement?.articlesUtilises?.length}}</code>
+        <span class="d-block fs-5 text-print">Articles</span>
+      </div>
+      <div (click)="updateActiveElement(3)" [class]="activeElement===3 ? 'active-element': 'bg-body'" class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+        <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
+          <i class="fa fa-id-card-clip small text-grey"></i>
+        </div>
+        <code class="text-pink d-block fs-3 fw-bold">{{selectedElement?.dateDemande?.length}}</code>
+        <span class="d-block fs-5 text-print">Rendez-vous</span>
+      </div>
+      <div (click)="updateActiveElement(4)" [class]="activeElement===4 ? 'active-element': 'bg-body'" class="flex-grow-1 w-25-5rem cursor-pointer hover-scale-element mx-2 h-80px rounded-3 d-flex flex-column justify-content-center align-items-center shadow-lg position-relative">
+        <div class="w-100 text-end position-absolute top-0 pt-0 pe-1">
+          <i class="fa fa-money-check-dollar small text-grey"></i>
+        </div>
+        <code class="text-pink d-block fs-3 fw-bold">{{statistique.pourcentage===100 ? 1 : 0}}</code>
+        <span class="d-block fs-5 text-print">Factures</span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="selectedElement" class="row mt-4 mx-0 p-0 mx-2">
+    <div *ngIf="activeElement===1" class="">
+      <div *ngIf="selectedElement?.statut?.includes('p'); else statusNonValider">
+        <h4 class="text-print fw-bold text-grey">Avancement de tache</h4>
+        <div class="w-100 p-2 d-flex flex-column justify-content-center align-items-center">
+          <table class="table w-100 table-hover">
+            <caption class="caption-top fs-4">
+              Nombre de tache necessaire :
+              <span class="color-bleu text-print">{{selectedElement?.taches?.length}}</span>
+            </caption>
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Service</th>
+              <th scope="col">Statut</th>
+              <th scope="col">Date debut </th>
+              <th scope="col">Date fin</th>
+              <th scope="col">Responsable</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr (click)="clickedDetail(serv._id)" *ngFor="let serv of paginatedList; let index=index" class="cursor-pointer">
+              <th scope="row">{{(pageSize*(currentPage-1))+index+1}}</th>
+              <td class="fw-bolder">{{serv.tache.description}}</td>
+              <td><span class="d-inline-flex  text-nowrap bg-dark bg-opacity-25 text-print text-primary px-2 py-1 rounded-3">{{serv.statut}}</span></td>
+              <td class="text-print">{{serv.dateHeureDebut | date: 'yyyy-MM-dd hh:mm'}}</td>
+              <td class="text-print">{{serv.dateHeureFin | date: 'yyyy-MM-dd hh:mm'}}</td>
+              <td class="">{{serv.mecanicien.email}}</td>
+<!--              <td class="text-print">{{formatNumber(serv.tache.prix)}}</td>-->
+            </tr>
+            </tbody>
+          </table>
+          <div class="w-100 d-flex justify-content-end pb-2 pe-3">
+            <nz-pagination [(nzPageIndex)]="currentPage" [nzPageSize]="pageSize" [nzTotal]="selectedElement?.taches?.length" ></nz-pagination>
+          </div>
+        </div>
+      </div>
+      <ng-template #statusNonValider>
+        <div class="w-100 p-2 d-flex flex-column justify-content-center align-items-center">
+          <h4 class="text-print fw-bold text-grey w-100 text-start ms-3">Details du services</h4>
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Service</th>
+              <th scope="col">Prix (MGA)</th>
+              <th scope="col">Estimation (H)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let serv of selectedElement?.devis?.taches?.slice((currentPageNonValider-1)*pageSize,(currentPageNonValider)*pageSize); let index=index" class="cursor-pointer">
+              <th scope="row">{{(pageSize*(currentPage-1))+index+1}}</th>
+              <td class="text-print">{{serv.description}}</td>
+              <td class="text-print">{{formatNumber(serv.prix)}}</td>
+              <td>{{serv.tempsEstime}}</td>
+            </tr>
+            </tbody>
+          </table>
+
+          <div class="w-100 d-flex justify-content-end">
+            <nz-pagination [(nzPageIndex)]="currentPageNonValider" [nzPageSize]="pageSize" [nzTotal]="selectedElement?.devis?.taches?.length" ></nz-pagination>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    <div *ngIf="activeElement===2" class="">
+      <h4 class="text-print fw-bold text-grey">Article necessaire</h4>
+      <div class="w-100 d-flex flex-column justify-content-center align-items-center">
+        <table class="table w-75">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prix unitaire</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Prix Total</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let article of selectedElement?.articlesUtilises; let index = index">
+            <th scope="row">{{index + 1}}</th>
+            <th scope="row">{{article.article.nomArticle}}</th>
+            <th scope="row">{{article.prixVente}}</th>
+            <th scope="row">{{article.quantite}}</th>
+            <th scope="row">{{article.prixVente*article.quantite}}</th>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+    <div *ngIf="activeElement===3" class="">
+      <h4 class="text-print fw-bold text-grey">Rendez-vous</h4>
+      <div class="w-100 d-flex flex-column justify-content-center align-items-center">
+        <table class="table w-75">
+          <caption *ngIf="!selectedElement?.statut?.includes('p')" class="caption-top fs-4">
+            Rendez-vous avec l'admin :
+            <span
+              nz-dropdown
+              [nzDropdownMenu]="dateDemande"
+              nzPlacement="bottomCenter"
+              class="color-bleu text-print"
+            >
+    {{ selectedElement?.dateChoisie ? (selectedElement?.dateChoisie | date: 'yyyy-MM-dd hh:mm') : 'non défini' }}
+  </span>
+          </caption>
+          <nz-dropdown-menu #dateDemande="nzDropdownMenu">
+            <ul nz-menu *ngIf="selectedElement?.dateChoisie">
+              <li nz-menu-item (click)="redemander()">
+                <span class="text-grey"><i class="fa fa-arrows-rotate me-2"></i>Redemander</span>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">date debut</th>
+            <th scope="col">date Fin</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let date of selectedElement?.dateDemande; let index = index">
+            <th scope="row">{{index + 1}}</th>
+            <td class="text-print fw-bolder">{{date?.dateHeureDebut | date : 'yyyy-MM-dd hh:mm'}}</td>
+            <td class="text-print fw-bolder">{{date?.dateHeureFin | date : 'yyyy-MM-dd hh:mm'}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="!selectedElement?.statut?.includes('p')" class="w-100 mt-2 pe-4 d-flex justify-content-end">
+          <button (click)="showModif()" type="button" class="btn btn-secondary mb-2"><i class="fa fa-calendar-days me-2"></i>Modifier les dates</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="activeElement===4" class="">
+      <h4 class="text-print fw-bold text-grey">Facturation</h4>
+      <div class="w-100 bg-dark bg-opacity-75 h-100 py-2">
+        <div class="w-100 p-2 mb-2 d-flex justify-content-end">
+          <button (click)="downloadFacture()" type="button" class="btn btn-secondary mb-2"><i class="fa fa-download me-2"></i>Telecharger le facture</button>
+        </div>
+        <pdf-viewer
+          [src]="pdfLink+selectedElement?._id"
+          [render-text]="true"
+          [show-all]="true"
+          style="display: block; width: 100%; height: 500px; ">
+        </pdf-viewer>
+      </div>
+    </div>
+  </div>
+</div>
+<app-affiche-devi [loading]="loadingAll" class="z-1" *ngIf="afficheEnAttent" [isVisible]="afficheEnAttent" [listRendezVous]="commandeServices" (fonctHide)="hideAfficheEnAttent()"></app-affiche-devi>
+
+<div *ngIf="loading" class="vh-100 vw-100 bg-dark bg-opacity-25 position-fixed top-0 z-3 start-0 d-flex justify-content-center align-items-center">
+  <nz-list nzItemLayout="horizontal" [nzLoading]="loading"></nz-list>
+</div>
+
+<app-modif-rendezvous [visibleRendezVous]="visibleModifRendezVous" (fonthideModifRendezVous)="hideModif()" (onModifValidate)="modifier($event)" [idRendezVous]="selectedElement?._id ?? ''"></app-modif-rendezvous>
+
+<app-affiche-detail-tache [isVisible]="showImageTache" (hide)="hideTache()" [idDetailService]="idClickedTache"></app-affiche-detail-tache>

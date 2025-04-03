@@ -1,0 +1,10 @@
+.bg-garage {
+  background: url('/assets/img/garage-bg.jpg') no-repeat center center/cover;
+}
+.w-60{
+  width: 60% !important;
+}
+.rounded-end-7{
+  border-bottom-right-radius: 30%;
+  border-top-right-radius: 30%;
+}

@@ -1,0 +1,16 @@
+/*.bg-tache-active{*/
+/*  background-color: white;*/
+/*  transition: background-color 500ms ease-in-out;*/
+/*}*/
+.bg-tache-active:hover{
+  background-color: #4d99d5 !important;
+}
+.bg-tache-active:hover >span >i{
+  display: flex;
+  transform: translateX(5px);
+}
+.bg-tache-active >span >i{
+  transform: translateX(0);
+  display: none;
+  transition: all 700ms ease-in-out;
+}

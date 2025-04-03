@@ -1,0 +1,34 @@
+<div class="container">
+    <h2>Rendez-vous en attente</h2>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Référence Devis</th>
+          <th>Client</th>
+          <th>Date demandée</th>
+          <th>Statut</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rendezVous of rendezVousEnAttente">
+          <td>{{ rendezVous.devis?.referenceDevis }}</td>
+          <td>{{ rendezVous.client?.nom }} {{ rendezVous.client?.prenom }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let date of rendezVous.dateDemande">
+                {{ date.dateHeureDebut | date:'dd/MM/yyyy HH:mm' }} - 
+                {{ date.dateHeureFin | date:'dd/MM/yyyy HH:mm' }}
+              </li>
+            </ul>
+          </td>
+          <td>{{ rendezVous.statut }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="choisirDate(rendezVous._id)">Choisir une date</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

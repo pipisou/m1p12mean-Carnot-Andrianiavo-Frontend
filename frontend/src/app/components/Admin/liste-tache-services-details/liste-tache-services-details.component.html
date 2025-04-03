@@ -1,0 +1,45 @@
+<div class="taches-table">
+    <h2 *ngIf="serviceDetails">Tâches pour le service : {{ serviceDetails.service.nomService }}/{{ serviceDetails.categorieDeVehicule.nom }}</h2>
+    <div>
+        <button class="btn btn-success mb-3" (click)="onAddTask()">Ajouter une Tâche</button>
+      </div>
+    <div *ngIf="taches.length > 0; else noTaches">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Prix (€)</th>
+            <th>Temps estimé (heures)</th>
+            <th>Marge (%)</th>
+            <th>Articles nécessaires</th>
+            <th>Actions</th> <!-- Colonne pour les actions -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tache of taches">
+            <td>{{ tache.description }}</td>
+            <td>{{ tache.prix }}</td>
+            <td>{{ tache.tempsEstime }}</td>
+            <td>{{ tache.marge }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let article of tache.articlesNecessaires">
+                  {{ article.article.nomArticle }} - {{ article.quantite }} unité(s)
+                </li>
+              </ul>
+            </td>
+            <td>
+              <!-- Boutons pour modifier et supprimer -->
+              <button class="btn btn-warning" (click)="onEdit(tache._id)">Modifier</button>
+              <button class="btn btn-danger" (click)="onDelete(tache._id)">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <ng-template #noTaches>
+      <p>Aucune tâche trouvée pour ce service.</p>
+    </ng-template>
+  </div>
+  

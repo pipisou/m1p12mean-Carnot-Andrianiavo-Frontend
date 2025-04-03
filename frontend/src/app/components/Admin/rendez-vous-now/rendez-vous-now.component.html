@@ -1,0 +1,25 @@
+<h2>Rendez-vous Présents</h2>
+<ul>
+    <li *ngFor="let rdv of rendezVousPresents">
+        {{ rdv.client.nom }} - {{ rdv.devis.referenceDevis }} - Statut : {{ rdv.statut }} 
+        - Date Choisie : {{ rdv.dateChoisie | date:'dd/MM/yyyy HH:mm' }}
+        
+        <button (click)="voirDetailsRendezVous(rdv._id)" class="btn btn-info btn-sm">
+          Voir les détails
+        </button>
+        
+        <button (click)="downloadFacture(rdv._id)" class="btn btn-success btn-sm">
+            Voir Facture
+          </button>
+          
+      </li>
+      
+</ul>
+
+<h2>Rendez-vous Absents</h2>
+<ul>
+  <li *ngFor="let rdv of rendezVousAbsents">
+    {{ rdv.client.nom }} - {{ rdv.devis.referenceDevis }} - Statut : {{ rdv.statut }} 
+    - Date Choisie : {{ rdv.dateChoisie | date:'dd/MM/yyyy HH:mm' }}
+  </li>
+</ul>

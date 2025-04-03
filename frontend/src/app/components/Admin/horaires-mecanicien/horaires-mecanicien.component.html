@@ -1,0 +1,56 @@
+<form [formGroup]="horaireForm" (ngSubmit)="onSubmit()">
+  <h2>Horaires du Mécanicien</h2>
+
+  <div formArrayName="joursTravail">
+    <div *ngFor="let jour of joursTravail().controls; let i = index" [formGroupName]="i" class="jour-item">
+      <div class="jour">
+        <label>{{ joursDisponibles[i] }}</label>
+        
+        <input
+          type="checkbox"
+          formControlName="actif"
+          id="actif-{{ i }}"
+        />
+        <label for="actif-{{ i }}">Actif</label>
+      </div>
+      
+      <div class="horaire">
+        <label for="debut-{{ i }}">Heure de début:</label>
+        <input
+          type="time"
+          formControlName="debut"
+          id="debut-{{ i }}"
+          [disabled]="!(jour.get('actif')?.value)"
+        />
+
+        <label for="fin-{{ i }}">Heure de fin:</label>
+        <input
+          type="time"
+          formControlName="fin"
+          id="fin-{{ i }}"
+          [disabled]="!(jour.get('actif')?.value)"
+        />
+      </div>
+
+      <!-- Pause -->
+      <div class="pause" *ngIf="jour.get('actif')?.value">
+        <label for="pauseDebut-{{ i }}">Heure de début de la pause:</label>
+        <input
+          type="time"
+          formControlName="pauseDebut"
+          id="pauseDebut-{{ i }}"
+
+        />
+
+        <label for="pauseFin-{{ i }}">Heure de fin de la pause:</label>
+        <input
+          type="time"
+          formControlName="pauseFin"
+          id="pauseFin-{{ i }}"
+        />
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="horaireForm.invalid">Soumettre</button>
+</form>

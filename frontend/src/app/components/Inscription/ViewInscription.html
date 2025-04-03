@@ -1,0 +1,60 @@
+<div class="vh-100 vw-100 bg-garage d-flex justify-content-center align-items-center">
+  <div class="h-75 w-60 border border-2 shadow-lg rounded-3 bg-white overflow-hidden">
+    <div class="row w-100 h-100 m-0 p-0">
+      <div class="col-5 h-100 bg-info position-relative rounded-end-7 d-flex flex-column justify-content-center align-items-center">
+        <h2 class="text-center">ESPACE CLIENT</h2>
+        <div class="mt-3 text-center text-white text-print fs-6">
+          Creer un compte dans notre plateforme pour le suivit de reparation automobile
+        </div>
+        <a routerLink="/inscription" class="btn btn-light btn-sm hover-element position-absolute mb-3 bottom-0 px-3">Se Connecter</a>
+      </div>
+      <div class="col-7 h-100 d-flex flex-column justify-content-center align-items-center">
+        <h3 class="mb-3">S'inscrire</h3>
+        <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()" class="w-100 m-0 p-0 d-flex flex-column justify-content-center">
+          <div class="form-group mb-2 w-100 px-0 row mx-0">
+            <div class="col-6 ps-2 pe-1">
+              <label class="mb-1 fs-6" for="exampleInputEmail1">Nom</label>
+              <input type="text" formControlName="nom" autocomplete="off"  class="form-control form-control-sm" id="nom" aria-describedby="emailHelp" placeholder="Entez votre Nom">
+              <span *ngIf="hasError('nom', 'required')" class="text-danger mt-1">Le nom est requis.</span>
+              <span *ngIf="hasError('nom', 'minlength')" class="text-danger mt-1">Le nom doit avoir au moins 2 caractères.</span>
+            </div>
+            <div class="col-6 pe-2 ps-1">
+              <label class="mb-1 fs-6" for="exampleInputEmail1">Prenom</label>
+              <input type="text" autocomplete="off" formControlName="prenom"  class="form-control form-control-sm" id="prenom" aria-describedby="emailHelp" placeholder="Entez votre prenom">
+              <span *ngIf="hasError('prenom', 'required')" class="text-danger mt-1">Le nom est requis.</span>
+              <span *ngIf="hasError('prenom', 'minlength')" class="text-danger mt-1">Le nom doit avoir au moins 2 caractères.</span>
+            </div>
+          </div>
+          <div class="form-group mb-2 w-100 px-2">
+            <label class="mb-1 fs-6" for="exampleInputEmail1">Telephone</label>
+            <input type="text" autocomplete="off" formControlName="telephone"  class="form-control form-control-sm" id="telephone" aria-describedby="emailHelp" placeholder="Entez tel">
+            <span *ngIf="hasError('telephone', 'required')" class="text-danger mt-1">Le telephone est requis.</span>
+          </div>
+          <div class="form-group mb-2 w-100 px-2">
+            <label class="mb-1 fs-6" for="exampleInputEmail1">Email</label>
+            <input type="email" autocomplete="off" formControlName="email" class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entez votre email">
+            <span *ngIf="hasError('email', 'required')" class="text-danger mt-1">L'email est requis.</span>
+            <span *ngIf="hasError('email', 'email')" class="text-danger mt-1">Format email invalide.</span>
+          </div>
+          <div class="form-group mb-2 w-100 px-2">
+            <label class="mb-1 fs-6" for="mdp">Mot de passe</label>
+            <input type="password" autocomplete="off"  formControlName="motDePasse" class="form-control form-control-sm" id="mdp" placeholder="mot de passe">
+            <span *ngIf="hasError('motDePasse', 'required')" class="text-danger mt-1">Le mot de passe est requis.</span>
+            <span *ngIf="hasError('motDePasse', 'minlength')" class="text-danger mt-1">Minimum 6 caractères.</span>
+          </div>
+          <div class="form-group mb-3 w-100 px-2">
+            <label class="mb-1 fs-6" for="mdp-r">Retaper votre mot de passe</label>
+            <input type="password" autocomplete="off" formControlName="retape" class="form-control form-control-sm" id="mdp-r" placeholder="retaper votre mot de passe">
+            <span *ngIf="inscriptionForm.hasError('mismatch') && inscriptionForm.get('retape')?.touched" class="text-danger">
+              ⚠️ Les mots de passe ne correspondent pas.
+            </span>
+          </div>
+          <div class="px-2 w-100">
+            <button nz-button nzType="primary" type="submit" class="w-100" [disabled]="inscriptionForm.invalid" [nzLoading]="loading">Valider</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

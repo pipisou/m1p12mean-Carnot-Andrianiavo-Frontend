@@ -1,0 +1,13 @@
+<div>
+    <h2>Modifier l'Article</h2>
+    <form [formGroup]="articleForm" (ngSubmit)="updateArticle()">
+      <input formControlName="nomArticle" placeholder="Nom de l'article" required />
+      <select formControlName="categorie" required>
+        <option *ngFor="let categorie of categories" [value]="categorie._id">
+          {{ categorie.nomCategorie }}
+        </option>
+      </select>
+      <button type="submit">Mettre à jour</button>
+    </form>
+  </div>
+  

@@ -1,0 +1,38 @@
+<h2>Gestion des absences pour {{ mecanicien?.nom }} {{ mecanicien?.prenom }}</h2>
+
+<form [formGroup]="absenceForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="date">Date de l'absence:</label>
+    <input id="date" type="date" formControlName="date" (change)="onDateChange()" />
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  </div>
+
+  <div *ngIf="jourValide">
+    <div class="form-group">
+      <label for="debut">Heure de début:</label>
+      <input id="debut" type="time" formControlName="debut" />
+    </div>
+    <div class="form-group">
+      <label for="fin">Heure de fin:</label>
+      <input id="fin" type="time" formControlName="fin" />
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="absenceForm.invalid || !jourValide">Ajouter Absence</button>
+</form>
+
+<!-- Liste des absences -->
+<h3>Liste des absences</h3>
+<div *ngIf="absences.length > 0; else noAbsences">
+  <ul>
+    <li *ngFor="let absence of absences">
+      <strong>{{ absence.date | date: 'dd/MM/yyyy' }}:</strong> 
+      {{ absence.debut }} - {{ absence.fin }}
+      <!-- Bouton de suppression -->
+      <button (click)="deleteAbsence(absence._id)">Supprimer</button>
+    </li>
+  </ul>
+</div>
+<ng-template #noAbsences>
+  <p>Aucune absence enregistrée.</p>
+</ng-template>

@@ -1,0 +1,90 @@
+<div *ngIf="devis">
+  <h2>Détails du Devis</h2>
+  <p><strong>Référence :</strong> {{ devis.referenceDevis }}</p>
+  <p><strong>Client :</strong> {{ devis.client?.nom || 'Non spécifié' }}</p>
+
+  <h3>Sélectionner un véhicule</h3>
+  <select [(ngModel)]="selectedVehicule" (change)="onVehiculeSelect()">
+    <option *ngFor="let vehicule of vehicules" [ngValue]="vehicule">
+      {{ vehicule.immatriculation }}
+    </option>
+  </select>
+
+  <div class="section">
+    <h3>Services disponibles pour le véhicule sélectionné</h3>
+    <div *ngIf="serviceDetails.length > 0; else noServices">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nom du Service</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let service of serviceDetails" (click)="onServiceSelect(service)">
+            <td>{{ service.service?.nomService }}</td>
+            <td>{{ service.service?.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noServices>
+      <p>Aucun service disponible pour ce véhicule.</p>
+    </ng-template>
+  </div>
+
+  <div class="section">
+    <h3>Tâches disponibles pour le service sélectionné</h3>
+    <div *ngIf="taches.length > 0; else noTaches">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nom de la Tâche</th>
+            <th>Prix</th>
+            <th>Temps estimé</th>
+            <th>Ajouter</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tache of taches">
+            <td>{{ tache.description }}</td>
+            <td>{{ tache.prix }}</td>
+            <td>{{ tache.tempsEstime }} minutes</td>
+            <td><button (click)="addToSelectedTaches(tache)">Ajouter</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noTaches>
+      <p>Aucune tâche disponible pour ce service.</p>
+    </ng-template>
+  </div>
+
+  <div class="section">
+    <h3>Tâches sélectionnées</h3>
+    <div *ngIf="selectedTaches.length > 0; else noSelectedTaches">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Prix</th>
+            <th>Supprimer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tache of selectedTaches">
+            <td>{{ tache.description }}</td>
+            <td>{{ tache.prix }}</td>
+            <td><button (click)="removeFromSelectedTaches(tache)">Supprimer</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noSelectedTaches>
+      <p>Aucune tâche sélectionnée.</p>
+    </ng-template>
+  </div>
+  
+<div class="section">
+  <button (click)="updateDevis()" class="btn btn-primary">Enregistrer</button>
+</div>

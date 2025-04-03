@@ -1,0 +1,42 @@
+<div>
+  <h2>Ajouter un Service</h2>
+  <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Nom & Description -->
+    <input formControlName="nomService" placeholder="Nom du service" required />
+    <textarea formControlName="description" placeholder="Description" required></textarea>
+
+
+
+
+    <button type="submit">Ajouter</button>
+  </form>
+</div>
+
+<hr />
+
+<!-- Liste des services -->
+<div>
+  <h2>Liste des Services</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Description</th>
+      
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let service of services">
+        <td>{{ service.nomService }}</td>
+        <td>{{ service.description }}</td>
+
+        <td>
+          <button (click)="editService(service._id)">Modifier</button>
+          <button (click)="deleteService(service._id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

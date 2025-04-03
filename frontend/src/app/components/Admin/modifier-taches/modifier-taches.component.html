@@ -1,0 +1,60 @@
+<div class="edit-tache-form">
+    <h2>Modifier la tâche</h2>
+  
+    <form [formGroup]="tacheForm" (ngSubmit)="onSubmit()">
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input id="description" formControlName="description" class="form-control" />
+        <div *ngIf="tacheForm.get('description')?.invalid && tacheForm.get('description')?.touched" class="text-danger">
+          Description requise
+        </div>
+      </div>
+  
+      <!-- Prix -->
+      <div class="form-group">
+        <label for="prix">Prix (€)</label>
+        <input id="prix" formControlName="prix" type="number" class="form-control" />
+        <div *ngIf="tacheForm.get('prix')?.invalid && tacheForm.get('prix')?.touched" class="text-danger">
+          Prix requis et doit être positif
+        </div>
+      </div>
+  
+      <!-- Temps Estimé -->
+      <div class="form-group">
+        <label for="tempsEstime">Temps estimé (heures)</label>
+        <input id="tempsEstime" formControlName="tempsEstime" type="number" class="form-control" />
+        <div *ngIf="tacheForm.get('tempsEstime')?.invalid && tacheForm.get('tempsEstime')?.touched" class="text-danger">
+          Temps estimé requis et doit être positif
+        </div>
+      </div>
+  
+      <!-- Marge -->
+      <div class="form-group">
+        <label for="marge">Marge (%)</label>
+        <input id="marge" formControlName="marge" type="number" class="form-control" />
+        <div *ngIf="tacheForm.get('marge')?.invalid && tacheForm.get('marge')?.touched" class="text-danger">
+          Marge requise et doit être positif
+        </div>
+      </div>
+  
+      <!-- Articles Nécessaires -->
+      <div formArrayName="articlesNecessaires">
+        <div *ngFor="let article of articlesNecessaires().controls; let i = index" [formGroupName]="i" class="form-group">
+          <label for="article-{{i}}">Article</label>
+          <select id="article-{{i}}" formControlName="article" class="form-control">
+            <option *ngFor="let a of articles" [value]="a._id">{{ a.nomArticle }}</option>
+          </select>
+  
+          <label for="quantite-{{i}}">Quantité</label>
+          <input id="quantite-{{i}}" formControlName="quantite" type="number" class="form-control" />
+  
+          <button type="button" class="btn btn-danger" (click)="removeArticle(i)">Supprimer l'article</button>
+        </div>
+      </div>
+  
+      <button type="button" class="btn btn-primary" (click)="addArticle()">Ajouter un article</button>
+      <button type="submit" class="btn btn-success" [disabled]="tacheForm.invalid">Enregistrer</button>
+    </form>
+  </div>
+  

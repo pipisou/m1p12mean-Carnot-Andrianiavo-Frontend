@@ -1,0 +1,10 @@
+<h2>Rendez-vous Validés</h2>
+<ul>
+  <li *ngFor="let rdv of rendezVousValides">
+    {{ rdv.client.nom }} - {{ rdv.devis.referenceDevis }} - Statut : {{ rdv.statut }} 
+    - Date Choisie : {{ rdv.dateChoisie | date:'dd/MM/yyyy HH:mm' }}
+    
+    <button (click)="marquerPresent(rdv._id)">Présent</button>
+    <button (click)="marquerAbsent(rdv._id)">Absent</button>
+  </li>
+</ul>
