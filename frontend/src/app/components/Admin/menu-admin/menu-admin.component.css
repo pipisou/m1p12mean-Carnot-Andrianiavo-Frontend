@@ -2,17 +2,17 @@ nav ul {
     list-style-type: none;
     padding: 0;
   }
-  
+
   nav ul li {
     margin: 10px 0;
   }
-  
+
   nav ul li a {
     text-decoration: none;
     color: #007bff;
     font-size: 18px;
   }
-  
+
   nav ul li a:hover {
     text-decoration: underline;
   }
@@ -26,3 +26,8 @@ nav ul {
   padding-left: 40px !important; /* Forcer l'application de l'espace */
 }
 
+.bg-active-slid{
+  background-color: rgba(138, 43, 226, 0.2);
+  color: rebeccapurple;
+  border-bottom: 2px solid rebeccapurple;
+}

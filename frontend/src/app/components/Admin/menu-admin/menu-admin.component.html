@@ -6,18 +6,18 @@
     </div>
     <div class="d-flex flex-column overflow-auto m-125 mb-0 mx-0 w-100 p-0">
       <div class="flex-grow-1 w-100">
-        <div *ngFor="let item of menuItems" (click)="changeRoute(item.path)" 
-            [ngClass]="{ 'bg-active-slid': page?.path === item.path }"
+        <div *ngFor="let item of menuItems" (click)="changeRoute(item.path)"
+            [ngClass]="{ 'bg-active-slid': page.includes(item.path) }"
             class="d-flex flex-column align-items-center fs-5 text-print justify-content-center py-3 cursor-pointer hover-element mb-2 slide-element">
           <i class="fa" [ngClass]="item.icon"></i>
-          <span class="d-block mt-1">{{ item.label }}</span>
+          <span class="mt-1 text-center">{{ item.label }}</span>
         </div>
       </div>
     </div>
   </div>
-  
+
   <!-- Contenu principal -->
-  <div class="width-80 m-0 p-0 d-flex flex-column h-100 ms-auto position-relative content-container">
+  <div class="width-80 m-0 p-0 d-flex flex-column h-100 ms-auto position-relative">
     <div class="bg-body height-70px border-bottom border-start mb-3 w-100 d-inline-flex align-items-center justify-content-between p-2">
       <span class="fs-4 fw-bold">Menu Admin</span>
       <div class="d-inline-flex align-items-center h-100">
@@ -47,12 +47,13 @@
     </div>
 
     <div class="flex-grow-1">
-      <router-outlet></router-outlet>
+      <div class="mx-3">
+        <router-outlet></router-outlet>
+      </div>
     </div>
 
-    <footer class="w-100 d-flex justify-content-between align-items-end p-2">
-      <span class="text-print fs-5">RAKOTONDRASOA RAZANADAHY Andrianiavo</span>
-      <span class="text-print fs-5">RANDRIAMIANDRAVOLA Jean Carnot Raharimamy</span>
-    </footer>
+    <div class="bg-white shadow-lg">
+      <app-footer-element></app-footer-element>
+    </div>
   </div>
 </div>

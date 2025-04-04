@@ -7,5 +7,5 @@ import { RouterModule } from '@angular/router';
   imports: [RouterModule],
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'Garage Auto';
 }
