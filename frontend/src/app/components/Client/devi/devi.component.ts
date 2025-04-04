@@ -295,8 +295,8 @@ export class DeviComponent {
     const  prixHeur={prix: 0, heureMin: 0, heureMax: 0}
     for (const item of this.listSelectedDetailCat) {
       prixHeur.prix+=item.prix
-      prixHeur.heureMin+=(item.tempsEstime-(item.tempsEstime*(item.marge/100)))
-      prixHeur.heureMax+=(item.tempsEstime+(item.tempsEstime*(item.marge/100)))
+      prixHeur.heureMin+=(item.tempsEstime-item.marge)
+      prixHeur.heureMax+=(item.tempsEstime+item.marge)
     }
     return prixHeur
   }
