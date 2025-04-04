@@ -298,6 +298,8 @@ export class DeviComponent {
       prixHeur.heureMin+=(item.tempsEstime-item.marge)
       prixHeur.heureMax+=(item.tempsEstime+item.marge)
     }
+    prixHeur.heureMax=prixHeur.heureMax/60
+    prixHeur.heureMin=prixHeur.heureMin/60
     return prixHeur
   }
 

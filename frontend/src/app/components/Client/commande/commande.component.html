@@ -113,9 +113,9 @@
             <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Service</th>
-              <th scope="col">Prix (MGA)</th>
-              <th scope="col">Estimation (H)</th>
+              <th scope="col" class="align-middle">Service</th>
+              <th scope="col" class="align-middle">Prix (MGA)</th>
+              <th scope="col" class="align-middle text-center">Estimation (mn)</th>
             </tr>
             </thead>
             <tbody>
@@ -123,7 +123,7 @@
               <th scope="row">{{(pageSize*(currentPage-1))+index+1}}</th>
               <td class="text-print">{{serv.description}}</td>
               <td class="text-print">{{formatNumber(serv.prix)}}</td>
-              <td>{{serv.tempsEstime}}</td>
+              <td class="text-center">{{serv.tempsEstime}}</td>
             </tr>
             </tbody>
           </table>
