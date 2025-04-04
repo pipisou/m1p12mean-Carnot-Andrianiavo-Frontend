@@ -1,0 +1,32 @@
+<h2 class="section-title">Les Commandes en cours</h2>
+
+<ul class="appointments-list">
+  <li *ngFor="let rdv of rendezVousPresents" class="appointment-item">
+    <div class="appointment-info">
+      <span class="client-name">{{ rdv.client.nom }}</span>
+      <span class="reference-devis">{{ rdv.devis.referenceDevis }}</span>
+      <span class="appointment-status">Statut : {{ rdv.statut }}</span>
+      <span class="appointment-date">Date Choisie : {{ rdv.dateChoisie | date:'dd/MM/yyyy HH:mm' }}</span>
+    </div>
+    <div class="appointment-actions">
+      <button (click)="voirDetailsRendezVous(rdv._id)" class="btn btn-info btn-sm">
+        Voir les détails
+      </button>
+      <button (click)="downloadFacture(rdv._id)" class="btn btn-success btn-sm">
+        Voir Facture
+      </button>
+    </div>
+  </li>
+</ul>
+
+<h2 class="section-title">Rendez-vous Absents</h2>
+<ul class="appointments-list">
+  <li *ngFor="let rdv of rendezVousAbsents" class="appointment-item">
+    <div class="appointment-info">
+      <span class="client-name">{{ rdv.client.nom }}</span>
+      <span class="reference-devis">{{ rdv.devis.referenceDevis }}</span>
+      <span class="appointment-status">Statut : {{ rdv.statut }}</span>
+      <span class="appointment-date">Date Choisie : {{ rdv.dateChoisie | date:'dd/MM/yyyy HH:mm' }}</span>
+    </div>
+  </li>
+</ul>

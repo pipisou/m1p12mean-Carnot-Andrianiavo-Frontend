@@ -1,0 +1,35 @@
+<div class="service-container">
+  <button class="btn btn-success mb-3" (click)="onAdd()">Nouveau service véhicule</button>
+
+  <div *ngIf="serviceDetails.length > 0; else noData">
+    <h2>Liste des services véhicules</h2>
+
+    <table class="service-details-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Catégorie de Véhicule</th>
+          <th>Actions</th>
+          <th>Gestion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detail of serviceDetails">
+          <td>{{ detail.service.nomService }}</td>
+          <td>{{ detail.categorieDeVehicule.nom }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="onEdit(detail._id)">Modifier</button>
+            <button class="btn btn-danger" (click)="onDelete(detail._id)">Supprimer</button>
+          </td>
+          <td>
+            <button class="btn btn-info" (click)="onManageTasks(detail._id)">Gérer les Tâches</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noData>
+    <p>Aucun détail de service disponible.</p>
+  </ng-template>
+</div>

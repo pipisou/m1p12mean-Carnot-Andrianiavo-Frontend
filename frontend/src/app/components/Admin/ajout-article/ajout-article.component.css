@@ -1,0 +1,129 @@
+/* Style général pour la page d'ajout et liste d'articles */
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin: 20px;
+  }
+  
+  /* Section de formulaire */
+  .form-section {
+    flex: 1;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-section input,
+  .form-section select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+  
+  .form-section button {
+    display: inline-block;
+    width: auto; /* Le bouton s'ajuste à son contenu */
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .form-section button:hover {
+    background-color: #0056b3;
+  }
+  
+  .form-section button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Section de liste */
+  .list-section {
+    flex: 2;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .list-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table th,
+  table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  table th {
+    background-color: #f1f1f1;
+  }
+  
+  /* Style pour les boutons d'action (Modifier, Supprimer) */
+  button {
+    padding: 5px 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+    margin-right: 10px; /* Ajoute un espacement entre les boutons */
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+    color: white;
+  }
+  
+  button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Styles spécifiques aux boutons */
+  .btn-add {
+    background-color: #28a745;
+  }
+  
+  .btn-add:hover {
+    background-color: #218838;
+  }
+  
+  .btn-edit {
+    background-color: #ffc107;
+    color: #000;
+  }
+  
+  .btn-edit:hover {
+    background-color: #e0a800;
+  }
+  
+  .btn-delete {
+    background-color: #dc3545;
+  }
+  
+  .btn-delete:hover {
+    background-color: #c82333;
+  }
+  

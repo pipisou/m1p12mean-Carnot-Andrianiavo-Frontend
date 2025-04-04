@@ -1,0 +1,23 @@
+<div class="service-details-container">
+  <h2>Modifier un Détail de Service</h2>
+  <form [formGroup]="serviceDetailsForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Sélection du service -->
+    <div class="form-group">
+      <label for="service">Service</label>
+      <select formControlName="service" required>
+        <option *ngFor="let service of services" [value]="service._id">{{ service.nomService }}</option>
+      </select>
+    </div>
+
+    <!-- Sélection de la catégorie de véhicule -->
+    <div class="form-group">
+      <label for="categorieDeVehicule">Catégorie de Véhicule</label>
+      <select formControlName="categorieDeVehicule" required>
+        <option *ngFor="let category of categories" [value]="category._id">{{ category.nom }}</option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="serviceDetailsForm.invalid" class="btn btn-primary">Modifier</button>
+  </form>
+</div>

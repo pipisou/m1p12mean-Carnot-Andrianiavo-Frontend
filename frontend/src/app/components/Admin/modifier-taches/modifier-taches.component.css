@@ -1,0 +1,126 @@
+/* Form container styling */
+.edit-tache-form {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title of the form */
+  .edit-tache-form h2 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  /* General form-group styling */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  /* Labels for form inputs */
+  label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  /* Input fields styling */
+  input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+  }
+  
+  /* Error message styling */
+  .text-danger {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Buttons container (actions buttons) */
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Submit button styling */
+  button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #218838;
+  }
+  
+  /* Buttons for adding/removing articles */
+  button[type="button"] {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  button[type="button"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Layout for buttons on the same line */
+  button[type="button"], button[type="submit"] {
+    margin-right: 10px;
+  }
+  
+  /* Form actions buttons (spacing them out) */
+  .form-group button {
+    margin-top: 10px;
+  }
+  
+  /* Flexbox for aligning form actions */
+  .form-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  /* Flex container for articles button */
+  button[type="button"].add-article {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* Responsive design adjustments */
+  @media (max-width: 768px) {
+    .edit-tache-form {
+      padding: 15px;
+      margin: 10px;
+    }
+  
+    label, input, button {
+      font-size: 14px;
+    }
+  
+    .form-actions {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .form-group button {
+      width: 100%;
+      margin-top: 5px;
+    }
+  }
+  

@@ -1,0 +1,160 @@
+/* Container principal */
+.devis-details-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Titres */
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Conteneur pour le choix du véhicule */
+.select-vehicule-container {
+  display: flex;
+  justify-content: flex-end; /* Aligner à droite */
+  margin-bottom: 20px;
+}
+
+.select-vehicule-container h3 {
+  margin-right: 10px;
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.select-vehicule-container select {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.select-vehicule-container select:focus {
+  border-color: #007bff;
+}
+
+/* Section horizontale */
+.horizontal-sections {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Espace entre les sections */
+  margin-bottom: 30px;
+  flex-wrap: wrap; /* Permet aux sections de se réorganiser sur des lignes différentes si l'espace est trop petit */
+}
+
+/* Sections individuelles */
+.section {
+  flex: 1;
+  min-width: 280px; /* Définir une largeur minimale */
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section h3 {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Tableaux */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table-striped tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.table td {
+  border-bottom: 1px solid #ddd;
+}
+
+.table td button {
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.table td button:hover {
+  opacity: 0.8;
+}
+
+/* Formulaire */
+.form-select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Boutons */
+.btn {
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Messages d'absence */
+ng-template {
+  font-style: italic;
+  color: #777;
+}
+
+/* Espacement entre sections */
+section {
+  margin-bottom: 30px;
+}

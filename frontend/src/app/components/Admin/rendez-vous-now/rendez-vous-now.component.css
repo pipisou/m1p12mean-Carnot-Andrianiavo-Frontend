@@ -1,0 +1,116 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Section Titles */
+  .section-title {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #0056b3;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  /* Appointment List */
+  .appointments-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .appointment-item {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .appointment-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Appointment Information */
+  .appointment-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .client-name,
+  .reference-devis,
+  .appointment-status,
+  .appointment-date {
+    font-size: 1em;
+  }
+  
+  .client-name {
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .appointment-status {
+    font-style: italic;
+    color: #6c757d;
+  }
+  
+  .appointment-date {
+    color: #343a40;
+  }
+  
+  /* Buttons */
+  .appointment-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  button {
+    padding: 8px 16px;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  .btn-info {
+    background-color: #17a2b8;
+    color: white;
+  }
+  
+  .btn-info:hover {
+    background-color: #138496;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .appointment-info {
+      flex-direction: column;
+    }
+  
+    .appointment-actions {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  

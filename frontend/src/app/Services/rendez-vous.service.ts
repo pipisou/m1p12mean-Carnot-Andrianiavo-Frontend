@@ -2,13 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { apiUrl } from '../Conf/APIURL';
-import {RenderVous, Vehicule} from '../Models/Interfaces';
-
+import {RenderVous, Vehicule} from '../Models/Interfaces';;
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class RendezVousService {
-
+  private apiUrl = `${environment.apiUrl}/rendezvous`;
   constructor(private http: HttpClient) { }
 
   getEnAttente(header: { Authorization: string }): Observable<RenderVous[]>{
@@ -94,4 +94,90 @@ export class RendezVousService {
       document.body.removeChild(a);
     });
   }
+  //Carnot
+
+
+  // Récupérer tous les rendez-vous
+  getAllRendezVous(): Observable<any> {
+    return this.http.get(this.apiUrl);
+  }
+
+  // Récupérer les rendez-vous en attente
+  getRendezVousEnAttente(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/en-attente`);
+  }
+
+// Récupérer les rendez-vous validés
+getRendezVousValides(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/valides`);
+}
+// Récupérer les rendez-vous marqués comme "Présent"
+getRendezVousPresents(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/present`);
+}
+
+getRendezVousPayer(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/payer`);
+}
+
+
+// Récupérer les rendez-vous marqués comme "Absent"
+getRendezVousAbsents(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/absent`);
+}
+
+// Récupérer les rendez-vous marqués comme "payer et present"
+getRendezPayerPresent(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/payer-present`);
+}
+
+  // Récupérer un rendez-vous par ID
+  getRendezVousById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+  // Ajouter un rendez-vous
+  addRendezVous(rendezVous: any): Observable<any> {
+    return this.http.post(this.apiUrl, rendezVous);
+  }
+
+  // Mettre à jour un rendez-vous
+  updateRendezVous(id: string, rendezVous: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, rendezVous);
+  }
+
+
+  // Mettre à jour le statut d'un rendez-vous
+  updateStatutRendezVous(id: string, statut: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}/statut`, { statut });
+  }
+
+  // ✅ Valider un rendez-vous en mettant à jour la date et le statut
+  validerRendezVous(id: string, dateChoisie: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/valider/${id}`, { dateChoisie });
+  }
+
+
+  // Mettre à jour uniquement les articlesUtilises d'un rendez-vous
+  updatearticlesUtilisesRendezVous(id: string, articlesUtilises: any[]): Observable<any> {
+    // Crée l'objet contenant les données à envoyer
+    const body = {  articlesUtilises };
+  
+    // Envoie la requête PUT avec le corps contenant les deux paramètres
+    return this.http.put(`${this.apiUrl}/rendezvous/${id}/articlesUtilises`, body);
+  }
+
+
+    // Mettre à jour uniquement les tâches d'un rendez-vous
+    updateTachesRendezVous(id: string, taches: any): Observable<any> {
+      // Crée l'objet contenant les données à envoyer
+      const body = { taches};
+    
+      // Envoie la requête PUT avec le corps contenant les deux paramètres
+      return this.http.put(`${this.apiUrl}/rendezvous/${id}/taches`, body);
+    }
+  // Générer une facture pour un rendez-vous
+generateFacture(id: string): Observable<Blob> {
+  return this.http.get(`${this.apiUrl}/facture/${id}`, { responseType: 'blob' });
+}
 }

@@ -1,5 +1,5 @@
 
-### **Profil Client**  
+##**Profil Client**  
 1. **S'inscrire**  
    - Formulaire d'inscription avec nom, prénom, e-mail, numéro de téléphone et mot de passe.  
      

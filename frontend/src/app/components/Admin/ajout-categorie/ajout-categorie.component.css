@@ -1,0 +1,106 @@
+/* Conteneur principal */
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin: 20px auto;
+    max-width: 1200px;
+    flex-wrap: wrap;
+  }
+  
+  /* Section formulaire */
+  .form-section {
+    width: 45%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-section h3 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-section input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+  
+  .form-section button {
+    display: inline-block;
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .form-section button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Section liste des catégories */
+  .list-section {
+    width: 45%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .list-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .list-section ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .category-item .buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn-delete,
+  .btn-edit {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    font-size: 0.9em;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .btn-delete:hover {
+    background-color: #c82333;
+  }
+  
+  .btn-edit {
+    background-color: #28a745;
+  }
+  
+  .btn-edit:hover {
+    background-color: #218838;
+  }
+  

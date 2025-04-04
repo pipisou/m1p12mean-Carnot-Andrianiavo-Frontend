@@ -3,12 +3,12 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {apiUrl} from '../Conf/APIURL';
 import {CategorieDeVehicule, Vehicule} from '../Models/Interfaces';
-
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class VehiculeService {
-
+  private apiUrl = `${environment.apiUrl}/vehicule`; // Remplacez par l'URL de votre API
   constructor(private http: HttpClient) { }
 
   getVehiculeClient(header: { Authorization: string }): Observable<Vehicule[]>{
@@ -39,4 +39,13 @@ export class VehiculeService {
     });
     return this.http.post<any>(`${apiUrl()}vehicule/`, newCar,{ headers });
   }
+
+//Carnot
+
+  // Méthode pour récupérer tous les véhicules d'un client
+  getVehiculesByClientId(clientId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/client/${clientId}`);
+  }
+  
+
 }

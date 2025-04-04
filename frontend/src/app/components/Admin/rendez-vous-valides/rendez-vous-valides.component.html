@@ -1,0 +1,16 @@
+<h2>Rendez-vous programmés</h2>
+<ul class="rendez-vous-list">
+  <li *ngFor="let rdv of rendezVousValides" class="rendez-vous-item">
+    <div class="rendez-vous-details">
+      <span class="client-name">{{ rdv.client.nom }}</span> 
+      - <span class="devis-reference">{{ rdv.devis.referenceDevis }}</span>
+      - <span class="rendez-vous-status">Statut : {{ rdv.statut }}</span>
+      - <span class="date-choisie">Date Choisie : {{ rdv.dateChoisie | date:'dd/MM/yyyy HH:mm' }}</span>
+    </div>
+
+    <div class="rendez-vous-actions">
+      <button class="btn btn-success" (click)="marquerPresent(rdv._id)">Le client est présent</button>
+      <button class="btn btn-danger" (click)="marquerAbsent(rdv._id)">Le client est absent</button>
+    </div>
+  </li>
+</ul>

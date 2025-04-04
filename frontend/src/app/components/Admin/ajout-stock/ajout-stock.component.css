@@ -1,0 +1,197 @@
+/* Container principal */
+.stock-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    background-color: #f4f7fc;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Section Formulaire Ajouter un Stock */
+  .form-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .form-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .btn-submit {
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-submit:hover {
+    background-color: #218838;
+  }
+  
+  /* Container des listes côte à côte */
+  .lists-container {
+    display: flex;
+    gap: 30px; /* Espacement entre les sections */
+    justify-content: space-between;
+  }
+  
+  /* Section Liste des Stocks */
+  .list-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    flex: 1; /* Chaque liste prend une largeur égale */
+  }
+  
+  .list-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .stock-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .stock-table th,
+  .stock-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .stock-table th {
+    background-color: #f1f1f1;
+    color: #007bff;
+  }
+  
+  .stock-table td {
+    background-color: #ffffff;
+  }
+  
+  .stock-table tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .btn-edit,
+  .btn-delete {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .btn-edit {
+    background-color: #007bff;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .btn-edit:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-delete {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn-delete:hover {
+    background-color: #c82333;
+  }
+  
+  /* Liste des Fournisseurs */
+  .list-section ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .list-section li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .list-section li button {
+    margin-left: 10px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .lists-container {
+      flex-direction: column; /* Sur les petits écrans, les listes seront empilées */
+    }
+  
+    .list-section {
+      max-width: 100%;
+    }
+  }
+  /* Style des boutons dans les sections */
+.btn-group {
+    display: flex;  /* Affiche les boutons côte à côte */
+    gap: 10px; /* Espacement entre les boutons */
+    justify-content: flex-start; /* Aligne les boutons à gauche */
+  }
+  
+  .btn-edit,
+  .btn-delete {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .btn-edit {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-edit:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-delete {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn-delete:hover {
+    background-color: #c82333;
+  }
+  

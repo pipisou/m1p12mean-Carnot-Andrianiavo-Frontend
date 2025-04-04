@@ -1,0 +1,16 @@
+<div class="container">
+  <h2 class="title">Modifier le Service</h2>
+  <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()" class="form-card">
+    <div class="form-group">
+      <label for="nomService">Nom du service</label>
+      <input id="nomService" formControlName="nomService" placeholder="Nom du service" required />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" placeholder="Description" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Mettre à jour</button>
+  </form>
+</div>

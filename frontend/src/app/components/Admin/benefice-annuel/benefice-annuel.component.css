@@ -1,0 +1,108 @@
+/* Style général pour le formulaire */
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Style pour le groupe input + bouton */
+  .input-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 500px; /* Limite la largeur pour une meilleure présentation */
+    margin: 0 auto;
+  }
+  
+  /* Style pour l'input */
+  input.form-control {
+    flex: 1;
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    max-width: 300px;
+    box-sizing: border-box;
+  }
+  
+  /* Style pour le bouton */
+  button {
+    padding: 8px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    min-width: 120px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Bouton désactivé */
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Styles pour le spinner de chargement */
+  .spinner-border {
+    margin-right: 8px;
+  }
+  
+  /* Assurer un alignement propre du spinner et du texte */
+  button span {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  /* Couleur du bouton lors du survol */
+  button:not([disabled]):hover {
+    background-color: #0056b3;
+    opacity: 0.9;
+  }
+  
+  /* Table */
+  .table {
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .table th, .table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #f4f4f4;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Bouton dans la table */
+  .table button {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .table button:hover {
+    background-color: #138496;
+  }
+  

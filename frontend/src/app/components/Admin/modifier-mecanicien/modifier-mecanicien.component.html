@@ -1,0 +1,64 @@
+<div class="container py-5">
+  <h2 class="text-center mb-4">Modifier un Mécanicien</h2>
+
+  <form [formGroup]="mecanicienForm" (ngSubmit)="onSubmit()" class="form-section">
+    <!-- Nom et Prénom -->
+    <div class="form-row mb-4">
+      <div class="form-group col-md-5">
+        <label for="nom">Nom:</label>
+        <input id="nom" formControlName="nom" type="text" class="form-control" />
+      </div>
+      <div class="form-group col-md-5 offset-md-1">
+        <label for="prenom">Prénom:</label>
+        <input id="prenom" formControlName="prenom" type="text" class="form-control" />
+      </div>
+    </div>
+
+    <!-- Salaire et Email -->
+    <div class="form-row mb-4">
+      <div class="form-group col-md-5">
+        <label for="salaire">Salaire:</label>
+        <input id="salaire" formControlName="salaire" type="number" class="form-control" />
+      </div>
+      <div class="form-group col-md-5 offset-md-1">
+        <label for="email">Email:</label>
+        <input id="email" formControlName="email" type="email" class="form-control" />
+      </div>
+    </div>
+
+    <!-- Téléphone et Mot de passe -->
+    <div class="form-row mb-4">
+      <div class="form-group col-md-5">
+        <label for="telephone">Téléphone:</label>
+        <input id="telephone" formControlName="telephone" type="tel" class="form-control" />
+      </div>
+      <div class="form-group col-md-5 offset-md-1">
+        <label for="motDePasse">Mot de passe:</label>
+        <input id="motDePasse" formControlName="motDePasse" type="password" class="form-control" />
+      </div>
+    </div>
+
+    <!-- Section des services -->
+    <fieldset class="services-section mb-4">
+      <legend>Services</legend>
+      <div class="services-container">
+        <div *ngFor="let service of services; let i = index" class="service-item">
+          <input
+            type="checkbox"
+            [value]="service._id"
+            [checked]="mecanicienForm.get('services')?.value?.includes(service._id) ?? false"
+            (change)="onServiceChange($event, service._id)"
+            class="form-check-input"
+          />
+          <label>{{ service.nomService }}</label>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="d-flex justify-content-center mt-4">
+      <button type="submit" class="btn btn-primary" [disabled]="mecanicienForm.invalid">
+        Mettre à jour
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,110 @@
+<div class="container py-5">
+  <!-- Formulaire d'ajout d'un mécanicien -->
+  <div class="form-section mb-5">
+    <h2 class="text-center mb-4">Ajouter un Mécanicien</h2>
+    <form [formGroup]="mecanicienForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Ligne pour Nom et Prénom -->
+      <div class="form-row mb-4">
+        <div class="form-group col-md-5">
+          <label for="nom">Nom:</label>
+          <input id="nom" formControlName="nom" type="text" class="form-control" />
+        </div>
+        <div class="form-group col-md-5 offset-md-1">
+          <label for="prenom">Prénom:</label>
+          <input id="prenom" formControlName="prenom" type="text" class="form-control" />
+        </div>
+      </div>
+
+      <!-- Ligne pour Salaire et Email -->
+      <div class="form-row mb-4">
+        <div class="form-group col-md-5">
+          <label for="salaire">Salaire:</label>
+          <input id="salaire" formControlName="salaire" type="number" class="form-control" />
+        </div>
+        <div class="form-group col-md-5 offset-md-1">
+          <label for="email">Email:</label>
+          <input id="email" formControlName="email" type="email" class="form-control" />
+        </div>
+      </div>
+
+      <!-- Ligne pour Téléphone et Mot de Passe -->
+      <div class="form-row mb-4">
+        <div class="form-group col-md-5">
+          <label for="telephone">Téléphone:</label>
+          <input id="telephone" formControlName="telephone" type="tel" class="form-control" />
+        </div>
+        <div class="form-group col-md-5 offset-md-1">
+          <label for="motDePasse">Mot de passe:</label>
+          <input id="motDePasse" formControlName="motDePasse" type="password" class="form-control" />
+        </div>
+      </div>
+
+      <!-- Section Services -->
+      <fieldset class="services-section mb-4">
+        <legend>Services</legend>
+        <div class="services-container">
+          <div *ngFor="let service of services" class="service-item form-check mb-3">
+            <input
+              type="checkbox"
+              [value]="service._id"
+              (change)="onServiceChange($event, service._id)"
+              [checked]="isServiceSelected(service._id)"
+              class="form-check-input"
+            />
+            <label class="form-check-label">{{ service.nomService }}</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="d-flex justify-content-center mt-4">
+        <button type="submit" class="btn btn-primary" [disabled]="mecanicienForm.invalid">Soumettre</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Liste des mécaniciens (ne pas modifier) -->
+  <div class="list-section">
+    <h2 class="text-center mb-4">Liste des Mécaniciens</h2>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Salaire</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+          <th>Horaires</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mecanicien of mecaniciens">
+          <td>{{ mecanicien.nom }}</td>
+          <td>{{ mecanicien.prenom }}</td>
+          <td>{{ mecanicien.salaire | number:'1.0-0' }}</td>
+          <td>{{ mecanicien.email }}</td>
+          <td>{{ mecanicien.telephone }}</td>
+          <td>
+            <div *ngIf="mecanicien.horaire && mecanicien.horaire.joursTravail">
+              <ul class="list-unstyled">
+                <li *ngFor="let horaire of mecanicien.horaire.joursTravail">
+                  <strong>{{ horaire.jour }}:</strong> {{ horaire.debut }} - {{ horaire.fin }}
+                </li>
+              </ul>
+            </div>
+            <div *ngIf="!mecanicien.horaire">Aucun horaire</div>
+          </td>
+          <td>
+            <a [routerLink]="['/admin/menu/horaire', mecanicien._id]" class="btn btn-info btn-sm ml-2">Horaires</a>
+            <a [routerLink]="['/admin/menu/absence', mecanicien._id]" class="btn btn-warning btn-sm ml-2">Absences</a>
+          </td>
+          <td class="d-flex justify-content-around">
+            <button (click)="editMecanicien(mecanicien._id)" class="btn btn-warning btn-sm">Modifier</button>
+            <button (click)="deleteMecanicien(mecanicien._id)" class="btn btn-danger btn-sm">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

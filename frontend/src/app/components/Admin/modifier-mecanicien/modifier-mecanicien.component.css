@@ -1,0 +1,113 @@
+/* Styles globaux */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fb;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container principal */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Formulaire de modification */
+  .form-section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+  
+  /* Titre */
+  h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Style des lignes de formulaire */
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Style des inputs */
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    margin-top: 5px;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+  }
+  
+  /* Services */
+  .services-section {
+    margin-bottom: 30px;
+  }
+  
+  .service-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .service-item input {
+    margin-right: 10px;
+  }
+  
+  .service-item label {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Bouton de soumission */
+  button[type="submit"] {
+    width: 200px;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  button[type="submit"]:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Espacement et responsive */
+  @media (max-width: 767px) {
+    .form-row {
+      flex-direction: column;
+    }
+  
+    .form-group {
+      width: 100%;
+    }
+  }
+  

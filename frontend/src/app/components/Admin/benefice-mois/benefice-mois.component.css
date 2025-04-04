@@ -1,0 +1,95 @@
+.details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sections-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+  }
+  
+  .details-section {
+    width: 48%; /* Chaque section occupe environ la moitié de l'écran */
+  }
+  
+  .details-section h3 {
+    color: #0056b3;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+  
+  .details-section h4 {
+    color: #17a2b8;
+    font-size: 1.4rem;
+    margin-top: 20px;
+  }
+  
+  .table-container {
+    margin-top: 15px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .table th, .table td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #f8f9fa;
+    color: #0056b3;
+  }
+  
+  .table-striped tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  .table-striped tbody tr:nth-child(even) {
+    background-color: #f1f1f1;
+  }
+  
+  .details-section p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .details-section td {
+    font-size: 1rem;
+  }
+  
+  .details-section td strong {
+    color: #0056b3;
+  }
+  
+  .charges-details {
+    margin-top: 20px;
+  }
+  
+  .benefice-section {
+    background-color: #e9f7f2;
+    padding: 15px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .benefice-section p {
+    font-size: 1.4rem;
+    color: #28a745;
+  }
+  
+  .negative-benefice p {
+    color: #dc3545; /* Rouge pour le bénéfice négatif */
+  }
+  

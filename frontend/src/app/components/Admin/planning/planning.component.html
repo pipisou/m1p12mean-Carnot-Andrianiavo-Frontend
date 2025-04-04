@@ -1,0 +1,60 @@
+<!-- Légende des couleurs -->
+<div class="legend">
+  <div class="legend-item">
+    <span class="color-box" style="background-color: green;"></span> Terminée
+  </div>
+  <div class="legend-item">
+    <span class="color-box" style="background-color: orange;"></span> En cours
+  </div>
+  <div class="legend-item">
+    <span class="color-box" style="background-color: red;"></span> Non commencée
+  </div>
+</div>
+<button (click)="openModal()">Voir les horaires</button>
+
+<!-- Modal -->
+<div *ngIf="isModalOpen" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Horaires des mécaniciens</h2>
+  
+      <div *ngFor="let mecanicien of mecaniciens" class="mecanicien-container">
+        <h3>{{ mecanicien.nom }} {{ mecanicien.prenom }}</h3>
+        
+        <div class="container">
+          <div class="left-column">
+            <h4>Jours de travail :</h4>
+            <ul>
+              <li *ngFor="let jour of mecanicien.horaire?.joursTravail">
+                {{ jour.jour }} : {{ jour.debut }} - {{ jour.fin }}
+                <span *ngIf="jour.pause?.debut"> (Pause : {{ jour.pause.debut }} - {{ jour.pause.fin }})</span>
+              </li>
+            </ul>
+          </div>
+  
+          <div class="right-column">
+            <h4>Absences :</h4>
+            <ul>
+              <li *ngFor="let absence of mecanicien.absences">
+                {{ absence.date | date:'dd/MM/yyyy' }} de {{ absence.debut }} à {{ absence.fin }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<!-- Liste déroulante pour sélectionner le mécanicien -->
+<div>
+  <select [(ngModel)]="selectedMecanicien" (ngModelChange)="onSelectMecanicien()">
+    <option value="">Aucun filtre</option>  <!-- Option pour ne filtrer personne -->
+    <option *ngFor="let mecanicien of mecaniciens" [ngValue]="mecanicien">
+      {{ mecanicien.nom }}
+    </option>
+  </select>
+</div>
+
+<!-- Calendrier -->
+<full-calendar [options]="calendarOptions"></full-calendar>

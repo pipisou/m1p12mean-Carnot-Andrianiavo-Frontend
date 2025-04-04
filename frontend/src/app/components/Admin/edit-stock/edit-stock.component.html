@@ -1,0 +1,19 @@
+<div>
+    <h2>Modifier un Stock</h2>
+    <form [formGroup]="stockForm" (ngSubmit)="updateStock()">
+      <input formControlName="quantite" type="number" placeholder="Quantité" required />
+      <input formControlName="prixAchat" type="number" placeholder="Prix d'achat" required />
+      <input formControlName="prixVente" type="number" placeholder="Prix de vente" required />
+      <input formControlName="fournisseur" placeholder="Fournisseur" required />
+      <input formControlName="dateAchat" type="date" required />
+  
+      <select formControlName="article" required>
+        <option *ngFor="let article of articles" [value]="article._id">
+          {{ article.nomArticle }}
+        </option>
+      </select>
+  
+      <button type="submit">Mettre à jour</button>
+    </form>
+  </div>
+  

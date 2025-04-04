@@ -1,0 +1,97 @@
+<h2>Détails du Mois {{ mois }} - {{ annee }}</h2>
+
+<div *ngIf="details" class="details-container">
+  <!-- Recettes et Charges Section côte à côte -->
+  <div class="sections-container">
+    <!-- Recettes Section -->
+    <section class="details-section recettes-section">
+      <h3>Recettes</h3>
+      <p><strong>Total Recettes :</strong> {{ details.totalRecettes | number: '1.0-0' }} MGA</p>
+
+      <div class="table-container">
+        <h4>Par Tâches</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Prix Unitaire</th>
+              <th>Quantité</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tache of details.recettes.taches.details">
+              <td>{{ tache.description }}</td>
+              <td>{{ tache.prix | number: '1.0-0' }} MGA</td>
+              <td>{{ tache.nombre }}</td>
+              <td>{{ tache.prix * tache.nombre | number: '1.0-0' }} MGA</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <h4>Par Articles</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nom Article</th>
+              <th>Fournisseur</th>
+              <th>Quantité</th>
+              <th>Prix de Vente Unitaire</th>
+              <th>Total Vente</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let article of details.recettes.articles.details">
+              <td>{{ article.article }}</td>
+              <td>{{ article.fournisseur }}</td>
+              <td>{{ article.quantite }}</td>
+              <td>{{ article.prixVenteUnitaire | number: '1.0-0' }} MGA</td>
+              <td>{{ article.totalVente | number: '1.0-0' }} MGA</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Charges Section -->
+    <section class="details-section charges-section">
+      <h3>Charges</h3>
+      <p><strong>Total Charges :</strong> {{ details.totalCharges | number: '1.0-0' }} MGA</p>
+
+      <div class="charges-details">
+        <h4>Salaires des Mécaniciens</h4>
+        <p>{{ details.charges.salaires | number: '1.0-0' }} MGA</p>
+
+        <h4>Par Articles (Charges)</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nom Article</th>
+              <th>Fournisseur</th>
+              <th>Quantité</th>
+              <th>Prix d'Achat Unitaire</th>
+              <th>Total Achat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let article of details.recettes.articles.details">
+              <td>{{ article.article }}</td>
+              <td>{{ article.fournisseur }}</td>
+              <td>{{ article.quantite }}</td>
+              <td>{{ article.prixAchatUnitaire | number: '1.0-0' }} MGA</td>
+              <td>{{ article.totalAchat | number: '1.0-0' }} MGA</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- Bénéfice Section en bas -->
+  <section class="details-section benefice-section" [ngClass]="{'negative-benefice': details.beneficeMensuel < 0}">
+    <h3>Bénéfice Net</h3>
+    <p>{{ details.beneficeMensuel | number: '1.0-0' }} MGA</p>
+  </section>
+</div>

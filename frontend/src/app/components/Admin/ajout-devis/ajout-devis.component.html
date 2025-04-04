@@ -1,0 +1,53 @@
+<div class="container">
+    <h2 *ngIf="serviceDetails">
+      Sélectionnez les tâches pour : {{ serviceDetails.service.nomService }} / {{ serviceDetails.categorieDeVehicule.nom }}
+    </h2>
+
+    <!-- Champ pour la description -->
+    <div class="mt-4">
+        <label for="description">Description du devis :</label>
+        <textarea id="description" class="form-control" [(ngModel)]="description" rows="3" placeholder="Entrez une description du devis"></textarea>
+    </div>
+    
+    <div class="row">
+      <!-- Liste des tâches disponibles (gauche) -->
+      <div class="col-md-5">
+        <h3>Tâches disponibles</h3>
+        <ul class="list-group">
+          <li *ngFor="let tache of tachesDisponibles" class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <span><strong>{{ tache.description }}</strong> ({{ tache.prix }}€)</span><br>
+              <small>Temps estimé: {{ tache.tempsEstime }} min | Marge: {{ tache.marge }} min</small>
+            </div>
+            <button class="btn btn-primary btn-sm" (click)="ajouterTache(tache)">Ajouter</button>
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Liste des tâches sélectionnées (droite) -->
+      <div class="col-md-5">
+        <h3>Tâches sélectionnées</h3>
+        <ul class="list-group">
+          <li *ngFor="let tache of tachesSelectionnees" class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <span><strong>{{ tache.description }}</strong> ({{ tache.prix }}€)</span><br>
+              <small>Temps estimé: {{ tache.tempsEstime }} min | Marge: {{ tache.marge }} min</small>
+            </div>
+            <button class="btn btn-danger btn-sm" (click)="retirerTache(tache)">Retirer</button>
+          </li>
+        </ul>
+
+        <!-- Section Total -->
+        <div class="mt-3 p-3 bg-light border rounded">
+          <h4>Total</h4>
+          <p><strong>Total Prix :</strong> {{ getTotalPrix() }} €</p>
+          <p><strong>Durée Totale :</strong> {{ getTotalDuree() }} min</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bouton pour créer le devis -->
+    <div class="mt-4">
+      <button class="btn btn-success" (click)="creerDevis()">Créer Devis</button>
+    </div>
+</div>
