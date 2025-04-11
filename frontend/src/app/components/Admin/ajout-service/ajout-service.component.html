@@ -32,8 +32,10 @@
         <td>{{ service.nomService }}</td>
         <td>{{ service.description }}</td>
         <td>
-          <button class="btn btn-secondary" (click)="editService(service._id)">Modifier</button>
-          <button class="btn btn-danger" (click)="deleteService(service._id)">Supprimer</button>
+          <div class="w-100 d-inline-flex justify-content-between">
+            <button class="btn btn-secondary me-1" (click)="editService(service._id)">Modifier</button>
+            <button class="btn btn-danger" (click)="deleteService(service._id)">Supprimer</button>
+          </div>
         </td>
       </tr>
     </tbody>
