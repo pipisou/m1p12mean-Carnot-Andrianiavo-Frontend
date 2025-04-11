@@ -5,7 +5,10 @@
       <span class="client-name">{{ rdv.client.nom }}</span> 
       - <span class="devis-reference">{{ rdv.devis.referenceDevis }}</span>
       - <span class="rendez-vous-status">Statut : {{ rdv.statut }}</span>
-      - <span class="date-choisie">Date Choisie : {{ rdv.dateChoisie | date:'dd/MM/yyyy HH:mm' }}</span>
+      -<span class="date-choisie">
+        Date Choisie : {{ rdv.dateChoisie | date:'dd/MM/yyyy HH:mm':'UTC' }}
+      </span>
+      
     </div>
 
     <div class="rendez-vous-actions">

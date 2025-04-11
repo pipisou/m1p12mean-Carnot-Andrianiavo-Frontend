@@ -62,10 +62,20 @@ export class ChoixDateRendezVousComponent implements OnInit {
 
   dateEstValide(date: string): boolean {
     const dateChoisie = new Date(date);
+    dateChoisie.setSeconds(0, 0); // Ignore les secondes et millisecondes
+    console.log("date choisie=", dateChoisie);
+  
     return this.rendezVous.dateDemande.some((interval: any) => {
       const debut = new Date(interval.dateHeureDebut);
+      debut.setSeconds(0, 0); // Ignore secondes/millisecondes
+      console.log("date debut=", debut);
+  
       const fin = new Date(interval.dateHeureFin);
+      fin.setSeconds(0, 0); // Ignore secondes/millisecondes
+      console.log("date fin=", fin);
+  
       return dateChoisie >= debut && dateChoisie <= fin;
     });
   }
+  
 }

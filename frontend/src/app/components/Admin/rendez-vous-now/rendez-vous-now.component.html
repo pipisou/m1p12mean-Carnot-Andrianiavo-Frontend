@@ -6,7 +6,7 @@
       <span class="client-name">{{ rdv.client.nom }}</span>
       <span class="reference-devis">{{ rdv.devis.referenceDevis }}</span>
       <span class="appointment-status">Statut : {{ rdv.statut }}</span>
-      <span class="appointment-date">Date Choisie : {{ rdv.dateChoisie | date:'dd/MM/yyyy HH:mm' }}</span>
+      <span class="appointment-date">Date Choisie : {{ rdv.dateChoisie | date:'dd/MM/yyyy HH:mm':'UTC' }}</span>
     </div>
     <div class="appointment-actions">
       <button (click)="voirDetailsRendezVous(rdv._id)" class="btn btn-info btn-sm">

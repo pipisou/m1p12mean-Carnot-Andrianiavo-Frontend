@@ -59,7 +59,7 @@ export class LoginAdminComponent {
       rep=>{
         sessionStorage.setItem("user",JSON.stringify(rep))
         this.isLoading = false
-        this.router.navigate(['/admin/menu']);
+        this.router.navigate(['/admin/menu/rendezVousNow']);
       },
       error=>{
         this.isLoading = false
